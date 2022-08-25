@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
+
+// variable
+@import "./variable";
+// end variable
+
+// variable
+@import "./mixin";
+// end variable
+
+@layer reset {
+  html {
+    font-family: "Inter", sans-serif;
+    line-height: 1;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  html,
+  body {
+    color: $textColor;
+    background-color: $backgroundColor;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    outline: none;
+  }
+
+  input {
+    line-height: normal;
+  }
+
+  label,
+  button {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  ul {
+    list-style: none !important;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    user-select: none;
+  }
+
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 46.1875em) {
+    input[type="color"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="email"],
+    input[type="month"],
+    input[type="number"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="text"],
+    input[type="time"],
+    input[type="url"],
+    input[type="week"],
+    select:focus,
+    textarea {
+      font-size: 1rem !important;
+      line-height: 1.25rem !important;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0;
+  }
+}
+
+@layer base {
+  .container {
+    width: 100%;
+    max-width: 1320px;
+    padding-inline: 20px;
+    margin-inline: auto;
+  }
+  body::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #52bd94;
+  }
+  .py-layout {
+    padding-block: 80px;
+  }
+}
+// end base
+
+/* Mobie: width < 740px */
+@media only screen and (max-width: 739px) {
+  .container {
+    padding-inline: 12px;
+  }
+  .py-layout {
+    padding-block: 40px;
+  }
+}

@@ -1,0 +1,105 @@
+@mixin flexBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin  fixedFull {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+// Font Size
+@mixin text12 {
+  font-size: 0.75rem /* 12px */;
+  line-height: 1rem /* 16px */;
+}
+
+@mixin text14 {
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+}
+
+@mixin text16 {
+  font-size: 1rem /* 16px */;
+  line-height: 1.5rem /* 24px */;
+}
+
+@mixin text18 {
+  font-size: 1.125rem /* 18px */;
+  line-height: 1.75rem /* 28px */;
+}
+
+@mixin text20 {
+  font-size: 1.25rem /* 20px */;
+  line-height: 1.75rem /* 28px */;
+}
+
+@mixin text24 {
+  font-size: 1.5rem /* 24px */;
+  line-height: 2rem /* 32px */;
+}
+@mixin text26 {
+  font-size: 26px /* 26px */;
+  line-height: 1.75rem /* 28px */;
+}
+
+@mixin text30 {
+  font-size: 1.875rem /* 30px */;
+  line-height: 2.25rem /* 36px */;
+}
+
+@mixin text32 {
+  font-size: 32px /* 32px */;
+  line-height: 2.5rem /* 40px */;
+}
+
+@mixin text36 {
+  font-size: 2.25rem /* 36px */;
+  line-height: 2.5rem /* 40px */;
+}
+
+@mixin text48 {
+  font-size: 3rem /* 48px */;
+  line-height: 1;
+}
+
+@mixin text60 {
+  font-size: 3.75rem /* 60px */;
+  line-height: 1;
+}
+
+@mixin text72 {
+  font-size: 4.5rem /* 72px */;
+  line-height: 1;
+}
+
+@mixin text96 {
+  font-size: 6rem /* 96px */;
+  line-height: 1;
+}
+
+@mixin text128 {
+  font-size: 8rem /* 128px */;
+  line-height: 1;
+}
+// End Font Size
+
+// Transform
+@mixin translateY($value) {
+  transform: translateY($value);
+  -webkit-transform: translateY($value);
+  -moz-transform: translateY($value);
+  -ms-transform: translateY($value);
+  -o-transform: translateY($value);
+}
+// End Transform
