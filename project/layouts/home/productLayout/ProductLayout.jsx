@@ -57,6 +57,9 @@ const ProductPageStyles = styled.section`
   }
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
+    &.bg-layout {
+      background-attachment: initial;
+    }
     .product-list-slide {
       .swiper-slide {
         width: 85% !important;

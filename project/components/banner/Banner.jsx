@@ -154,6 +154,7 @@ const BannerStyles = styled.section`
     & {
       height: auto;
       padding-block: 72px;
+      background-attachment: initial;
     }
     .banner-item {
       margin-top: 40px;

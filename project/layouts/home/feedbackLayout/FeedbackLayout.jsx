@@ -32,11 +32,14 @@ const FeedbackLayoutStyles = styled.section`
   /* Responsive */
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
-    .feedback-list {
-    .swiper-slide {
-      width: 85% !important;
+    & {
+      background-attachment: initial;
     }
-  }
+    .feedback-list {
+      .swiper-slide {
+        width: 85% !important;
+      }
+    }
   }
 `;
 
