@@ -31,6 +31,13 @@ const HeaderStyles = styled.header`
     display: flex;
     gap: 32px;
   }
+
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    & {
+      height: 65px;
+    }
+  }
 `;
 
 export const Header = () => {

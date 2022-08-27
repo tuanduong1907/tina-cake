@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { text20 } from "../../../shared/utils/mixin-styled";
+import { text16, text20 } from "../../../shared/utils/mixin-styled";
 import SvgEmailIcon from "../../icons/EmailIcon";
 import SvgLocationIcon from "../../icons/LocationIcon";
 import SvgPhoneIcon from "../../icons/PhoneIcon";
@@ -29,9 +29,11 @@ const FooterStyles = styled.footer`
   }
   .footer-icon {
     height: 16px;
+    flex-shrink: 0;
   }
   .footer-link {
     transition: linear 0.1s;
+    ${text16}
     &:hover {
       color: ${(props) => props.theme.primaryColor};
     }
@@ -61,15 +63,6 @@ export const Footer = () => {
       <div className="container py-layout footer-wrap">
         <div className="footer-list">
           <div className="footer-item">
-            {/* <iframe
-              width="300px"
-              height="130px"
-              style={{
-                border: "none",
-              }}
-              className="footer-fanpage"
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbanhkemnhatrangtina&tabs=timeline&width=300&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-            ></iframe> */}
             <iframe
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbanhkemnhatrangtina&tabs=timeline&width=300&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
               width="300"
@@ -108,7 +101,11 @@ export const Footer = () => {
               </li>
               <li className="footer-info-item">
                 <SvgLocationIcon className="footer-icon"></SvgLocationIcon>
-                <span>56 Nguyễn Hữu Huân</span>
+                <Link href="https://g.page/Tiembanhkemsinhnhat?share">
+                  <a className="footer-link" target="_blank">
+                    56 Nguyễn Hữu Huân, Tân Lập, Nha Trang
+                  </a>
+                </Link>
               </li>
               <li className="footer-info-item">
                 <SvgWebIcon className="footer-icon"></SvgWebIcon>
