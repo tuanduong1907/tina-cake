@@ -61,7 +61,7 @@ export const Footer = () => {
       <div className="container py-layout footer-wrap">
         <div className="footer-list">
           <div className="footer-item">
-            <iframe
+            {/* <iframe
               width="300px"
               height="130px"
               style={{
@@ -69,6 +69,16 @@ export const Footer = () => {
               }}
               className="footer-fanpage"
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbanhkemnhatrangtina&tabs=timeline&width=300&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+            ></iframe> */}
+            <iframe
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbanhkemnhatrangtina&tabs=timeline&width=300&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+              width="300"
+              height="130"
+              style={{ border: "none", overFlow: "hidden" }}
+              scrolling="no"
+              frameBorder="0"
+              allowFullScreen="true"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             ></iframe>
           </div>
           <div className="footer-item">
