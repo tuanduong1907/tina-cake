@@ -1,6 +1,10 @@
 import { css } from "styled-components";
 
 // font size
+export const text11 = css`
+  font-size: 11px /* 12px */;
+  line-height: 16px /* 16px */;
+`;
 export const text12 = css`
   font-size: 12px /* 12px */;
   line-height: 16px /* 16px */;
