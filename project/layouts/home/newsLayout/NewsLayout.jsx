@@ -33,6 +33,19 @@ const NewsLayoutStyles = styled.section`
   @media only screen and (max-width: 1023px) {
   }
 
+  /* Tablet: width >= 740px and width < 1024px */
+  @media only screen and (min-width: 740px) and (max-width: 1023px) {
+    .news-layout {
+      gap: 20px;
+    }
+    .new-list {
+      .news-image {
+        width: 150px !important;
+        height: 100% !important;
+      }
+    }
+  }
+
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
     .news-layout {
@@ -50,7 +63,7 @@ const NewsLayoutStyles = styled.section`
       gap: 20px;
       display: flex;
       flex-direction: column;
-      
+
       .news-item {
         gap: 12px;
         .news-image-link {

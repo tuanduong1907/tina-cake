@@ -31,6 +31,8 @@ const NewsItemStyles = styled.div`
       width: 100%;
       height: 100%;
       object-fit: cover;
+    border-radius: inherit;
+
     }
   }
 
@@ -93,6 +95,11 @@ const NewsItemStyles = styled.div`
     position: relative;
     left: 0;
     transition: linear 0.1s;
+  }
+
+  /* Tablet: width >= 740px and width < 1024px */
+  @media only screen and (min-width: 740px) and (max-width: 1023px) {
+
   }
 
   /* Mobie: width < 740px */

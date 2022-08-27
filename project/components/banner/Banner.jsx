@@ -2,7 +2,12 @@
 import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import { text16, text18, text36, text48 } from "../../../shared/utils/mixin-styled";
+import {
+  text16,
+  text18,
+  text36,
+  text48,
+} from "../../../shared/utils/mixin-styled";
 import AppButton from "../../controls/app-button/AppButton";
 import { dataBanner } from "../../../data/bannerData";
 
@@ -46,8 +51,8 @@ const BannerStyles = styled.section`
     ${text18}
     margin-top: 24px;
     margin-bottom: 30px;
-    display:-webkit-box;
-    -webkit-line-clamp:5;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -149,6 +154,15 @@ const BannerStyles = styled.section`
   /* end Swiper */
 
   /* Responsive */
+
+  /* Tablet: width >= 740px and width < 1024px */
+  @media only screen and (min-width: 740px) and (max-width: 1023px) {
+    .banner-image {
+      height: 100%;
+    }
+
+  }
+
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
     & {
@@ -164,10 +178,10 @@ const BannerStyles = styled.section`
       width: 100%;
       margin-left: 0;
     }
-    .banner-title{
+    .banner-title {
       ${text36}
     }
-    .banner-text{
+    .banner-text {
       ${text16}
       text-align: justify;
     }

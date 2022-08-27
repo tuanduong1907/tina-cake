@@ -29,7 +29,18 @@ const FeedbackLayoutStyles = styled.section`
       width: 33.3333%;
     }
   }
+
   /* Responsive */
+
+  /* Tablet: width >= 740px and width < 1024px */
+  @media only screen and (min-width: 740px) and (max-width: 1023px) {
+    .feedback-list {
+      .swiper-slide {
+        width: 45% !important;
+      }
+    }
+  }
+
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
     & {
