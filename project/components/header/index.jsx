@@ -57,9 +57,8 @@ const HeaderStyles = styled.header`
       backdrop-filter: blur(16px);
       height: 50px;
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       padding-inline: 20px;
       li {
         ${text11}
@@ -68,9 +67,11 @@ const HeaderStyles = styled.header`
     .nav-link {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
       .nav-icon {
         display: block;
+        text-align: center;
         svg {
           fill: #fff;
         }
@@ -85,9 +86,9 @@ export const Header = () => {
       <ul className="nav-list">
         {dataHeader.length > 0 &&
           dataHeader.map((item) => (
-            <li key={item.id}>
-              <Link href={`/${item.link}`}>
-                <a className="nav-link">
+            <Link key={item.id} href={`/${item.link}`}>
+              <a className="nav-link">
+                <li>
                   <div className="nav-icon">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -97,9 +98,9 @@ export const Header = () => {
                     </svg>
                   </div>
                   <span>{item.title}</span>
-                </a>
-              </Link>
-            </li>
+                </li>
+              </a>
+            </Link>
           ))}
       </ul>
       <div className="">
