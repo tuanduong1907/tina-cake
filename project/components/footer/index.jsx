@@ -12,6 +12,8 @@ const FooterStyles = styled.footer`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid ${(props) => props.theme.textColor};
   }
   .footer-title {
     ${text20}
@@ -41,6 +43,26 @@ const FooterStyles = styled.footer`
   .footer-text {
     line-height: 1.4;
   }
+  .copyright {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    gap: 12px;
+  }
+  .copyright-text {
+    text-align: center;
+
+    a {
+      transition: linear 0.1s;
+      &:hover {
+        color: ${(props) => props.theme.primaryColor};
+      }
+    }
+    span {
+      font-weight: 700;
+    }
+  }
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
     .footer-list {
@@ -51,6 +73,16 @@ const FooterStyles = styled.footer`
     }
     .footer-title {
       margin-bottom: 14px;
+    }
+  }
+
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    & {
+      padding-bottom: 40px;
+    }
+    .copyright {
+      flex-direction: column;
     }
   }
 `;
@@ -125,6 +157,22 @@ export const Footer = () => {
               nhu cầu của những khách hàng cần bánh gấp, đòi hỏi cao về chất
               lượng bánh và kem (mới ra lò), đặc biệt là khách du lịch.
             </p>
+          </div>
+        </div>
+        <div className="copyright">
+          <div className="copyright-text">
+            Copyright ©
+            <Link href="">
+              <a> Bánh Kem Nha Trang Tina Cake</a>
+            </Link>
+          </div>
+          <div className="copyright-text">
+            Thiết kế và phát triển bởi{" "}
+            <Link href="https://genztech.vn/">
+              <a target="_blank">
+                <span> GenZ Tech Team</span>
+              </a>
+            </Link>
           </div>
         </div>
       </div>
