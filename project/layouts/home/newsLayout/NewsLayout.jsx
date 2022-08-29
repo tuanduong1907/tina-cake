@@ -96,15 +96,19 @@ const NewsLayout = ({ title, link, data }) => {
           </div>
           <div className="new-list">
             {data?.length > 0 &&
-              data?.map((item) => (
-                <NewsItem
-                  key={item.id}
-                  className="news-item"
-                  title={item.title}
-                  link={item.link}
-                  image={item.image}
-                  content={item.content}
-                ></NewsItem>
+              data?.map((item, index) => (
+                <>
+                  {index < 3 && (
+                    <NewsItem
+                      key={item.id}
+                      className="news-item"
+                      title={item.title}
+                      link={item.link}
+                      image={item.image}
+                      content={item.content}
+                    ></NewsItem>
+                  )}
+                </>
               ))}
           </div>
         </div>

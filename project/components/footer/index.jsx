@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { text16, text20 } from "../../../shared/utils/mixin-styled";
+import { text14, text16, text20 } from "../../../shared/utils/mixin-styled";
 import SvgEmailIcon from "../../icons/EmailIcon";
 import SvgLocationIcon from "../../icons/LocationIcon";
 import SvgPhoneIcon from "../../icons/PhoneIcon";
@@ -52,7 +52,7 @@ const FooterStyles = styled.footer`
   }
   .copyright-text {
     text-align: center;
-
+    ${text14}
     a {
       transition: linear 0.1s;
       &:hover {
@@ -161,7 +161,7 @@ export const Footer = () => {
         </div>
         <div className="copyright">
           <div className="copyright-text">
-            Copyright ©
+            Copyright © 2022
             <Link href="">
               <a> Bánh Kem Nha Trang Tina Cake</a>
             </Link>
