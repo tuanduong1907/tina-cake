@@ -31,8 +31,7 @@ const NewsItemStyles = styled.div`
       width: 100%;
       height: 100%;
       object-fit: cover;
-    border-radius: inherit;
-
+      border-radius: inherit;
     }
   }
 
@@ -97,9 +96,12 @@ const NewsItemStyles = styled.div`
     transition: linear 0.1s;
   }
 
+  .news-image {
+    height: 200px;
+  }
+
   /* Tablet: width >= 740px and width < 1024px */
   @media only screen and (min-width: 740px) and (max-width: 1023px) {
-
   }
 
   /* Mobie: width < 740px */
@@ -132,12 +134,19 @@ const NewsItemStyles = styled.div`
   }
 `;
 
-const NewsItem = ({ image, content, link, title, ...props }) => {
+const NewsItem = ({
+  classNameImage,
+  image,
+  content,
+  link,
+  title,
+  ...props
+}) => {
   return (
     <NewsItemStyles {...props}>
       <Link href={link}>
         <a className="news-image-link">
-          <div className="news-image">
+          <div className={`news-image ${classNameImage}`}>
             <img src={image} alt="" />
           </div>
         </a>

@@ -11,10 +11,13 @@ const NewsListStyles = styled.div`
     grid-template-columns: repeat(1, 1fr);
     .news-btn,
     .news-body,
-    .news-image-link{
+    .news-image-link {
       width: 100%;
     }
-    
+    .news-image {
+      height: 250px;
+    }
+
   }
 `;
 
@@ -29,6 +32,7 @@ const NewsList = ({ data, ...props }) => {
             content={item.content}
             link={item.link}
             title={item.title}
+            className="news-item"
           ></NewsItem>
         ))}
     </NewsListStyles>

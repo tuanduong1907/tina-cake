@@ -27,6 +27,10 @@ const NewsLayoutStyles = styled.section`
     }
   }
 
+  .news-main-image {
+    height: 450px;
+  }
+
   /* Resonsive */
 
   /* Mobile & tablet: width <1024px */
@@ -57,6 +61,9 @@ const NewsLayoutStyles = styled.section`
     }
     .news-item-main {
       flex-direction: row;
+      .news-image {
+        height: 100%;
+      }
     }
     .new-list {
       width: 100%;
@@ -92,6 +99,7 @@ const NewsLayout = ({ title, link, data }) => {
               image="https://images.unsplash.com/photo-1607478900766-efe13248b125?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
               content="✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn."
               className="news-item-main"
+              classNameImage="news-main-image"
             ></NewsItem>
           </div>
           <div className="new-list">
