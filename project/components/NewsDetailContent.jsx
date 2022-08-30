@@ -1,7 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styled from "styled-components";
-import { text16, text24, text26, text34 } from "../../shared/utils/mixin-styled";
+import {
+  text16,
+  text24,
+  text26,
+  text34,
+} from "../../shared/utils/mixin-styled";
 
 const NewsDetailContentStyles = styled.div`
   .news-detail-image {
@@ -37,11 +42,20 @@ const NewsDetailContentStyles = styled.div`
     margin-bottom: 16px;
     ${text26}
   }
+
+  /* Responsive */
+  /* Mobile */
   @media only screen and (max-width: 739px) {
     .news-detail-heading {
-    ${text24}
-    margin-bottom: 8px;
-  }
+      ${text24}
+      margin-bottom: 8px;
+    }
+    .news-detail-image {
+      height: 300px;
+    }
+    .news-detail-image-sub {
+      height: 200px;
+    }
   }
 `;
 
