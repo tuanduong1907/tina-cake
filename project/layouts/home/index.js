@@ -23,7 +23,7 @@ export default function HomePage() {
         data={productData}
         background
       ></ProductLayout>
-      <NewsLayout title="Tin tức & Sự kiện" link="danh-sach-tin-tuc" data={newsListData}></NewsLayout>
+      <NewsLayout title="Tin tức & Sự kiện" link="danh-sach-bai-viet" data={newsListData}></NewsLayout>
       <FeedbackLayout title="Phản hồi từ khách hàng" data={feedbackData}></FeedbackLayout>
     </>
   );
