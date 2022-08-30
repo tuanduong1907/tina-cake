@@ -7,6 +7,7 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: false,
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: false,
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: true,
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: false,
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: false,
   },
   {
     id: 6,
@@ -52,6 +57,7 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: false,
   },
   {
     id: 7,
@@ -61,6 +67,7 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: false,
   },
   {
     id: 8,
@@ -70,6 +77,7 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: false,
   },
   {
     id: 9,
@@ -79,5 +87,6 @@ export const newsListData = [
     content:
       "✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn.",
     link: "",
+    active: false,
   },
 ];

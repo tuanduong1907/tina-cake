@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
-import { text18, text20 } from "../../shared/utils/mixin-styled";
+import { text16, text18, text20 } from "../../shared/utils/mixin-styled";
 import AppButton from "../controls/app-button/AppButton";
 import SvgRightIcon from "../icons/RightIcon";
 
@@ -102,6 +102,9 @@ const NewsItemStyles = styled.div`
 
   /* Tablet: width >= 740px and width < 1024px */
   @media only screen and (min-width: 740px) and (max-width: 1023px) {
+    .news-text {
+      ${text16}
+    }
   }
 
   /* Mobie: width < 740px */
@@ -124,8 +127,9 @@ const NewsItemStyles = styled.div`
     .new-content {
       gap: 8px;
     }
+
     .news-text {
-      font-size: 16px;
+      ${text16}
     }
     .news-body {
       width: 60%;

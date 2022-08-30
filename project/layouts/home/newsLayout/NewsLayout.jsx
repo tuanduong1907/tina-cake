@@ -42,10 +42,13 @@ const NewsLayoutStyles = styled.section`
     .news-layout {
       gap: 20px;
     }
+    .news-main-image{
+      height: 300px;
+    }
     .new-list {
       .news-image {
         width: 150px !important;
-        height: 100% !important;
+        height: 160px !important;
       }
     }
   }
@@ -78,10 +81,14 @@ const NewsLayoutStyles = styled.section`
         }
         .news-image {
           width: 100%;
-          height: 100%;
+          height: 150px;
           flex-shrink: initial;
         }
       }
+    }
+    .news-main-image {
+      width: 100%;
+      height: 150px !important;
     }
   }
 `;
@@ -110,6 +117,7 @@ const NewsLayout = ({ title, link, data }) => {
                     <NewsItem
                       key={item.id}
                       className="news-item"
+                      classNameImage="home-new-image"
                       title={item.title}
                       link={item.link}
                       image={item.image}
