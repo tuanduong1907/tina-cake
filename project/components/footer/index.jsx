@@ -5,6 +5,7 @@ import SvgEmailIcon from "../../icons/EmailIcon";
 import SvgLocationIcon from "../../icons/LocationIcon";
 import SvgPhoneIcon from "../../icons/PhoneIcon";
 import SvgWebIcon from "../../icons/WebIcon";
+import FooterContactList from "../FooterContactList";
 
 // styles
 const FooterStyles = styled.footer`
@@ -18,30 +19,6 @@ const FooterStyles = styled.footer`
   .footer-title {
     ${text20}
     margin-bottom: 20px;
-  }
-  .footer-info-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .footer-info-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .footer-icon {
-    height: 16px;
-    flex-shrink: 0;
-  }
-  .footer-link {
-    transition: linear 0.1s;
-    ${text16}
-    &:hover {
-      color: ${(props) => props.theme.primaryColor};
-    }
-  }
-  .footer-text {
-    line-height: 1.4;
   }
   .copyright {
     display: flex;
@@ -108,46 +85,7 @@ export const Footer = () => {
           </div>
           <div className="footer-item">
             <h3 className="footer-title">Bánh Kem Nha Trang Tina</h3>
-            <ul className="footer-info-list">
-              <li className="footer-info-item">
-                <SvgEmailIcon className="footer-icon"></SvgEmailIcon>
-                <Link href="mailto:tinacakesnhatrang@gmail.com">
-                  <a className="footer-link" target="_blank">
-                    tinacakesnhatrang@gmail.com
-                  </a>
-                </Link>
-              </li>
-              <li className="footer-info-item">
-                <SvgPhoneIcon className="footer-icon"></SvgPhoneIcon>
-                <Link href="tel:0935323287">
-                  <a className="footer-link">
-                    0935323287 (Check lịch - Thông tin bánh kem)
-                  </a>
-                </Link>
-              </li>
-              <li className="footer-info-item">
-                <SvgPhoneIcon className="footer-icon"></SvgPhoneIcon>
-                <Link href="tel:0568888479">
-                  <a className="footer-link">0568888479 (Giao nhận)</a>
-                </Link>
-              </li>
-              <li className="footer-info-item">
-                <SvgLocationIcon className="footer-icon"></SvgLocationIcon>
-                <Link href="https://g.page/Tiembanhkemsinhnhat?share">
-                  <a className="footer-link" target="_blank">
-                    56 Nguyễn Hữu Huân, Tân Lập, Nha Trang
-                  </a>
-                </Link>
-              </li>
-              <li className="footer-info-item">
-                <SvgWebIcon className="footer-icon"></SvgWebIcon>
-                <Link href="https://www.banhkemnhatrangtina.com/">
-                  <a className="footer-link" target="_blank">
-                    https://www.banhkemnhatrangtina.com/
-                  </a>
-                </Link>
-              </li>
-            </ul>
+            <FooterContactList></FooterContactList>
           </div>
           <div className="footer-item">
             <h3 className="footer-title">Về chúng tôi</h3>
