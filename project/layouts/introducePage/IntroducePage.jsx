@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styled from "styled-components";
-import { introImageListData } from "../../../data/IntroImageListData";
 import IntroImageList from "../../components/IntroImageList";
 import AppIntroHeading from "../../controls/app-intro-heading/AppIntroHeading";
 import IntroduceTopLayout from "./introduceTopLayout/IntroduceTopLayout";
