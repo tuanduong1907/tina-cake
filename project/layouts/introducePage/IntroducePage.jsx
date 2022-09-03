@@ -25,7 +25,7 @@ const IntroducePage = () => {
         ></AppIntroHeading>
         <IntroduceTopLayout className="intro-top-layout"></IntroduceTopLayout>
         <AppIntroHeading title="Đội ngũ nhân viên làm bánh đam mê, chuyên nghiệp"></AppIntroHeading>
-        <IntroImageList data={introImageListData}></IntroImageList>
+        <IntroImageList></IntroImageList>
       </div>
     </IntroducePageStyles>
   );

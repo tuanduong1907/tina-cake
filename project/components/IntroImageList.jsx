@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styled from "styled-components";
+import { introImageListData } from "../../data/IntroImageListData";
 
 const IntroImageListStyles = styled.div`
   display: grid;
@@ -48,8 +49,8 @@ const IntroImageListStyles = styled.div`
 const IntroImageList = ({ data }) => {
   return (
     <IntroImageListStyles>
-      {data?.length > 0 &&
-        data?.map((item) => (
+      {introImageListData.length > 0 &&
+        introImageListData.map((item) => (
           <div key={item.id} className="intro-image-item">
             <img src={item.image} alt="" />
           </div>
