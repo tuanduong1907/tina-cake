@@ -2,8 +2,6 @@
 import React from "react";
 import styled from "styled-components";
 import { introImageListData } from "../../../data/IntroImageListData";
-import { text48 } from "../../../shared/utils/mixin-styled";
-import FooterContactList from "../../components/FooterContactList";
 import IntroImageList from "../../components/IntroImageList";
 import AppIntroHeading from "../../controls/app-intro-heading/AppIntroHeading";
 import IntroduceTopLayout from "./introduceTopLayout/IntroduceTopLayout";
