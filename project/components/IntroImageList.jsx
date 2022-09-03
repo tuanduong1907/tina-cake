@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styled from "styled-components";
-import { introImageListData } from "../../data/IntroImageListData";
+import { introImageListData } from "../../data/introImageListData";
 
 const IntroImageListStyles = styled.div`
   display: grid;
