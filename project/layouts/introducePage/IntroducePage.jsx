@@ -1,13 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styled from "styled-components";
+import { introImageListData } from "../../../data/IntroImageListData";
 import { text48 } from "../../../shared/utils/mixin-styled";
 import FooterContactList from "../../components/FooterContactList";
+import IntroImageList from "../../components/IntroImageList";
 import AppIntroHeading from "../../controls/app-intro-heading/AppIntroHeading";
 import IntroduceTopLayout from "./introduceTopLayout/IntroduceTopLayout";
 
 const IntroducePageStyles = styled.section`
   margin-top: 40px;
+  .intro-top-layout {
+    margin-bottom: 84px;
+  }
 `;
 
 const IntroducePage = () => {
@@ -20,7 +25,9 @@ const IntroducePage = () => {
           sint. Velit officia consequat duis enim velit mollit. Exercitation
           veniam consequat sunt nostrud amet.."
         ></AppIntroHeading>
-        <IntroduceTopLayout></IntroduceTopLayout>
+        <IntroduceTopLayout className="intro-top-layout"></IntroduceTopLayout>
+        <AppIntroHeading title="Đội ngũ nhân viên làm bánh đam mê, chuyên nghiệp"></AppIntroHeading>
+        <IntroImageList data={introImageListData}></IntroImageList>
       </div>
     </IntroducePageStyles>
   );

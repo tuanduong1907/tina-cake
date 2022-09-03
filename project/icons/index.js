@@ -1,3 +1,4 @@
+export { default as CakeIcon } from "./CakeIcon";
 export { default as CommentIcon } from "./CommentIcon";
 export { default as EmailIcon } from "./EmailIcon";
 export { default as LocationIcon } from "./LocationIcon";

@@ -26,11 +26,25 @@ const IntroTopLayoutStyles = styled.section`
     width: 100%;
     margin-bottom: 40px;
   }
+  /* Mobile & tablet: width <1024px */
+  @media only screen and (max-width: 1023px) {
+  }
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    & {
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 20px !important;
+    }
+    .intro-contact-image {
+      margin-bottom: 20px;
+    }
+  }
 `;
 
-const IntroduceTopLayout = () => {
+const IntroduceTopLayout = ({ className = "" }) => {
   return (
-    <IntroTopLayoutStyles className="intro-top-layout">
+    <IntroTopLayoutStyles className={`intro-top-layout ${className}`}>
       <div className="intro-image">
         <img
           src="https://media.istockphoto.com/photos/baker-taking-strawberry-cake-from-store-counter-picture-id1412161845?b=1&k=20&m=1412161845&s=170667a&w=0&h=rKB_6SGj8PuptOEurZiMJQXZpdhvfyHhwwBstA2R0Yc="

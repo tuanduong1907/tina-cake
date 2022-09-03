@@ -53,6 +53,11 @@
   line-height: 1.75rem /* 28px */;
 }
 
+@mixin text28 {
+  font-size: 26px /* 28px */;
+  line-height: 1.75rem /* 32px */;
+}
+
 @mixin text30 {
   font-size: 1.875rem /* 30px */;
   line-height: 2.25rem /* 36px */;

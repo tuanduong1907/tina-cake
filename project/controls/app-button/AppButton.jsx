@@ -17,6 +17,7 @@ const ButtonStyles = styled.button`
   align-items: center;
   gap: 8px;
   font-weight: 500;
+  transition: linear 0.1s;
 `;
 const AppButton = ({ children, ...props }) => {
   return <ButtonStyles {...props}>{children}</ButtonStyles>;

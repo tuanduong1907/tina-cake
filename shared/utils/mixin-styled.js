@@ -33,6 +33,12 @@ export const text26 = css`
   font-size: 26px /* 26px */;
   line-height: 32px /* 32px */;
 `;
+
+export const text28 = css`
+  font-size: 28px /* 28px */;
+  line-height: 32px /* 32px */;
+`;
+
 export const text30 = css`
   font-size: 30px /* 30px */;
   line-height: 36px /* 36px */;
@@ -52,7 +58,6 @@ export const text36 = css`
 `;
 
 export const text40 = css`
-
   font-size: 40px /* 36px */;
   line-height: 60px /* 40px */;
 `;
@@ -89,5 +94,5 @@ export const flexCenter = css`
   display: flex;
   justify-content: center;
   align-items: center;
-`;  
+`;
 // end flexbox
