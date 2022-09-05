@@ -67,7 +67,7 @@ const HeaderTitleStyles = styled.div`
   }
 `;
 
-const AppHeaderTitle = ({ title = "", link = "" }) => {
+const AppHeaderTitle = ({ title = "", link = ""}) => {
   return (
     <HeaderTitleStyles className="header-title">
       <div className="title-wrap">
@@ -75,7 +75,7 @@ const AppHeaderTitle = ({ title = "", link = "" }) => {
         <div className="title-line"></div>
       </div>
       <div>
-        <Link href={`/${link}`}>
+        <Link href={`${link}`}>
           <a className="link-detail">
             Xem tất cả
             <SvgRightIcon className="icon-right"></SvgRightIcon>

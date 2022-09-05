@@ -6,6 +6,9 @@ import SvgCommentIcon from "../icons/CommentIcon";
 
 const FeedbackCardStyles = styled.div`
   padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(
     146.73deg,
     rgba(255, 255, 255, 0.08) 3.5%,
@@ -20,14 +23,16 @@ const FeedbackCardStyles = styled.div`
   .feedback-content {
     color: #ffff;
     ${text18}
-    padding-bottom: 20px;
     margin-bottom: 16px;
-    border-bottom: 1px solid ${(props) => props.theme.grayColor};
   }
   .feedback-footer {
     display: flex;
     align-items: center;
     gap: 20px;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid ${(props) => props.theme.grayColor};
+
   }
   .feedback-avatar {
     width: 64px;
@@ -58,8 +63,10 @@ const FeedbackCardStyles = styled.div`
 const FeedbackCard = ({ content, image, username }) => {
   return (
     <FeedbackCardStyles>
-      <SvgCommentIcon className="feedback-icon"></SvgCommentIcon>
-      <p className="feedback-content">{content}</p>
+      <div>
+        <SvgCommentIcon className="feedback-icon"></SvgCommentIcon>
+        <p className="feedback-content">{content}</p>
+      </div>
       <div className="feedback-footer">
         <div className="feedback-avatar">
           <img src={image} alt="" />

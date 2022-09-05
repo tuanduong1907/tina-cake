@@ -2,41 +2,43 @@ export const feedbackData = [
   {
     id: 1,
     image:
-      "https://firebasestorage.googleapis.com/v0/b/monkey-backend.appspot.com/o/images%2F6d82b53ecfe30abd53f2.jpg?alt=media&token=5727fb0c-e639-4573-983e-8959d3b9cf6e",
-    username: "Dương Tuấn",
+      "https://lh3.googleusercontent.com/a-/AFdZucrK585I4dg1r8U5vxvtvkOhdChDGr7fAd2vMR4i=w60-h60-p-rp-mo-br100",
+    username: "Chung Lương",
     content:
-      "I was able to learn a large amount in a short amount of time. The practical nature helped me understand what we were trying to do, and how to achieve it.",
+      "Bánh của tiệm rất ngon , làm chuẩn mẫu lun . Lần nào sinh nhật mình cũng đặt bánh ở tiệm , tư vấn rất nhiệt tình và chu đáo",
   },
   {
     id: 2,
     image:
-      "https://firebasestorage.googleapis.com/v0/b/monkey-backend.appspot.com/o/images%2F6d82b53ecfe30abd53f2.jpg?alt=media&token=5727fb0c-e639-4573-983e-8959d3b9cf6e",
-    username: "Dương Tuấn",
+      "https://lh3.googleusercontent.com/a-/AFdZucoQJsnjQzUmyzsrSFmdG85ZAIIywJ8q5de1ujEc=w60-h60-p-rp-mo-ba3-br100",
+    username: "Đào Trần Thị",
     content:
-      "I was able to learn a large amount in a short amount of time. The practical nature helped me understand what we were trying to do, and how to achieve it.",
+      "Được một người bạn giới thiệu tiệm bánh này rất ưng luôn. Bánh đẹp, mềm mịn và không quá ngọt, rất vừa ăn. Mình sẽ ủng hộ lâu dài.",
   },
   {
     id: 3,
     image:
-      "https://firebasestorage.googleapis.com/v0/b/monkey-backend.appspot.com/o/images%2F6d82b53ecfe30abd53f2.jpg?alt=media&token=5727fb0c-e639-4573-983e-8959d3b9cf6e",
-    username: "Dương Tuấn",
+      "https://lh3.googleusercontent.com/a-/AFdZucrJCyLKctCJwx-faLPZvnfmGTBsrVydrH9Z01vv=w60-h60-p-rp-mo-br100",
+    username: "Trang Trang",
     content:
-      "I was able to learn a large amount in a short amount of time. The practical nature helped me understand what we were trying to do, and how to achieve it.",
+      "Được một người bạn giới thiệu tiệm bánh này rất ưng luôn. Bánh đẹp, mềm mịn và không quá ngọt, rất vừa ăn. Mình sẽ ủng hộ lâu dài",
   },
   {
     id: 4,
     image:
-      "https://firebasestorage.googleapis.com/v0/b/monkey-backend.appspot.com/o/images%2F6d82b53ecfe30abd53f2.jpg?alt=media&token=5727fb0c-e639-4573-983e-8959d3b9cf6e",
-    username: "Dương Tuấn",
+      "https://lh3.googleusercontent.com/a-/AFdZucrzK5Zc-z-jC7-uFU6ckKiqmg8zjE_o0f5TijyYkQ=w60-h60-p-rp-mo-ba3-br100",
+    username: "Phong Trần Trai",
     content:
-      "I was able to learn a large amount in a short amount of time. The practical nature helped me understand what we were trying to do, and how to achieve it.",
+      "Tiệm bánh sinh nhật tuyệt vời nhất ❤️❤️❤️ Chất lượng bánh quá tuyệt, phục vụ chu đáo, tư vấn nhiệt tình ❤️ Sẽ ủng hộ dài dài và giới thiệu cho người thân bạn bè ủng hộ😍😍😍",
   },
   {
     id: 5,
     image:
-      "https://firebasestorage.googleapis.com/v0/b/monkey-backend.appspot.com/o/images%2F6d82b53ecfe30abd53f2.jpg?alt=media&token=5727fb0c-e639-4573-983e-8959d3b9cf6e",
-    username: "Dương Tuấn",
+      "https://lh3.googleusercontent.com/a-/AFdZucqagCNLMg6N2o_BSC3LyrqFPeCvL-AS1dqsFuLKww=w60-h60-p-rp-mo-br100",
+    username: "Hồng Quân Mạc",
     content:
-      "I was able to learn a large amount in a short amount of time. The practical nature helped me understand what we were trying to do, and how to achieve it.",
+      "Bánh siêu thơm ngon, đẹp, không bị chảy sệ như mấy bánh ở tiệm khác. Tiệm có nhân viên trực ib siêu nhiệt tình và chị call xác nhận giọng siêu đáng yêu",
   },
+
+
 ];

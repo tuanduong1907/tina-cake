@@ -27,6 +27,7 @@ const FeedbackLayoutStyles = styled.section`
     margin-top: 40px;
     .swiper-slide {
       width: 33.3333%;
+      height: auto;
     }
   }
 

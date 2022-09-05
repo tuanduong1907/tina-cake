@@ -112,7 +112,7 @@ const NewsLayout = ({ title, link, data }) => {
           <div className="new-list">
             {data?.length > 0 &&
               data?.map((item, index) => (
-                <>
+                <div key={item.id}>
                   {index < 3 && (
                     <NewsItem
                       key={item.id}
@@ -124,7 +124,7 @@ const NewsLayout = ({ title, link, data }) => {
                       content={item.content}
                     ></NewsItem>
                   )}
-                </>
+                </div>
               ))}
           </div>
         </div>
