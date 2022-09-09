@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import EmtyLayout from "../layouts/emtyLayout/EmtyLayout";
 import NewsItem from "./NewsItem";
 
 const NewsListStyles = styled.div`
@@ -32,19 +33,25 @@ const NewsListStyles = styled.div`
 
 const NewsList = ({ data, ...props }) => {
   return (
-    <NewsListStyles {...props}>
-      {data.length > 0 &&
-        data.map((item) => (
-          <NewsItem
-            key={item.id}
-            image={item.image}
-            content={item.content}
-            link={item.link}
-            title={item.title}
-            className="news-item"
-          ></NewsItem>
-        ))}
-    </NewsListStyles>
+    <>
+      {data.length > 0 ? (
+        <NewsListStyles {...props}>
+          {data.length > 0 &&
+            data.map((item) => (
+              <NewsItem
+                key={item.id}
+                image={item.image}
+                content={item.content}
+                link={item.link}
+                title={item.title}
+                className="news-item"
+              ></NewsItem>
+            ))}
+        </NewsListStyles>
+      ) : (
+        <EmtyLayout text="Không tìm thấy bài viết"></EmtyLayout>
+      )}
+    </>
   );
 };
 

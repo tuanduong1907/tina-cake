@@ -5,6 +5,7 @@ import HeadSeo from "../../components/SEO";
 import AppHeading from "../../controls/app-heading/AppHeading";
 import styled from "styled-components";
 import AppSearchForm from "../../controls/app-search-form/AppSearchForm";
+import { useState } from "react";
 
 const NewsListPageStyles = styled.section`
   margin-top: 40px;
@@ -26,15 +27,31 @@ const NewsListPageStyles = styled.section`
 `;
 
 const NewsListPage = () => {
+  const [value, setValue] = useState("");
+  console.log(value);
+  const dataFilter = (text) => {
+    const data = newsListData.filter((item) =>
+      item.title.toLowerCase().includes(text.toLowerCase())
+    );
+    if (text) {
+      return data;
+    } else {
+      return null;
+    }
+  };
   return (
     <>
       <HeadSeo />
       <NewsListPageStyles className="container py-layout">
         <div className="new-list-header">
           <AppHeading className="heading">Danh sách bài viết</AppHeading>
-          <AppSearchForm placeholder="Tìm kiếm bài viết..."></AppSearchForm>
+          <AppSearchForm
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="Tìm kiếm bài viết..."
+          ></AppSearchForm>
         </div>
-        <NewsList data={newsListData}></NewsList>
+        <NewsList data={dataFilter(value) || newsListData}></NewsList>
       </NewsListPageStyles>
     </>
   );

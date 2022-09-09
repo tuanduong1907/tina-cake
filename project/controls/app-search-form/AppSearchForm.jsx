@@ -26,15 +26,26 @@ const AppSearchFormStyles = styled.div`
   @media only screen and (max-width: 739px) {
     width: 100%;
     padding: 8px;
-
   }
 `;
 
-const AppSearchForm = ({ type = "text", placeholder, ...props }) => {
+const AppSearchForm = ({
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+  ...props
+}) => {
   return (
     <AppSearchFormStyles {...props}>
       <SvgIconSearch className="search-icon" stroke="#e5e5e5"></SvgIconSearch>
-      <input type={type} placeholder={placeholder} className="search-input" />
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="search-input"
+      />
     </AppSearchFormStyles>
   );
 };
