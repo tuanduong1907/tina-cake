@@ -39,6 +39,4 @@ export const feedbackData = [
     content:
       "Bánh siêu thơm ngon, đẹp, không bị chảy sệ như mấy bánh ở tiệm khác. Tiệm có nhân viên trực ib siêu nhiệt tình và chị call xác nhận giọng siêu đáng yêu",
   },
-
-
 ];
