@@ -28,7 +28,8 @@ const NewsListPageStyles = styled.section`
 
 const NewsListPage = () => {
   const [value, setValue] = useState("");
-  console.log(value);
+  const [activeInput, setActiveInput] = useState(false);
+  console.log("activeInput", activeInput);
   const dataFilter = (text) => {
     const data = newsListData.filter((item) =>
       item.title.toLowerCase().includes(text.toLowerCase())
@@ -42,11 +43,14 @@ const NewsListPage = () => {
   return (
     <>
       <HeadSeo />
-      <NewsListPageStyles className="container py-layout">
+      <NewsListPageStyles className={`container py-layout `}>
         <div className="new-list-header">
           <AppHeading className="heading">Danh sách bài viết</AppHeading>
           <AppSearchForm
+            className={`input-filter ${activeInput ? "active" : ""}`}
             value={value}
+            onFocus={() => setActiveInput(true)}
+            onBlur={() => setActiveInput(false)}
             onChange={(e) => setValue(e.target.value)}
             placeholder="Tìm kiếm bài viết..."
           ></AppSearchForm>

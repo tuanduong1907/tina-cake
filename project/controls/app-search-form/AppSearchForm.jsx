@@ -12,6 +12,11 @@ const AppSearchFormStyles = styled.div`
   padding: 10px;
   border-radius: 10px;
   border: 1px solid ${(props) => props.theme.grayColor};
+  transition: linear 0.2s;
+  &.active {
+    border: 1px solid ${(props) => props.theme.primaryColor};
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
   svg {
     flex-shrink: 0;
   }
@@ -34,6 +39,8 @@ const AppSearchForm = ({
   placeholder,
   value,
   onChange,
+  onBlur = () => {},
+  onFocus = () => {},
   ...props
 }) => {
   return (
@@ -42,7 +49,9 @@ const AppSearchForm = ({
       <input
         type={type}
         value={value}
+        onBlur={onBlur}
         onChange={onChange}
+        onFocus={onFocus}
         placeholder={placeholder}
         className="search-input"
       />

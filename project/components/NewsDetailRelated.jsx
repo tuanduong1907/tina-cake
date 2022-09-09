@@ -18,24 +18,23 @@ const NewsDetailRelatedStyles = styled.div`
   .news-related-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 20px;
   }
   .news-related-link {
-    padding: 16px;
     ${text18}
     display: block;
     transition: linear 0.1s;
     font-weight: 600;
+    display:-webkit-box;
+    -webkit-line-clamp:1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
     &:hover {
       color: ${(props) => props.theme.primaryColor};
-      background-color: #f6fcfa;
-      border-radius: 100rem;
     }
-    &.active {
-      color: ${(props) => props.theme.primaryColor};
-      background-color: #f6fcfa;
-      border-radius: 100rem;
-    }
+
   }
 
   /* Responsive */
