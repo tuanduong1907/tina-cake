@@ -1,28 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  text14,
-  text16,
-  text18,
-  text26,
-} from "../../../shared/utils/mixin-styled";
+import { text16, text26 } from "../../../shared/utils/mixin-styled";
 
 const AppIntroHeadingStyles = styled.div`
-  width: 633px;
   text-align: center;
   margin-inline: auto;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   .title {
     font-size: 44px;
     line-height: 1.4;
     font-weight: 700;
   }
   .desc {
-    width: 620px;
+    width: 640px;
     margin-inline: auto;
-    ${text18}
+    ${text16};
+    font-weight: 600;
   }
-
   /* Responsive */
 
   /* Mobile & tablet: width <1024px */
@@ -31,17 +25,12 @@ const AppIntroHeadingStyles = styled.div`
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
     & {
-      width: 100%;
       margin-bottom: 20px;
     }
     .title {
       ${text26};
-      margin-bottom: 12px;
-      text-align: left;
-    }
-    .desc {
       width: 100%;
-      ${text16}
+      margin-bottom: 12px;
       text-align: left;
     }
   }
@@ -53,7 +42,7 @@ const AppIntroHeadingStyles = styled.div`
   }
 `;
 
-const AppIntroHeading = ({ title = "", desc }) => {
+const AppIntroHeading = ({ title = "", desc = "" }) => {
   return (
     <AppIntroHeadingStyles>
       <h2 className="title">{title}</h2>
