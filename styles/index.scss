@@ -49,12 +49,13 @@
     user-select: none;
   }
 
-  ul {
+  ul,
+  li {
     list-style: none !important;
   }
 
   a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: inherit;
   }
 
@@ -121,8 +122,8 @@
   .gap-header {
     margin-top: 72px;
   }
-  .header-home{
-    .nav-item{
+  .header-home {
+    .nav-item {
       color: #fff;
     }
   }
