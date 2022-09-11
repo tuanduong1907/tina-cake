@@ -110,11 +110,11 @@ const HeaderStyles = styled.header`
       bottom: 0;
       top: auto;
       left: 0;
+      right: 0;
       transform: translate(0);
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(16px);
       height: 50px;
-      width: 100%;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       padding-inline: 20px;

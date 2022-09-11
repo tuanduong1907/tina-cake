@@ -42,7 +42,7 @@ const NewsLayoutStyles = styled.section`
     .news-layout {
       gap: 20px;
     }
-    .news-main-image{
+    .news-main-image {
       height: 300px;
     }
     .new-list {

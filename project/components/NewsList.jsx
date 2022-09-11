@@ -32,12 +32,13 @@ const NewsListStyles = styled.div`
 `;
 
 const NewsList = ({ data, ...props }) => {
+  
   return (
     <>
-      {data.length > 0 ? (
+      {data?.length > 0 ? (
         <NewsListStyles {...props}>
-          {data.length > 0 &&
-            data.map((item) => (
+          {data?.length > 0 &&
+            data?.map((item) => (
               <NewsItem
                 key={item.id}
                 image={item.image}
