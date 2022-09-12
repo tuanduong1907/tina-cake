@@ -9,6 +9,7 @@ import AppButtonAdmin from "../../controls/app-button-admin/AppButtonAdmin";
 import AppField from "../../controls/app-field/AppField";
 import AppInput from "../../controls/app-input/AppInput";
 import AppLabel from "../../controls/app-label/AppLabel";
+import AppLoadingSpinner from "../../controls/app-loading/AppLoadingSpinner";
 import SvgEyeCloseIcon from "../../icons/EyeCloseIcon";
 import SvgEyeOpenIcon from "../../icons/EyeOpenIcon";
 
@@ -43,10 +44,10 @@ const AdminLoginPageStyles = styled.section`
     & {
       padding-inline: 20px;
     }
-    .form-heading{
+    .form-heading {
       ${text28}
     }
-    .form-wrapper{
+    .form-wrapper {
       padding: 20px;
     }
   }
@@ -58,9 +59,14 @@ const AdminLoginPage = () => {
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
     watch,
-  } = useForm();
+  } = useForm({ mode: "onChange" });
   const handleLogin = (values) => {
-    console.log(values);
+    if (!isValid) return;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
   };
   const [togglePassword, setTogglePassword] = useState(false);
   return (
@@ -110,7 +116,9 @@ const AdminLoginPage = () => {
               )}
             </AppInput>
           </AppField>
-          <AppButtonAdmin type="submit">Đăng nhập</AppButtonAdmin>
+          <AppButtonAdmin type="submit" disabled={isSubmitting} isLoading={isSubmitting}>
+            Đăng nhập
+          </AppButtonAdmin>
         </form>
       </div>
     </AdminLoginPageStyles>
