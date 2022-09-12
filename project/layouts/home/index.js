@@ -25,7 +25,7 @@ export default function HomePage() {
       ></ProductLayout>
       <NewsLayout
         title="Tin tức & Sự kiện"
-        link="/danh-sach-bai-viet"
+        link="danh-sach-bai-viet"
         data={newsListData}
       ></NewsLayout>
       <FeedbackLayout

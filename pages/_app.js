@@ -15,6 +15,7 @@ import runCheckKeyBoard from "../helpers/onKeyBoardOnOff";
 import { useEffect } from "react";
 
 import "../interceptors/axios";
+import { AuthProvider } from "../project/contexts/auth-context";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -23,7 +24,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <>
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </>
     </ThemeProvider>
   );

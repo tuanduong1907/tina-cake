@@ -3,7 +3,7 @@ export default function DetailProduct() {
     return (
         <>
             <h1>
-                DetailProduct
+                404
             </h1>
         </>
     )

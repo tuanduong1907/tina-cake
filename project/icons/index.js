@@ -1,6 +1,8 @@
 export { default as CakeIcon } from "./CakeIcon";
 export { default as CommentIcon } from "./CommentIcon";
 export { default as EmailIcon } from "./EmailIcon";
+export { default as EyeCloseIcon } from "./EyeCloseIcon";
+export { default as EyeOpenIcon } from "./EyeOpenIcon";
 export { default as LocationIcon } from "./LocationIcon";
 export { default as NextIcon } from "./NextIcon";
 export { default as NotFound } from "./NotFound";
