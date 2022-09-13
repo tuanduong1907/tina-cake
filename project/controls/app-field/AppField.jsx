@@ -5,10 +5,6 @@ const AppFieldStyles = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 12px;
-  margin-bottom: 24px;
-  &:last-child {
-    margin-bottom: 0;
-  }
 `;
 
 const AppField = ({ children }) => {
