@@ -1,5 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { theme } from "../shared/utils/constants";
+import "../styles/index.scss";
 // swiper
 import "swiper/css";
 import "swiper/css";
@@ -9,7 +10,11 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/bundle";
 // end swiper
-import "../styles/index.scss";
+
+// toasify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// end toasify
 
 import runCheckKeyBoard from "../helpers/onKeyBoardOnOff";
 import { useEffect } from "react";
@@ -25,6 +30,7 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <>
         <AuthProvider>
+        <ToastContainer />
           <Component {...pageProps} />
         </AuthProvider>
       </>

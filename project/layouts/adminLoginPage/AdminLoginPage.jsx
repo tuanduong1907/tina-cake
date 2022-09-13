@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -9,9 +9,18 @@ import AppButtonAdmin from "../../controls/app-button-admin/AppButtonAdmin";
 import AppField from "../../controls/app-field/AppField";
 import AppInput from "../../controls/app-input/AppInput";
 import AppLabel from "../../controls/app-label/AppLabel";
-import AppLoadingSpinner from "../../controls/app-loading/AppLoadingSpinner";
 import SvgEyeCloseIcon from "../../icons/EyeCloseIcon";
 import SvgEyeOpenIcon from "../../icons/EyeOpenIcon";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { toast } from "react-toastify";
+
+const schema = yup
+  .object({
+    account: yup.string().required("Vui lòng nhập tài khoản !!!"),
+    password: yup.string().required("Vui lòng nhập mật khẩu !!!"),
+  })
+  .required();
 
 const AdminLoginPageStyles = styled.section`
   height: 100vh;
@@ -60,7 +69,9 @@ const AdminLoginPage = () => {
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
     watch,
-  } = useForm({ mode: "onChange" });
+    reset,
+  } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
+  console.log(errors);
   const handleLogin = (values) => {
     if (!isValid) return;
     return new Promise((resolve) => {
@@ -70,6 +81,16 @@ const AdminLoginPage = () => {
     });
   };
   const [togglePassword, setTogglePassword] = useState(false);
+
+  useEffect(() => {
+    const arrErrors = Object.values(errors);
+    if (arrErrors.length > 0) {
+      toast.error(arrErrors[0]?.message, {
+        pauseOnHover: false,
+      });
+    }
+  }, [errors]);
+
   return (
     <AdminLoginPageStyles>
       <div className="login-logo">
@@ -117,7 +138,11 @@ const AdminLoginPage = () => {
               )}
             </AppInput>
           </AppField>
-          <AppButtonAdmin type="submit" disabled={isSubmitting} isLoading={isSubmitting}>
+          <AppButtonAdmin
+            type="submit"
+            disabled={isSubmitting}
+            isLoading={isSubmitting}
+          >
             Đăng nhập
           </AppButtonAdmin>
         </form>
