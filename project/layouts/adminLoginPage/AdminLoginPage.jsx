@@ -15,6 +15,7 @@ import SvgEyeOpenIcon from "../../icons/EyeOpenIcon";
 
 const AdminLoginPageStyles = styled.section`
   height: 100vh;
+  overflow: hidden;
   position: relative;
   z-index: 1;
   background-color: ${(props) => props.theme.lightGrayColor};
