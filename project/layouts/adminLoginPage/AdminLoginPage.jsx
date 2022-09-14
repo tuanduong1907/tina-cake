@@ -14,10 +14,14 @@ import SvgEyeOpenIcon from "../../icons/EyeOpenIcon";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase-config";
+import { useRouter } from "next/router";
+import { useAuth } from "../../contexts/auth-context";
 
 const schema = yup
   .object({
-    account: yup.string().required("Vui lòng nhập tài khoản !!!"),
+    email: yup.string().required("Vui lòng nhập tài khoản !!!"),
     password: yup.string().required("Vui lòng nhập mật khẩu !!!"),
   })
   .required();
@@ -104,7 +108,7 @@ const AdminLoginPageStyles = styled.section`
 
   /* Tablet: width >= 740px and width < 1024px */
   @media only screen and (min-width: 740px) and (max-width: 1023px) {
-    .login-wrapper{
+    .login-wrapper {
       gap: 40px;
     }
     .form-heading {
@@ -129,6 +133,10 @@ const AdminLoginPageStyles = styled.section`
 `;
 
 const AdminLoginPage = () => {
+  const router = useRouter();
+  const { userInfo } = useAuth();
+  const [togglePassword, setTogglePassword] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -137,15 +145,16 @@ const AdminLoginPage = () => {
     reset,
   } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
   console.log(errors);
-  const handleLogin = (values) => {
+
+  useEffect(() => {
+    if (userInfo?.email) router.push("/admin");
+  }, []);
+
+  const handleLogin = async (values) => {
     if (!isValid) return;
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 2000);
-    });
+    await signInWithEmailAndPassword(auth, values.email, values.password);
+    router.push("/admin");
   };
-  const [togglePassword, setTogglePassword] = useState(false);
 
   useEffect(() => {
     const arrErrors = Object.values(errors);
@@ -177,9 +186,9 @@ const AdminLoginPage = () => {
             autoComplete="off"
           >
             <AppField>
-              <AppLabel htmlFor="account">Tài khoản</AppLabel>
+              <AppLabel htmlFor="email">Tài khoản</AppLabel>
               <AppInput
-                name="account"
+                name="email"
                 type="text"
                 placeholder="Nhập tài khoản"
                 control={control}
