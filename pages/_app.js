@@ -11,16 +11,13 @@ import "swiper/css/thumbs";
 import "swiper/css/bundle";
 // end swiper
 
-// toasify
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// end toasify
 
 import runCheckKeyBoard from "../helpers/onKeyBoardOnOff";
 import { useEffect } from "react";
 
 import "../interceptors/axios";
 import { AuthProvider } from "../project/contexts/auth-context";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -30,8 +27,8 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <>
         <AuthProvider>
-        <ToastContainer />
           <Component {...pageProps} />
+          <Toaster />
         </AuthProvider>
       </>
     </ThemeProvider>

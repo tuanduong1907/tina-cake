@@ -104,6 +104,11 @@
     padding-inline: 20px;
     margin-inline: auto;
   }
+  .container-admin {
+    margin: 32px;
+    margin-top: calc(72px + 32px);
+    padding-bottom: 80px;
+  }
   body::-webkit-scrollbar {
     width: 4px;
   }
@@ -126,8 +131,45 @@
       color: #fff;
     }
   }
+  .hidden-input {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
 }
 // end base
+
+// keyFrame
+@layer keyFrame {
+  // fadeIn
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  // end fadeIn
+
+  // spin
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  // spin
+}
+// end keyFrame
 
 /* Mobie: width < 740px */
 @media only screen and (max-width: 739px) {

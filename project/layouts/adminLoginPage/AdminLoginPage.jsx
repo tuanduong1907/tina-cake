@@ -13,11 +13,11 @@ import SvgEyeCloseIcon from "../../icons/EyeCloseIcon";
 import SvgEyeOpenIcon from "../../icons/EyeOpenIcon";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase-config";
 import { useRouter } from "next/router";
 import { useAuth } from "../../contexts/auth-context";
+import toast from "react-hot-toast";
 
 const schema = yup
   .object({
@@ -153,15 +153,14 @@ const AdminLoginPage = () => {
   const handleLogin = async (values) => {
     if (!isValid) return;
     await signInWithEmailAndPassword(auth, values.email, values.password);
+    toast.success("Đăng nhập thành công!");
     router.push("/admin");
   };
 
   useEffect(() => {
     const arrErrors = Object.values(errors);
     if (arrErrors.length > 0) {
-      toast.error(arrErrors[0]?.message, {
-        pauseOnHover: false,
-      });
+      toast.error(arrErrors[0]?.message);
     }
   }, [errors]);
 

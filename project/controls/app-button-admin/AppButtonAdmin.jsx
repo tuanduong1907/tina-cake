@@ -11,7 +11,8 @@ const AppButtonAdminStyles = styled.button`
   justify-content: center;
   align-items: center;
   height: ${(props) => props.height || "48px"};
-  ${text16}
+  font-size: 16px;
+  line-height: 1;
   font-weight: 600;
   background-color: ${(props) => props.theme.primaryColor};
   border-radius: 12px;
@@ -24,6 +25,18 @@ const AppButtonAdminStyles = styled.button`
   &:disabled {
     opacity: 0.5;
     pointer-events: none;
+  }
+  &.btn-admin {
+    background-color: ${(props) => props.theme.color1};
+    color: #fff;
+    min-width: 100px;
+    padding-inline: 20px;
+    width: auto;
+    border-radius: 8px;
+    transition: linear 0.2s;
+    &:hover {
+      background-color: black;
+    }
   }
 `;
 

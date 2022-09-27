@@ -7,8 +7,8 @@ const AppFieldStyles = styled.div`
   row-gap: 12px;
 `;
 
-const AppField = ({ children }) => {
-  return <AppFieldStyles>{children}</AppFieldStyles>;
+const AppField = ({ children, ...props }) => {
+  return <AppFieldStyles {...props}>{children}</AppFieldStyles>;
 };
 
 export default AppField;
