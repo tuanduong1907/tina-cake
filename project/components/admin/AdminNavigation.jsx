@@ -72,7 +72,7 @@ const AdminNavigation = () => {
           <SvgArrowDoubleLeftIcon></SvgArrowDoubleLeftIcon>
         </div>
         <ul className="navigtaion-list">
-          <li
+          {/* <li
             className={`navigtaion-item ${
               router.pathname == "/admin" ? "active" : ""
             }`}
@@ -83,7 +83,7 @@ const AdminNavigation = () => {
                 Dashboard
               </a>
             </Link>
-          </li>
+          </li> */}
           <li
             className={`navigtaion-item ${
               router.pathname == "/admin/bai-viet" ? "active" : ""

@@ -154,7 +154,7 @@ const AdminLoginPage = () => {
     if (!isValid) return;
     await signInWithEmailAndPassword(auth, values.email, values.password);
     toast.success("Đăng nhập thành công!");
-    router.push("/admin");
+    router.push("/admin/bai-viet");
   };
 
   useEffect(() => {

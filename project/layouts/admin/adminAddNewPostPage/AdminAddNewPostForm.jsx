@@ -20,9 +20,10 @@ import {
 import useFirebaseImage from "../../../../shared/hooks/useFirebaseImage";
 
 const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+  { value: "Chương trình - Sự kiện", label: "Chương trình - Sự kiện" },
+  { value: "Tin tức - Khuyễn mãi", label: "Tin tức - Khuyễn mãi" },
+  { value: "Ký sự", label: "Ký sự" },
+  { value: "Tản mạn", label: "Tản mạn" },
 ];
 
 const AdminAddNewPostFormStyles = styled.div`
