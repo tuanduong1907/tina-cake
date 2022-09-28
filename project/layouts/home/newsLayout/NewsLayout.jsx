@@ -138,6 +138,9 @@ const NewsLayout = ({ title, data }) => {
                 slug={item.slug}
                 image={item.image}
                 category={item.categoryId}
+                date={`${new Date(
+                  item?.createAt?.seconds * 1000
+                ).toLocaleDateString("vi-VI")}`}
                 content="✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn."
                 className="news-item-main"
                 classNameImage="news-main-image"
