@@ -104,7 +104,7 @@ const NewsListPage = () => {
   };
   return (
     <>
-      <HeadSeo />
+      <HeadSeo title="Danh sách bài viết | Tina Cake" />
       <NewsListPageStyles className={`container py-layout `}>
         <div className="new-list-header">
           <AppHeading className="heading">Danh sách bài viết</AppHeading>

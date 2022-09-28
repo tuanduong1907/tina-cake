@@ -27,7 +27,7 @@ const AppButtonAdminStyles = styled.button`
     pointer-events: none;
   }
   &.btn-admin {
-    background-color: ${(props) => props.theme.color1};
+    background-color: ${(props) => props.theme.primaryColor};
     color: #fff;
     min-width: 100px;
     padding-inline: 20px;
@@ -35,7 +35,7 @@ const AppButtonAdminStyles = styled.button`
     border-radius: 8px;
     transition: linear 0.2s;
     &:hover {
-      background-color: black;
+      background-color: ${(props) => props.theme.darkPrimaryColor};
     }
   }
 `;

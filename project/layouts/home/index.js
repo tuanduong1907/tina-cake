@@ -5,12 +5,37 @@ import NewsLayout from "./newsLayout/NewsLayout";
 import ProductLayout from "./productLayout/ProductLayout";
 import FeedbackLayout from "./feedbackLayout/FeedbackLayout";
 import { feedbackData } from "../../../data/feedbackData";
-import { newsListData } from "../../../data/newsListData";
+import { useEffect, useState } from "react";
+import {
+  collection,
+  limit,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "../../firebase/firebase-config";
 
 export default function HomePage() {
+  const [posts, setPosts] = useState([]);
+  console.log("posts", posts);
+  useEffect(() => {
+    const colRef = collection(db, "posts");
+    const queries = query(colRef, where("hot", "==", true), limit(3));
+    onSnapshot(queries, (snapshot) => {
+      let result = [];
+      snapshot.forEach((doc) => {
+        result.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setPosts(result);
+    });
+  }, []);
+  
   return (
     <>
-      <HeadSeo />
+      <HeadSeo title="Trang chủ | Tina Cake"/>
       <Banner></Banner>
       <ProductLayout
         link="/banh-kem-ngon"
@@ -26,7 +51,7 @@ export default function HomePage() {
       <NewsLayout
         title="Tin tức & Sự kiện"
         link="danh-sach-bai-viet"
-        data={newsListData}
+        data={posts}
       ></NewsLayout>
       <FeedbackLayout
         title="Phản hồi từ khách hàng"

@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import SvgPostIcon from "../../icons/PostIcon";
 import SvgCategoryIcon from "../../icons/CategoryIcon";
+import { text24 } from "../../../shared/utils/mixin-styled";
 
 const AdminNavigationStyles = styled.div`
   width: 225px;
@@ -16,7 +17,8 @@ const AdminNavigationStyles = styled.div`
     position: fixed;
     width: 225px;
     height: 100%;
-    background: black;
+    background: #ffff;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     overflow: auto;
   }
   .navigtaion-logo {
@@ -27,20 +29,25 @@ const AdminNavigationStyles = styled.div`
     padding-inline: 16px;
     justify-content: space-between;
     margin-bottom: 18px;
+    span{
+      font-weight: 700;
+      color: ${props => props.theme.primaryColor};
+      ${text24}
+    }
   }
   .navigtaion-list {
     margin-top: 16px;
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
+    row-gap: 4px;
   }
   .navigtaion-item {
     a {
-      padding: 8px 16px;
+      padding:  16px;
       display: flex;
       align-items: center;
       column-gap: 16px;
-      color: #999999;
+      color: ${props => props.theme.textColor};;
       cursor: pointer;
       user-select: none;
     }
@@ -49,13 +56,13 @@ const AdminNavigationStyles = styled.div`
     }
     &:hover {
       a {
-        background-color: rgba(255, 255, 255, 0.03);
+        background-color: ${props => props.theme.primaryColor};;
         color: #fff;
       }
     }
     &.active {
       a {
-        background-color: rgba(255, 255, 255, 0.03);
+        background-color: ${props => props.theme.primaryColor};;
         color: #fff;
       }
     }
@@ -68,7 +75,7 @@ const AdminNavigation = () => {
     <AdminNavigationStyles>
       <div className="navigtaion">
         <div className="navigtaion-logo">
-          <SvgLogoGenz></SvgLogoGenz>
+        <span>Tina Cake</span>
           <SvgArrowDoubleLeftIcon></SvgArrowDoubleLeftIcon>
         </div>
         <ul className="navigtaion-list">

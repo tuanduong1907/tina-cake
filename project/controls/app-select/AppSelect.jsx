@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Select from "react-select";
-import { useController } from "react-hook-form";
 
 const AppSelectStyles = styled.div`
   .css-1s2u09g-control {
@@ -29,18 +28,12 @@ const customStyles = {
 };
 
 const AppSelect = ({ options, control, name, ...rest }) => {
-  const { field } = useController({
-    control,
-    name,
-    defaultValue: "",
-  });
   return (
     <AppSelectStyles>
       <Select
         className="mt-4 col-md-8 col-offset-4"
         options={options}
         styles={customStyles}
-        {...field}
         {...rest}
       />
     </AppSelectStyles>

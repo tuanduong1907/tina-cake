@@ -1,5 +1,5 @@
 import {
-    deleteObject,
+  deleteObject,
   getDownloadURL,
   getStorage,
   ref,
@@ -72,5 +72,7 @@ export default function useFirebaseImage(setValue, getValues) {
     progress,
     handleSelectImage,
     handleDeleteImage,
+    setImage,
+    setProgress,
   };
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -18,6 +19,7 @@ import { auth } from "../../firebase/firebase-config";
 import { useRouter } from "next/router";
 import { useAuth } from "../../contexts/auth-context";
 import toast from "react-hot-toast";
+import HeadSeo from "../../components/SEO";
 
 const schema = yup
   .object({
@@ -141,10 +143,7 @@ const AdminLoginPage = () => {
     control,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
-    watch,
-    reset,
   } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
-  console.log(errors);
 
   useEffect(() => {
     if (userInfo?.email) router.push("/admin");
@@ -165,68 +164,71 @@ const AdminLoginPage = () => {
   }, [errors]);
 
   return (
-    <AdminLoginPageStyles>
-      <div className="login-wrapper">
-        <div className="login-logo">
-          <Link href="#">
-            <a className="login-link">
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/logo-tina.png?alt=media&token=12cc58f5-7148-4518-9906-d118f48f1470"
-                alt=""
-              />
-            </a>
-          </Link>
-        </div>
-        <div className="form-wrapper">
-          <h2 className="form-heading">Đăng nhập</h2>
-          <form
-            className="form"
-            onSubmit={handleSubmit(handleLogin)}
-            autoComplete="off"
-          >
-            <AppField>
-              <AppLabel htmlFor="email">Tài khoản</AppLabel>
-              <AppInput
-                name="email"
-                type="text"
-                placeholder="Nhập tài khoản"
-                control={control}
-              />
-            </AppField>
-            <AppField>
-              <AppLabel htmlFor="password">Mật khẩu</AppLabel>
-              <AppInput
-                name="password"
-                type={togglePassword ? "text" : "password"}
-                placeholder="Nhập mật khẩu"
-                control={control}
-              >
-                {togglePassword ? (
-                  <SvgEyeOpenIcon
-                    onClick={() => setTogglePassword(false)}
-                  ></SvgEyeOpenIcon>
-                ) : (
-                  <SvgEyeCloseIcon
-                    onClick={() => setTogglePassword(true)}
-                  ></SvgEyeCloseIcon>
-                )}
-              </AppInput>
-            </AppField>
+    <>
+      <HeadSeo title="Đăng nhập | Tina Cake" />
+      <AdminLoginPageStyles>
+        <div className="login-wrapper">
+          <div className="login-logo">
             <Link href="#">
-              <a className="forget-password">Quên mật khẩu?</a>
+              <a className="login-link">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/logo-tina.png?alt=media&token=12cc58f5-7148-4518-9906-d118f48f1470"
+                  alt=""
+                />
+              </a>
             </Link>
-            <AppButtonAdmin
-              type="submit"
-              disabled={isSubmitting}
-              isLoading={isSubmitting}
+          </div>
+          <div className="form-wrapper">
+            <h2 className="form-heading">Đăng nhập</h2>
+            <form
+              className="form"
+              onSubmit={handleSubmit(handleLogin)}
+              autoComplete="off"
             >
-              Đăng nhập
-            </AppButtonAdmin>
-          </form>
+              <AppField>
+                <AppLabel htmlFor="email">Tài khoản</AppLabel>
+                <AppInput
+                  name="email"
+                  type="text"
+                  placeholder="Nhập tài khoản"
+                  control={control}
+                />
+              </AppField>
+              <AppField>
+                <AppLabel htmlFor="password">Mật khẩu</AppLabel>
+                <AppInput
+                  name="password"
+                  type={togglePassword ? "text" : "password"}
+                  placeholder="Nhập mật khẩu"
+                  control={control}
+                >
+                  {togglePassword ? (
+                    <SvgEyeOpenIcon
+                      onClick={() => setTogglePassword(false)}
+                    ></SvgEyeOpenIcon>
+                  ) : (
+                    <SvgEyeCloseIcon
+                      onClick={() => setTogglePassword(true)}
+                    ></SvgEyeCloseIcon>
+                  )}
+                </AppInput>
+              </AppField>
+              <Link href="#">
+                <a className="forget-password">Quên mật khẩu?</a>
+              </Link>
+              <AppButtonAdmin
+                type="submit"
+                disabled={isSubmitting}
+                isLoading={isSubmitting}
+              >
+                Đăng nhập
+              </AppButtonAdmin>
+            </form>
+          </div>
         </div>
-      </div>
-      <div className="login-image-wrap"></div>
-    </AdminLoginPageStyles>
+        <div className="login-image-wrap"></div>
+      </AdminLoginPageStyles>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { text20 } from "../../../../shared/utils/mixin-styled";
@@ -8,23 +8,19 @@ import AppField from "../../../controls/app-field/AppField";
 import AppInput from "../../../controls/app-input/AppInput";
 import AppLabel from "../../../controls/app-label/AppLabel";
 import AppSelect from "../../../controls/app-select/AppSelect";
-import toast from "react-hot-toast";
 import slugify from "slugify";
 import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
-import useFirebaseImage from "../../../../shared/hooks/useFirebaseImage";
+  collection,
+  query,
+  getDocs,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
-const options = [
-  { value: "Chương trình - Sự kiện", label: "Chương trình - Sự kiện" },
-  { value: "Tin tức - Khuyễn mãi", label: "Tin tức - Khuyễn mãi" },
-  { value: "Ký sự", label: "Ký sự" },
-  { value: "Tản mạn", label: "Tản mạn" },
-];
+import useFirebaseImage from "../../../../shared/hooks/useFirebaseImage";
+import AppToggle from "../../../controls/app-toggle/AppToggle";
+import { db } from "../../../firebase/firebase-config";
+import toast from "react-hot-toast";
 
 const AdminAddNewPostFormStyles = styled.div`
   background-color: #fff;
@@ -39,7 +35,7 @@ const AdminAddNewPostFormStyles = styled.div`
     gap: 40px;
     margin-bottom: 40px;
   }
-  .infput-item {
+  .input-item {
     flex: 1;
   }
   .add-btn {
@@ -49,32 +45,116 @@ const AdminAddNewPostFormStyles = styled.div`
     display: flex;
     margin-inline: auto;
   }
+  .feature-field {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+  }
 `;
 
 const AdminAddNewPostForm = () => {
-  const { control, watch, setValue, handleSubmit, getValues } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      title: "",
-      slug: "",
-      category: "",
-    },
-  });
+  const [categories, setCategories] = useState([]);
+  const { control, watch, setValue, handleSubmit, getValues, reset, isValid } =
+    useForm({
+      mode: "onChange",
+      defaultValues: {
+        title: "",
+        slug: "",
+        categoryId: "",
+        hot: false,
+        banner: false,
+      },
+    });
 
-  const handleAddNewPost = (values) => {
-    const clonedValues = { ...values };
-    clonedValues.slug = slugify(values.slug || values.title);
-    handleUploadImage(clonedValues.image);
+  const watchHot = watch("hot");
+  const watchBanner = watch("banner");
+
+  const {
+    image,
+    progress,
+    handleSelectImage,
+    handleDeleteImage,
+    setImage,
+    setProgress,
+  } = useFirebaseImage(setValue, getValues);
+
+  const [loading, setLoading] = useState(false);
+
+  const handleAddNewPost = async (values) => {
+    setLoading(true);
+    try {
+      const cloneValues = { ...values };
+      cloneValues.slug = slugify(values.slug || values.title, { lower: true });
+      const colRef = collection(db, "posts");
+      await addDoc(colRef, {
+        ...cloneValues,
+        image,
+        createAt: serverTimestamp(),
+      });
+      toast.success("Tạo bài viết thành công!");
+      reset({
+        title: "",
+        slug: "",
+        categoryId: "",
+        hot: false,
+        banner: false,
+      });
+      await setImage("");
+      await setProgress(0);
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const { image, progress, handleSelectImage, handleDeleteImage } =
-    useFirebaseImage(setValue, getValues);
+  useEffect(() => {
+    async function getData() {
+      const colRef = collection(db, "categories");
+      const q = query(colRef);
+      const querySnapshot = await getDocs(q);
+      let result = [];
+      querySnapshot.forEach((doc) => {
+        result.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setCategories(result);
+    }
+    getData();
+  }, []);
+
+  const handleCategoryInputChange = (newValue) => {
+    return setValue("categoryId", newValue.id, true);
+  };
 
   return (
     <AdminAddNewPostFormStyles className="container-admin">
-      <form onSubmit={handleSubmit(handleAddNewPost)}>
+      <form onSubmit={handleSubmit(handleAddNewPost)} autoComplete="off">
         <div className="input-item-wrap">
-          <AppField className="infput-item">
+          <AppField className="input-item feature-field">
+            <AppLabel className="label" htmlFor="feature_post">
+              Nổi bật
+            </AppLabel>
+            <AppToggle
+              on={watchHot === true}
+              onClick={() => setValue("hot", !watchHot)}
+            ></AppToggle>
+          </AppField>
+          <AppField className="input-item feature-field">
+            <AppLabel className="label" htmlFor="feature_post">
+              Thêm vào Banner
+            </AppLabel>
+            <AppToggle
+              on={watchBanner === true}
+              onClick={() => setValue("banner", !watchBanner)}
+            ></AppToggle>
+          </AppField>
+        </div>
+        <div className="input-item-wrap">
+          <AppField className="input-item">
             <AppLabel className="label" htmlFor="title">
               Tiêu đề bài viết
             </AppLabel>
@@ -85,7 +165,7 @@ const AdminAddNewPostForm = () => {
               required
             ></AppInput>
           </AppField>
-          <AppField className="infput-item">
+          <AppField className="input-item">
             <AppLabel className="label" htmlFor="slug">
               Đường dẫn bài viết
             </AppLabel>
@@ -97,7 +177,7 @@ const AdminAddNewPostForm = () => {
           </AppField>
         </div>
         <div className="input-item-wrap">
-          <AppField className="infput-item">
+          <AppField className="input-item">
             <AppLabel className="label" htmlFor="image_post">
               Hình ảnh
             </AppLabel>
@@ -109,19 +189,24 @@ const AdminAddNewPostForm = () => {
               image={image}
             ></ImageUpload>
           </AppField>
-          <AppField className="infput-item">
+          <AppField className="input-item">
             <AppLabel className="label" htmlFor="image_post">
               Danh mục
             </AppLabel>
             <AppSelect
-              control={control}
               name="category"
-              options={options}
+              options={categories}
               placeholder="Danh mục bài viết"
+              onChange={handleCategoryInputChange}
             ></AppSelect>
           </AppField>
         </div>
-        <AppButtonAdmin className="add-btn" type="submit">
+        <AppButtonAdmin
+          className="add-btn"
+          type="submit"
+          isLoading={loading}
+          disabled={loading}
+        >
           Đăng bài
         </AppButtonAdmin>
       </form>

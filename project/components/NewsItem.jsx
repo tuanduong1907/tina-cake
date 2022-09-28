@@ -1,10 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
+import { collection, onSnapshot, query } from "firebase/firestore";
 import Link from "next/link";
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-import { text16, text18, text20 } from "../../shared/utils/mixin-styled";
+import {
+  text14,
+  text16,
+  text18,
+  text20,
+} from "../../shared/utils/mixin-styled";
 import AppButton from "../controls/app-button/AppButton";
-import SvgRightIcon from "../icons/RightIcon";
+import { db } from "../firebase/firebase-config";
 
 const NewsItemStyles = styled.div`
   padding: 16px;
@@ -13,6 +19,18 @@ const NewsItemStyles = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
+  .tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 4px;
+    background-color: ${(props) => props.theme.primaryColor};
+    z-index: 2;
+    ${text14}
+    font-weight: 500;
+    color: #fff;
+  }
   &:hover {
     .news-image {
       img {
@@ -53,6 +71,10 @@ const NewsItemStyles = styled.div`
       color: ${(props) => props.theme.primaryColor};
       text-decoration: underline;
     }
+  }
+
+  .date {
+    ${text14}
   }
   .news-text {
     ${text18}
@@ -142,31 +164,56 @@ const NewsItem = ({
   classNameImage,
   image,
   content,
-  link,
+  slug,
   title,
+  category,
+  date,
   ...props
 }) => {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const colRefCategories = collection(db, "categories");
+    const queries = query(colRefCategories);
+    onSnapshot(queries, (snapshot) => {
+      let result = [];
+      snapshot.forEach((doc) => {
+        result.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setCategories(result);
+    });
+  }, []);
   return (
     <NewsItemStyles {...props}>
-      <Link href={link}>
+      <div className="tag">
+        {categories?.map((categoryItem) => (
+          <Fragment key={categoryItem.id}>
+            {categoryItem.id == category && categoryItem.value}
+          </Fragment>
+        ))}
+      </div>
+      <Link href={`/${slug}`}>
         <a className="news-image-link">
           <div className={`news-image ${classNameImage}`}>
-            <img src={image} alt="" />
+            <img src={image} alt={title} />
           </div>
         </a>
       </Link>
       <div className="news-body">
+        <div className="date">{date}</div>
         <div className="new-content">
-          <Link href={`/${link}`}>
+          <Link href={`/${slug}`}>
             <a>
               <h4 className="news-title">{title}</h4>
             </a>
           </Link>
-          <p className="news-text">{content}</p>
+          <p className="news-text">{title}</p>
         </div>
         <div>
           <AppButton className="news-btn">
-            <Link href={`/${link}`}>
+            <Link href={`/${slug}`}>
               <a className="news-detail-link">
                 Chi tiết{" "}
                 <svg

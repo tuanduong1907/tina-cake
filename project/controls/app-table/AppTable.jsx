@@ -11,8 +11,8 @@ const AppTableStyles = styled.div`
     border-collapse: collapse;
   }
   thead {
-    color: #999999;
-    background-color: ${(props) => props.theme.color1};
+    color: #ffff;
+    background-color: ${(props) => props.theme.primaryColor};
   }
   tbody {
     ${text16}

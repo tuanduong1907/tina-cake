@@ -1,8 +1,17 @@
-import React from "react";
+import {
+  collection,
+  doc,
+  getDoc,
+  limit,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import NewsItem from "../../../components/NewsItem";
-import NewsList from "../../../components/NewsList";
 import AppHeaderTitle from "../../../controls/app-header-title/AppHeaderTitle";
+import { db } from "../../../firebase/firebase-config";
 
 const NewsLayoutStyles = styled.section`
   .news-layout {
@@ -17,6 +26,10 @@ const NewsLayoutStyles = styled.section`
   }
   .new-list {
     width: 50%;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+
     .news-item {
       flex-direction: row;
       .news-image {
@@ -70,9 +83,6 @@ const NewsLayoutStyles = styled.section`
     }
     .new-list {
       width: 100%;
-      gap: 20px;
-      display: flex;
-      flex-direction: column;
 
       .news-item {
         gap: 12px;
@@ -93,38 +103,64 @@ const NewsLayoutStyles = styled.section`
   }
 `;
 
-const NewsLayout = ({ title, link, data }) => {
+const NewsLayout = ({ title, data }) => {
+  console.log("data", data);
+  const [postMain, setPostMain] = useState([]);
+  useEffect(() => {
+    const colRef = collection(db, "posts");
+    const q = query(colRef, where("banner", "==", true), limit(1));
+    onSnapshot(q, (snapshot) => {
+      let result = [];
+      snapshot.forEach((doc) => {
+        result.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setPostMain(result);
+    });
+  }, []);
+
+  // const date = new Date( * 1000)
   return (
     <NewsLayoutStyles>
       <div className="container py-layout">
-        <AppHeaderTitle title={title} link={link}></AppHeaderTitle>
+        <AppHeaderTitle
+          title={title}
+          link="/danh-sach-bai-viet"
+        ></AppHeaderTitle>
         <div className="news-layout">
           <div className="news-main">
-            <NewsItem
-              title="Tri ân nhà giáo Việt Nam"
-              link=""
-              image="https://images.unsplash.com/photo-1607478900766-efe13248b125?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
-              content="✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn."
-              className="news-item-main"
-              classNameImage="news-main-image"
-            ></NewsItem>
+            {postMain.map((item) => (
+              <NewsItem
+                key={item.id}
+                title={item.title}
+                slug={item.slug}
+                image={item.image}
+                category={item.categoryId}
+                content="✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn."
+                className="news-item-main"
+                classNameImage="news-main-image"
+              ></NewsItem>
+            ))}
           </div>
           <div className="new-list">
             {data?.length > 0 &&
-              data?.map((item, index) => (
-                <div key={item.id}>
-                  {index < 3 && (
-                    <NewsItem
-                      key={item.id}
-                      className="news-item"
-                      classNameImage="home-new-image"
-                      title={item.title}
-                      link={item.link}
-                      image={item.image}
-                      content={item.content}
-                    ></NewsItem>
-                  )}
-                </div>
+              data?.map((item) => (
+                <Fragment key={item.id}>
+                  <NewsItem
+                    key={item.id}
+                    className="news-item"
+                    classNameImage="home-new-image"
+                    title={item.title}
+                    slug={item.slug}
+                    image={item.image}
+                    category={item.categoryId}
+                    date={`${new Date(
+                      item?.createAt?.seconds * 1000
+                    ).toLocaleDateString("vi-VI")}`}
+                  ></NewsItem>
+                </Fragment>
               ))}
           </div>
         </div>

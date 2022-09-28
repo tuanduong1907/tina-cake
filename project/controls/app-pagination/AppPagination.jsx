@@ -28,12 +28,12 @@ const AppPaginationStyles = styled.div`
       background-color: #fff;
       &:hover {
         color: white;
-        background-color: ${(props) => props.theme.color1};
+        background-color: ${(props) => props.theme.primaryColor};
       }
     }
     &-item.is-current {
       color: white;
-      background-color: ${(props) => props.theme.color1};
+      background-color: ${(props) => props.theme.primaryColor};
     }
     &-icon {
       width: 24px;

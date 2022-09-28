@@ -24,6 +24,11 @@ const HeaderMenuAdminStyles = styled.header`
   justify-content: space-between;
   align-items: center;
   padding-inline: 32px;
+  margin-inline: 8px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  z-index: 20;
   .header-heading {
     ${text24};
     font-weight: 700;
@@ -120,7 +125,11 @@ const HeaderMenuAdmin = ({ heading = "" }) => {
     <HeaderMenuAdminStyles ref={nodeRef}>
       <div className="header-heading">{heading}</div>
       <div className="header-right">
-        <AppButtonAdmin height="40px" className="btn-admin" onClick={() => router.push("/admin/them-bai-viet-moi")}>
+        <AppButtonAdmin
+          height="40px"
+          className="btn-admin"
+          onClick={() => router.push("/admin/them-bai-viet-moi")}
+        >
           Viết bài mới
         </AppButtonAdmin>
 
