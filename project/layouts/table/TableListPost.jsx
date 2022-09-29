@@ -1,18 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from "react";
+import { collection, deleteDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
+import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-import { postListAdminData } from "../../../data/postListAdminData";
-import { text18 } from "../../../shared/utils/mixin-styled";
+import { text14, text18 } from "../../../shared/utils/mixin-styled";
 import AppSearchForm from "../../controls/app-search-form/AppSearchForm";
 import AppTable from "../../controls/app-table/AppTable";
+import { db } from "../../firebase/firebase-config";
 import SvgDeleteIcon from "../../icons/DeleteIcon";
 import SvgEditIcon from "../../icons/EditIcon";
 import SvgEyeIcon from "../../icons/EyeIcon";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 const headerTableData = [
   {
     id: 1,
-    name: "Id",
+    name: "STT",
   },
   {
     id: 2,
@@ -28,6 +31,10 @@ const headerTableData = [
   },
   {
     id: 5,
+    name: "Trạng thái",
+  },
+  {
+    id: 6,
     name: "Thao tác",
   },
 ];
@@ -68,12 +75,97 @@ const TableListPostStyles = styled.div`
       cursor: pointer;
     }
   }
+  .table-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    span {
+      flex-shrink: 0;
+      padding: 4px;
+      border-radius: 4px;
+      font-weight: 600;
+      ${text14};
+      user-select: none;
+    }
+    .hot {
+      background-color: rgb(254 205 211);
+      color: rgb(225 29 72);
+    }
+    .banner {
+      background-color: rgb(219 234 254);
+      color: rgb(37 99 235);
+    }
+  }
+  .table-category-text {
+    white-space: nowrap;
+  }
 `;
 
 const TableListPost = () => {
+  const route = useRouter();
+  const [postList, setPostList] = useState([]);
+  const [category, setCategory] = useState([]);
   const [value, setValue] = useState("");
-  console.log(value);
   const [activeInput, setActiveInput] = useState(false);
+
+  // Fetch posts list
+  useEffect(() => {
+    const colRefPosts = collection(db, "posts");
+    onSnapshot(colRefPosts, (snapshot) => {
+      let resultPosts = [];
+      snapshot.forEach((doc) => {
+        resultPosts.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setPostList(resultPosts);
+    });
+  }, []);
+  // end Fetch posts list
+
+  // fetch Categries
+  useEffect(() => {
+    const colRefCategories = collection(db, "categories");
+    onSnapshot(colRefCategories, (snapshot) => {
+      let resultCategories = [];
+      snapshot.forEach((category) => {
+        resultCategories.push({
+          id: category.id,
+          ...category.data(),
+        });
+      });
+      setCategory(resultCategories);
+    });
+  }, []);
+  // end fetch Categries
+
+  // Handle delete post
+  const handleDeletePost = async (docId) => {
+    const conRefSinglePost = doc(db, "posts", docId);
+    Swal.fire({
+      title: "Bạn muốn xóa bài viết này?",
+      text: "Sau khi xóa bạn sẽ không thể khôi phục lại bài viết!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Có, Tôi đồng ý!",
+      cancelButtonText: "Hủy",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteDoc(conRefSinglePost);
+        Swal.fire("Đã xóa thành công!", "Bài viết đã bị xóa.", "success");
+      }
+    });
+    // console.log("docData", docData.data());
+  };
+  // end Handle delete post
+
+  const handleUpdatePost = async (docId) => {
+    route.push(`/admin/bai-viet/cap-nhat-bai-viet/${docId}`);
+  };
+
   return (
     <TableListPostStyles>
       <AppSearchForm
@@ -92,10 +184,10 @@ const TableListPost = () => {
           </tr>
         </thead>
         <tbody>
-          {postListAdminData.length > 0 &&
-            postListAdminData.map((item) => (
+          {postList?.length > 0 &&
+            postList?.map((item, index) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
+                <td> {index + 1 < 10 ? `0${index + 1}` : `${index + 1}`} </td>
                 <td>
                   <div className="post-item">
                     <img
@@ -104,16 +196,41 @@ const TableListPost = () => {
                       className="post-image"
                     />
                     <div className="post-info-wrap">
-                      <h3 className="post-name">{item.name}</h3>
-                      <time className="post-time">Date: {item.date}</time>
+                      <h3 className="post-name">{item.title}</h3>
+                      <time className="post-time">
+                        Ngày đăng:{" "}
+                        {`${new Date(
+                          item?.createAt?.seconds * 1000
+                        ).toLocaleDateString("vi-VI")}`}{" "}
+                      </time>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <span className="table-text">{item.category}</span>
+                  <span className="table-text">
+                    {category.map((categoryItem) => (
+                      <Fragment key={categoryItem.id}>
+                        {categoryItem.id === item.categoryId ? (
+                          <span className="table-category-text">
+                            {categoryItem.value}
+                          </span>
+                        ) : (
+                          ""
+                        )}
+                      </Fragment>
+                    ))}
+                  </span>
                 </td>
                 <td>
-                  <span className="table-text">{item.author}</span>
+                  <span className="table-text">Na Na</span>
+                </td>
+                <td>
+                  <div className="table-status">
+                    {item.hot === true && <span className="hot">Nổi bật</span>}
+                    {item.banner === true && (
+                      <span className="banner">Banner</span>
+                    )}
+                  </div>
                 </td>
                 <td>
                   <div className="table-option">
@@ -121,10 +238,14 @@ const TableListPost = () => {
                       <SvgEyeIcon></SvgEyeIcon>
                     </span>
                     <span>
-                      <SvgEditIcon></SvgEditIcon>
+                      <SvgEditIcon
+                        onClick={() => handleUpdatePost(item.id)}
+                      ></SvgEditIcon>
                     </span>
                     <span>
-                      <SvgDeleteIcon></SvgDeleteIcon>
+                      <SvgDeleteIcon
+                        onClick={() => handleDeletePost(item.id)}
+                      ></SvgDeleteIcon>
                     </span>
                   </div>
                 </td>

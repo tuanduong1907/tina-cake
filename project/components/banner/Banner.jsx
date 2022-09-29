@@ -19,7 +19,7 @@ const BannerStyles = styled.section`
   width: 100%;
   max-width: 100%;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://images.unsplash.com/photo-1614145121029-83a9f7b68bf4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80");
+    url("https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/banner.jpg?alt=media&token=335100df-4ed3-47d4-a85d-cd5413e1b342");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

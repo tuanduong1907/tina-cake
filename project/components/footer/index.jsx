@@ -9,6 +9,8 @@ import FooterContactList from "../FooterContactList";
 
 // styles
 const FooterStyles = styled.footer`
+  background-color: #ffff;
+  border-top: 1px solid #e5e5e5;
   .footer-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

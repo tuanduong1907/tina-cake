@@ -104,7 +104,6 @@ const NewsLayoutStyles = styled.section`
 `;
 
 const NewsLayout = ({ title, data }) => {
-  console.log("data", data);
   const [postMain, setPostMain] = useState([]);
   useEffect(() => {
     const colRef = collection(db, "posts");
@@ -150,7 +149,7 @@ const NewsLayout = ({ title, data }) => {
           <div className="new-list">
             {data?.length > 0 &&
               data?.map((item) => (
-                <Fragment key={item.id}>
+                <Fragment key={item.id}>  
                   <NewsItem
                     key={item.id}
                     className="news-item"

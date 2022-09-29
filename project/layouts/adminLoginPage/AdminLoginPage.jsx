@@ -138,7 +138,6 @@ const AdminLoginPage = () => {
   const router = useRouter();
   const { userInfo } = useAuth();
   const [togglePassword, setTogglePassword] = useState(false);
-
   const {
     control,
     handleSubmit,
@@ -147,13 +146,13 @@ const AdminLoginPage = () => {
 
   useEffect(() => {
     if (userInfo?.email) router.push("/admin");
-  }, []);
+  }, [userInfo?.email]);
 
   const handleLogin = async (values) => {
     if (!isValid) return;
     await signInWithEmailAndPassword(auth, values.email, values.password);
     toast.success("Đăng nhập thành công!");
-    router.push("/admin/bai-viet");
+    router.push("/admin");
   };
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import { text18, text30 } from "../../shared/utils/mixin-styled";
 
@@ -25,8 +25,8 @@ const NewsDetailRelatedStyles = styled.div`
     display: block;
     transition: linear 0.1s;
     font-weight: 600;
-    display:-webkit-box;
-    -webkit-line-clamp:1;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -34,7 +34,6 @@ const NewsDetailRelatedStyles = styled.div`
     &:hover {
       color: ${(props) => props.theme.primaryColor};
     }
-
   }
 
   /* Responsive */
@@ -51,9 +50,9 @@ const NewsDetailRelated = ({ data, ...props }) => {
       <ul className="news-related-list">
         {data.length > 0 &&
           data.map((item, index) => (
-            <>
+            <Fragment key={item.id}>
               {index < 5 && (
-                <li key={item.id} className={`news-related-item`}>
+                <li className={`news-related-item`}>
                   <Link href={item.link}>
                     <a
                       className={`news-related-link  ${
@@ -65,7 +64,7 @@ const NewsDetailRelated = ({ data, ...props }) => {
                   </Link>
                 </li>
               )}
-            </>
+            </Fragment>
           ))}
       </ul>
     </NewsDetailRelatedStyles>

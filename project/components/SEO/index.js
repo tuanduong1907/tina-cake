@@ -2,7 +2,7 @@ import Head from 'next/head';
 const HeadSeo = (props) => {
     return (
         <Head>
-            <title>{props.title}</title>
+            <title>{props.title || 'Trang chủ | Tina Cake'}</title>
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"></meta>
             <meta charSet="UTF-8"></meta>
             <meta property="og:locale" content="vi_VN"></meta>
@@ -26,7 +26,7 @@ const HeadSeo = (props) => {
             <meta property="static-url" content=""></meta>
             <meta property="hotline" content="0378183049"></meta>
             <meta name="author" content="thegioipet.vn"></meta>
-            <link rel="shortcut icon" href={`%PUBLIC_URL%/static/logo-main.png`} />
+            <link rel="shortcut icon" href={`https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=media&token=93c15490-efec-4d4d-9574-0f0cf008d76a`} />
             <link rel="apple-touch-icon" href='/logo-main.png' />
         </Head>
     )

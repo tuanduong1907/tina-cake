@@ -1,11 +1,11 @@
 import React from "react";
 
-import AdminHomePage from "../../project/layouts/admin/adminHomePage/AdminHomePage";
+import AdminPostPage from "../../project/layouts/admin/adminPostPage/AdminPostPage";
 
 const Index = () => {
   return (
     <div>
-      <AdminHomePage />
+      <AdminPostPage />
     </div>
   );
 };

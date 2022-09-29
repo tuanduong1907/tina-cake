@@ -8,6 +8,10 @@
 @import "./mixin";
 // end variable
 
+// content
+@import "./content";
+// end content
+
 @layer reset {
   html {
     font-family: "Inter", sans-serif;
