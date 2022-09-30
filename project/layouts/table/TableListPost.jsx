@@ -1,5 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { collection, deleteDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  onSnapshot,
+} from "firebase/firestore";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import { text14, text18 } from "../../../shared/utils/mixin-styled";
@@ -237,15 +243,11 @@ const TableListPost = () => {
                     <span>
                       <SvgEyeIcon></SvgEyeIcon>
                     </span>
-                    <span>
-                      <SvgEditIcon
-                        onClick={() => handleUpdatePost(item.id)}
-                      ></SvgEditIcon>
+                    <span onClick={() => handleUpdatePost(item.id)}>
+                      <SvgEditIcon></SvgEditIcon>
                     </span>
-                    <span>
-                      <SvgDeleteIcon
-                        onClick={() => handleDeletePost(item.id)}
-                      ></SvgDeleteIcon>
+                    <span onClick={() => handleDeletePost(item.id)}>
+                      <SvgDeleteIcon></SvgDeleteIcon>
                     </span>
                   </div>
                 </td>

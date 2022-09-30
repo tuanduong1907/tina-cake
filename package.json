@@ -7,6 +7,12 @@
     "lint": "next lint",
     "svg": "svgr -d project/icons project/icons/svgs"
   },
+  "keywords": [
+    "quill",
+    "quilljs",
+    "image",
+    "upload"
+  ],
   "dependencies": {
     "@hookform/resolvers": "^2.9.8",
     "@svgr/cli": "^6.2.1",
@@ -19,6 +25,7 @@
     "next": "12.1.4",
     "node-sass": "^7.0.1",
     "query-string": "^7.1.1",
+    "quill-image-uploader": "^1.2.3",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-hook-form": "^7.35.0",

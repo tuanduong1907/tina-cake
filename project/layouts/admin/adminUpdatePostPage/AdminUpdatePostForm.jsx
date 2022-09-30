@@ -7,6 +7,7 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
+import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -20,10 +21,9 @@ import AppLabel from "../../../controls/app-label/AppLabel";
 import AppSelect from "../../../controls/app-select/AppSelect";
 import AppToggle from "../../../controls/app-toggle/AppToggle";
 import { db } from "../../../firebase/firebase-config";
-import "react-quill/dist/quill.snow.css";
-import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
 import slugify from "slugify";
+import "react-quill/dist/quill.snow.css";
 const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 
 const AdminUpdatePostFormStyles = styled.div`
@@ -130,7 +130,6 @@ const AdminUpdatePostForm = ({ postId }) => {
     }
     fetchData();
   }, [postId, reset]);
-  if (!postId) return null;
 
   //   Handle Update Post
   const handleUpdatePost = async (values) => {
@@ -138,14 +137,31 @@ const AdminUpdatePostForm = ({ postId }) => {
     cloneValues.slug = slugify(values.slug || values.title, { lower: true });
     const docRef = doc(db, "posts", postId);
     await updateDoc(docRef, {
-      content,
       ...cloneValues,
+      content,
       image,
       createAt: serverTimestamp(),
     });
     toast.success("Cập nhật thành công");
   };
   //   end Handle Update Post
+
+  const modules = {
+    toolbar: {
+      container: [
+        ["bold", "italic", "underline", "strike"],
+        ["blockquote"],
+        [{ header: 1 }, { header: 2 }, { font: [] }], // custom button values
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["link", "image", "video"],
+        ["clean"],
+      ],
+    },
+  };
+
+  if (!postId) return null;
+
   return (
     <AdminUpdatePostFormStyles className="container-admin">
       <form onSubmit={handleSubmit(handleUpdatePost)}>
@@ -225,6 +241,7 @@ const AdminUpdatePostForm = ({ postId }) => {
             <div className="entry-content">
               <ReactQuill
                 theme="snow"
+                modules={modules}
                 value={content}
                 onChange={setContent}
                 placeholder="Viết nội dung"
