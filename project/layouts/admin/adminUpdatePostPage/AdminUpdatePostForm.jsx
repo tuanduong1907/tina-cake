@@ -125,6 +125,7 @@ const AdminUpdatePostForm = ({ postId }) => {
       const docSnapshot = await getDoc(docRef);
       if (docSnapshot.data()) {
         reset(docSnapshot.data());
+        setContent(docSnapshot.data()?.content);
       }
       console.log("docSnapshot", docSnapshot.data());
     }
