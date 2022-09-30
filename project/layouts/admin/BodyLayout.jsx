@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const BodyLayoutStyles = styled.div`
     flex: 1;
+    overflow-x: hidden;
 `
 
 const BodyLayout = ({ heading = "", children }) => {

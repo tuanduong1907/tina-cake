@@ -21,6 +21,9 @@ import useFirebaseImage from "../../../../shared/hooks/useFirebaseImage";
 import AppToggle from "../../../controls/app-toggle/AppToggle";
 import { db } from "../../../firebase/firebase-config";
 import toast from "react-hot-toast";
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(import("react-quill"), { ssr: false });
 
 const AdminAddNewPostFormStyles = styled.div`
   background-color: #fff;
@@ -34,6 +37,12 @@ const AdminAddNewPostFormStyles = styled.div`
     display: flex;
     gap: 40px;
     margin-bottom: 40px;
+    &-2 {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 40px;
+    }
   }
   .input-item {
     flex: 1;
@@ -51,9 +60,32 @@ const AdminAddNewPostFormStyles = styled.div`
     gap: 20px;
     margin-bottom: 16px;
   }
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    & {
+      margin-inline: 0;
+      margin-top: 72px;
+      padding-top: 32px;
+      padding-bottom: 100px;
+    }
+    .input-item-wrap {
+      flex-direction: column;
+    }
+    .add-btn {
+      margin-top: 32px;
+    }
+    .input-item-wrap-2 {
+      gap: 20px;
+    }
+    .input-item-wrap {
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+  }
 `;
 
 const AdminAddNewPostForm = () => {
+  const [content, setContent] = useState("");
   const [categories, setCategories] = useState([]);
   const { control, watch, setValue, handleSubmit, getValues, reset, isValid } =
     useForm({
@@ -81,6 +113,27 @@ const AdminAddNewPostForm = () => {
 
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    async function getData() {
+      const colRef = collection(db, "categories");
+      const q = query(colRef);
+      const querySnapshot = await getDocs(q);
+      let result = [];
+      querySnapshot.forEach((doc) => {
+        result.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setCategories(result);
+    }
+    getData();
+  }, []);
+
+  const handleCategoryInputChange = (newValue) => {
+    return setValue("categoryId", newValue.id, true);
+  };
+
   const handleAddNewPost = async (values) => {
     setLoading(true);
     try {
@@ -89,6 +142,7 @@ const AdminAddNewPostForm = () => {
       const colRef = collection(db, "posts");
       await addDoc(colRef, {
         ...cloneValues,
+        content,
         image,
         createAt: serverTimestamp(),
       });
@@ -109,25 +163,18 @@ const AdminAddNewPostForm = () => {
     }
   };
 
-  useEffect(() => {
-    async function getData() {
-      const colRef = collection(db, "categories");
-      const q = query(colRef);
-      const querySnapshot = await getDocs(q);
-      let result = [];
-      querySnapshot.forEach((doc) => {
-        result.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setCategories(result);
-    }
-    getData();
-  }, []);
-
-  const handleCategoryInputChange = (newValue) => {
-    return setValue("categoryId", newValue.id, true);
+  const modules = {
+    toolbar: {
+      container: [
+        ["bold", "italic", "underline", "strike"],
+        ["blockquote"],
+        [{ header: 1 }, { header: 2 }, { font: [] }], // custom button values
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["link", "image", "video"],
+        ["clean"],
+      ],
+    },
   };
 
   return (
@@ -166,13 +213,14 @@ const AdminAddNewPostForm = () => {
             ></AppInput>
           </AppField>
           <AppField className="input-item">
-            <AppLabel className="label" htmlFor="slug">
-              Đường dẫn bài viết
+            <AppLabel className="label" htmlFor="desc">
+              Mô tả
             </AppLabel>
             <AppInput
               control={control}
-              placeholder="Nhập đường dẫn bài viết"
-              name="slug"
+              placeholder="Nhập mô tả bài viết"
+              name="desc"
+              required
             ></AppInput>
           </AppField>
         </div>
@@ -189,16 +237,44 @@ const AdminAddNewPostForm = () => {
               image={image}
             ></ImageUpload>
           </AppField>
-          <AppField className="input-item">
-            <AppLabel className="label" htmlFor="image_post">
-              Danh mục
+          <div className="input-item-wrap-2">
+            <AppField>
+              <AppLabel className="label" htmlFor="slug">
+                Đường dẫn bài viết
+              </AppLabel>
+              <AppInput
+                control={control}
+                placeholder="Nhập đường dẫn bài viết"
+                name="slug"
+              ></AppInput>
+            </AppField>
+            <AppField>
+              <AppLabel className="label" htmlFor="image_post">
+                Danh mục
+              </AppLabel>
+              <AppSelect
+                name="category"
+                options={categories}
+                placeholder="Danh mục bài viết"
+                onChange={handleCategoryInputChange}
+              ></AppSelect>
+            </AppField>
+          </div>
+        </div>
+        <div className="content-post">
+          <AppField>
+            <AppLabel className="label" htmlFor="content_post">
+              Nội dung
             </AppLabel>
-            <AppSelect
-              name="category"
-              options={categories}
-              placeholder="Danh mục bài viết"
-              onChange={handleCategoryInputChange}
-            ></AppSelect>
+            <div className="entry-content">
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                value={content}
+                onChange={setContent}
+                placeholder="Viết nội dung"
+              />
+            </div>
           </AppField>
         </div>
         <AppButtonAdmin

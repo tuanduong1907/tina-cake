@@ -68,6 +68,12 @@ const AdminNavigationStyles = styled.div`
       }
     }
   }
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    &{
+      display: none;
+    }
+  }
 `;
 
 const AdminNavigation = () => {

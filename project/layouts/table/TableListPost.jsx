@@ -17,6 +17,7 @@ import SvgEditIcon from "../../icons/EditIcon";
 import SvgEyeIcon from "../../icons/EyeIcon";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const headerTableData = [
   {
@@ -104,6 +105,12 @@ const TableListPostStyles = styled.div`
   }
   .table-category-text {
     white-space: nowrap;
+  }
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    .post-item {
+      min-width: 800px;
+    }
   }
 `;
 
@@ -241,7 +248,11 @@ const TableListPost = () => {
                 <td>
                   <div className="table-option">
                     <span>
-                      <SvgEyeIcon></SvgEyeIcon>
+                      <Link href={`/${item.slug}`}>
+                        <a target="_blank">
+                          <SvgEyeIcon></SvgEyeIcon>
+                        </a>
+                      </Link>
                     </span>
                     <span onClick={() => handleUpdatePost(item.id)}>
                       <SvgEditIcon></SvgEditIcon>

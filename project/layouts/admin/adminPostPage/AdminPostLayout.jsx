@@ -7,6 +7,12 @@ const AdminPostLayoutStyles = styled.section`
   .pagination {
     margin-top: 16px;
   }
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    &{
+      margin-inline: 0;
+    }
+  }
 `;
 
 const AdminPostLayout = () => {

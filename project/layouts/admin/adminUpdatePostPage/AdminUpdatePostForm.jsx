@@ -38,6 +38,12 @@ const AdminUpdatePostFormStyles = styled.div`
     display: flex;
     gap: 40px;
     margin-bottom: 40px;
+    &-2 {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 40px;
+    }
   }
   .input-item {
     flex: 1;
@@ -57,6 +63,28 @@ const AdminUpdatePostFormStyles = styled.div`
   }
   .content-post {
     margin-bottom: 40px;
+  }
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    & {
+      margin-inline: 0;
+      margin-top: 72px;
+      padding-top: 32px;
+      padding-bottom: 100px;
+    }
+    .input-item-wrap {
+      flex-direction: column;
+    }
+    .add-btn {
+      margin-top: 32px;
+    }
+    .input-item-wrap-2 {
+      gap: 20px;
+    }
+    .input-item-wrap {
+      margin-bottom: 20px;
+      gap: 20px;
+    }
   }
 `;
 
@@ -198,13 +226,14 @@ const AdminUpdatePostForm = ({ postId }) => {
             ></AppInput>
           </AppField>
           <AppField className="input-item">
-            <AppLabel className="label" htmlFor="slug">
-              Đường dẫn bài viết
+            <AppLabel className="label" htmlFor="desc">
+              Mô tả
             </AppLabel>
             <AppInput
               control={control}
-              placeholder="Nhập đường dẫn bài viết"
-              name="slug"
+              placeholder="Nhập mô tả bài viết"
+              name="desc"
+              required
             ></AppInput>
           </AppField>
         </div>
@@ -221,17 +250,29 @@ const AdminUpdatePostForm = ({ postId }) => {
               image={image}
             ></ImageUpload>
           </AppField>
-          <AppField className="input-item">
-            <AppLabel className="label" htmlFor="image_post">
-              Danh mục
-            </AppLabel>
-            <AppSelect
-              name="category"
-              options={categories}
-              placeholder="Danh mục bài viết"
-              onChange={handleCategoryInputChange}
-            ></AppSelect>
-          </AppField>
+          <div className="input-item-wrap-2">
+            <AppField>
+              <AppLabel className="label" htmlFor="slug">
+                Đường dẫn bài viết
+              </AppLabel>
+              <AppInput
+                control={control}
+                placeholder="Nhập đường dẫn bài viết"
+                name="slug"
+              ></AppInput>
+            </AppField>
+            <AppField>
+              <AppLabel className="label" htmlFor="image_post">
+                Danh mục
+              </AppLabel>
+              <AppSelect
+                name="category"
+                options={categories}
+                placeholder="Danh mục bài viết"
+                onChange={handleCategoryInputChange}
+              ></AppSelect>
+            </AppField>
+          </div>
         </div>
         <div className="content-post">
           <AppField>

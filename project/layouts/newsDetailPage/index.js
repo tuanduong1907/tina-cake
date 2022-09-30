@@ -6,12 +6,7 @@ import NewsDetailRelated from "../../components/NewsDetailRelated";
 import { newsListData } from "../../../data/newsListData";
 import { db } from "../../firebase/firebase-config";
 import parse from "html-react-parser";
-import {
-  collection,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { text34 } from "../../../shared/utils/mixin-styled";
 
 const NewsDetailPageStyles = styled.section`
@@ -73,7 +68,7 @@ const NewsDetailPage = ({ slug }) => {
   if (!postInfo.title) return <>Not Found</>;
   return (
     <>
-      <HeadSeo />
+      <HeadSeo title={postInfo.title || "Không tìm thấy bài viết | Tina Cake"} />
       <NewsDetailPageStyles className="container py-layout">
         <div className="news-detail-content entry-content">
           <img

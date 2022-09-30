@@ -1,7 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { text14, text16, text24 } from "../../../shared/utils/mixin-styled";
+import {
+  text14,
+  text16,
+  text18,
+  text24,
+} from "../../../shared/utils/mixin-styled";
 import SvgMoreIcon from "../../icons/MoreIcon";
 import { BiLogInCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
@@ -105,6 +110,38 @@ const HeaderMenuAdminStyles = styled.header`
     font-style: italic;
     margin-bottom: 8px;
   }
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    & {
+      left: 0;
+      padding-inline: 20px;
+      margin-inline: 0;
+      border-radius: 4px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    .btn-admin-wrap {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 16px 32px;
+      background-color: #fff;
+      border-top: 1px solid #e6e8ec;
+      z-index: 3;
+    }
+    .btn-admin {
+      width: 100%;
+      height: 48px;
+    }
+    .header-info {
+      display: none;
+    }
+    .header-heading {
+      ${text18}
+    }
+  }
+
 `;
 
 const HeaderMenuAdmin = ({ heading = "" }) => {
@@ -125,13 +162,15 @@ const HeaderMenuAdmin = ({ heading = "" }) => {
     <HeaderMenuAdminStyles ref={nodeRef}>
       <div className="header-heading">{heading}</div>
       <div className="header-right">
-        <AppButtonAdmin
-          height="40px"
-          className="btn-admin"
-          onClick={() => router.push("/admin/them-bai-viet-moi")}
-        >
-          Viết bài mới
-        </AppButtonAdmin>
+        <div className="btn-admin-wrap">
+          <AppButtonAdmin
+            height="40px"
+            className="btn-admin"
+            onClick={() => router.push("/admin/them-bai-viet-moi")}
+          >
+            Viết bài mới
+          </AppButtonAdmin>
+        </div>
 
         <div className="header-info-wrap">
           <div className="header-logo">
