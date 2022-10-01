@@ -104,8 +104,8 @@ const BannerStyles = styled.section`
   .banner-image {
     border-radius: 16px;
     overflow: hidden;
-    width: 416px;
-    height: 496px;
+    width: 700px;
+    height: 600px;
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     &:hover {
