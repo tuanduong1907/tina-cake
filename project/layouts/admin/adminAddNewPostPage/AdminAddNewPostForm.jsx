@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { text20 } from "../../../../shared/utils/mixin-styled";
@@ -24,6 +24,17 @@ import toast from "react-hot-toast";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(import("react-quill"), { ssr: false });
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    title: yup.string().required("Vui lòng nhập tiêu đề bài viết !!!"),
+    categoryId: yup.string().required("Vui lòng chọn danh mục bài viết !!!"),
+    title: yup.string().required("Vui lòng nhập tiêu đề bài viết !!!"),
+    image_name: yup.string().required("Vui lòng chọn hình ảnh"),
+  })
+  .required();
 
 const AdminAddNewPostFormStyles = styled.div`
   background-color: #fff;
@@ -53,6 +64,7 @@ const AdminAddNewPostFormStyles = styled.div`
     min-width: 200px;
     display: flex;
     margin-inline: auto;
+    margin-top: 32px;
   }
   .feature-field {
     flex-direction: row;
@@ -71,9 +83,6 @@ const AdminAddNewPostFormStyles = styled.div`
     .input-item-wrap {
       flex-direction: column;
     }
-    .add-btn {
-      margin-top: 32px;
-    }
     .input-item-wrap-2 {
       gap: 20px;
     }
@@ -86,18 +95,28 @@ const AdminAddNewPostFormStyles = styled.div`
 
 const AdminAddNewPostForm = () => {
   const [content, setContent] = useState("");
+  const contentRef = useRef();
+  const [activeContentToolbar, setActiveContentToolbar] = useState(false);
   const [categories, setCategories] = useState([]);
-  const { control, watch, setValue, handleSubmit, getValues, reset, isValid } =
-    useForm({
-      mode: "onChange",
-      defaultValues: {
-        title: "",
-        slug: "",
-        categoryId: "",
-        hot: false,
-        banner: false,
-      },
-    });
+  const {
+    control,
+    watch,
+    setValue,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { errors, isValid, isSubmitting },
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      title: "",
+      slug: "",
+      categoryId: "",
+      hot: false,
+      banner: false,
+    },
+    resolver: yupResolver(schema),
+  });
 
   const watchHot = watch("hot");
   const watchBanner = watch("banner");
@@ -134,7 +153,37 @@ const AdminAddNewPostForm = () => {
     return setValue("categoryId", newValue.id, true);
   };
 
+  const modules = {
+    toolbar: {
+      container: [
+        ["bold", "italic", "underline", "strike"],
+        ["blockquote"],
+        [{ header: 1 }, { header: 2 }, { font: [] }], // custom button values
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["link"],
+        ["clean"],
+      ],
+    },
+  };
+
+  useEffect(() => {
+    const handleScrollContent = () => {
+      if (contentRef.current) {
+        const elDistanceToTop =
+          window.pageYOffset + contentRef.current.getBoundingClientRect().top;
+        if (window.scrollY >= elDistanceToTop) {
+          setActiveContentToolbar(true);
+        } else {
+          setActiveContentToolbar(false);
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScrollContent);
+  }, []);
+
   const handleAddNewPost = async (values) => {
+    console.log("values", values);
     setLoading(true);
     try {
       const cloneValues = { ...values };
@@ -163,19 +212,12 @@ const AdminAddNewPostForm = () => {
     }
   };
 
-  const modules = {
-    toolbar: {
-      container: [
-        ["bold", "italic", "underline", "strike"],
-        ["blockquote"],
-        [{ header: 1 }, { header: 2 }, { font: [] }], // custom button values
-        [{ list: "ordered" }, { list: "bullet" }],
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ["link", "image", "video"],
-        ["clean"],
-      ],
-    },
-  };
+  useEffect(() => {
+    const arrErrors = Object.values(errors);
+    if (arrErrors.length > 0) {
+      toast.error(arrErrors[0]?.message);
+    }
+  }, [errors]);
 
   return (
     <AdminAddNewPostFormStyles className="container-admin">
@@ -203,13 +245,14 @@ const AdminAddNewPostForm = () => {
         <div className="input-item-wrap">
           <AppField className="input-item">
             <AppLabel className="label" htmlFor="title">
-              Tiêu đề bài viết
+              Tiêu đề bài viết{" "}
+              <span style={{ color: "rgb(244 63 94)" }}>*</span>
             </AppLabel>
             <AppInput
               control={control}
               placeholder="Nhập tiêu đề bài viết"
               name="title"
-              required
+              className={errors.title ? "error-input" : ""}
             ></AppInput>
           </AppField>
           <AppField className="input-item">
@@ -220,20 +263,19 @@ const AdminAddNewPostForm = () => {
               control={control}
               placeholder="Nhập mô tả bài viết"
               name="desc"
-              required
             ></AppInput>
           </AppField>
         </div>
         <div className="input-item-wrap">
           <AppField className="input-item">
             <AppLabel className="label" htmlFor="image_post">
-              Hình ảnh
+              Hình ảnh <span style={{ color: "rgb(244 63 94)" }}>*</span>
             </AppLabel>
             <ImageUpload
               onChange={handleSelectImage}
               handleDeleteImage={handleDeleteImage}
-              className=""
               progress={progress}
+              className={errors.image_name ? "error-input" : ""}
               image={image}
             ></ImageUpload>
           </AppField>
@@ -250,12 +292,13 @@ const AdminAddNewPostForm = () => {
             </AppField>
             <AppField>
               <AppLabel className="label" htmlFor="image_post">
-                Danh mục
+                Danh mục <span style={{ color: "rgb(244 63 94)" }}>*</span>
               </AppLabel>
               <AppSelect
                 name="category"
                 options={categories}
                 placeholder="Danh mục bài viết"
+                className={errors.categoryId ? "error-input" : ""}
                 onChange={handleCategoryInputChange}
               ></AppSelect>
             </AppField>
@@ -266,7 +309,12 @@ const AdminAddNewPostForm = () => {
             <AppLabel className="label" htmlFor="content_post">
               Nội dung
             </AppLabel>
-            <div className="entry-content">
+            <div
+              className={`entry-content ${
+                activeContentToolbar ? "active" : ""
+              }`}
+              ref={contentRef}
+            >
               <ReactQuill
                 theme="snow"
                 modules={modules}

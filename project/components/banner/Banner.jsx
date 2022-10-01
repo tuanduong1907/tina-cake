@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import {
@@ -13,39 +13,69 @@ import { dataBanner } from "../../../data/bannerData";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
+import {
+  collection,
+  limit,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "../../firebase/firebase-config";
 
 const BannerStyles = styled.section`
   height: 100vh;
   width: 100%;
   max-width: 100%;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/banner.jpg?alt=media&token=335100df-4ed3-47d4-a85d-cd5413e1b342");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
+  background: rgba(82, 189, 148, 0.5);
   .banner-wrap {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100%;
+    margin-inline: 0;
+    padding-inline: 0;
+    max-width: 100%;
   }
   .banner-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 40px;
+    height: 100%;
+    width: 100%;
+    padding-inline: 300px;
+    background-attachment: fixed;
+    position: relative;
+    /* background-size: cover;
+    background-repeat: no-repeat; */
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    backdrop-filter: blur(6px);
   }
   .banner-content {
     width: 600px;
     margin-left: 60px;
+    z-index: 3;
   }
   .banner-title {
     ${text48};
     line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
   }
   .banner-text {
     ${text18}
@@ -110,6 +140,10 @@ const BannerStyles = styled.section`
   }
 
   /* Swiper */
+  .swiper {
+    height: 100%;
+    width: 100%;
+  }
   .swiper-pagination {
     display: flex;
     flex-direction: column;
@@ -117,10 +151,11 @@ const BannerStyles = styled.section`
     height: 100%;
     gap: 60px;
     width: auto;
+    margin-left: 200px;
     &::after {
       content: "";
       display: block;
-      height: 100%;
+      height: 60%;
       background-color: #606060;
       position: absolute;
       left: 10px;
@@ -160,19 +195,18 @@ const BannerStyles = styled.section`
     .banner-image {
       height: 100%;
     }
-
   }
 
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
     & {
       height: auto;
-      padding-block: 72px;
+      padding-block: 0;
       background-attachment: initial;
     }
     .banner-item {
-      margin-top: 40px;
       flex-direction: column;
+      padding: 102px 20px 72px 20px;
     }
     .banner-content {
       width: 100%;
@@ -210,6 +244,23 @@ const Banner = () => {
       return '<span class="' + className + '">' + (index + 1) + "</span>";
     },
   };
+  const [postBanner, setPostBanner] = useState([]);
+  const [imageBanner, setImageBanner] = useState("");
+  console.log("imageBanner", imageBanner);
+  useEffect(() => {
+    const colRef = collection(db, "posts");
+    const queries = query(colRef, where("banner", "==", true), limit(4));
+    onSnapshot(queries, (snapshot) => {
+      let result = [];
+      snapshot.forEach((doc) => {
+        result.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setPostBanner(result);
+    });
+  }, []);
   return (
     <BannerStyles className="BannerStyles">
       <div className="container banner-wrap">
@@ -217,16 +268,30 @@ const Banner = () => {
           pagination={pagination}
           modules={[Pagination]}
           grabCursor={true}
-          spaceBetween={40}
+          spaceBetween={0}
+          autoplay={true}
         >
-          {dataBanner.length > 0 &&
-            dataBanner.map((item) => (
+          {postBanner?.length > 0 &&
+            postBanner?.map((item) => (
               <SwiperSlide key={item.id} style={{}}>
-                <div className="banner-item">
+                <div
+                  className="banner-item"
+                  style={{
+                    background: `linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url(${item.image})`,
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                  }}
+                >
+                  <div className="overlay"></div>
                   <div className="banner-content">
                     <h2 className="banner-title">{item.title}</h2>
-                    <p className="banner-text">{item.content}</p>
-                    <Link href={`${item.link}`}>
+                    <p className="banner-text">{item.desc}</p>
+                    <Link href={`${item.slug}`}>
                       <a
                         style={{
                           display: "inline-flex",
@@ -263,12 +328,9 @@ const Banner = () => {
                     </Link>
                   </div>
                   <div className="banner-image">
-                    <Link href={`/${item.link}`}>
+                    <Link href={`/${item.slug}`}>
                       <a>
-                        <img
-                          src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1888&q=80"
-                          alt="banner"
-                        />
+                        <img src={item.image} alt="banner" />
                         <div className="banner-image-title">
                           Hộp Socola Valentine Tp Nha Trang – Quà Tặng 14/2
                         </div>

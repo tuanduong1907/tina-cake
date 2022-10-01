@@ -146,7 +146,10 @@
     width: 1px;
     white-space: nowrap;
   }
-  
+  .error-input {
+    border: 1px solid red !important;
+    border-radius: 8px;
+  }
 }
 // end base
 
@@ -184,7 +187,7 @@
   .py-layout {
     padding-block: 40px;
   }
-  .container-admin{
+  .container-admin {
     margin-inline: 20px;
   }
 }

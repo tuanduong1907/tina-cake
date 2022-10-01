@@ -12,8 +12,12 @@ import styled from "styled-components";
 import NewsItem from "../../../components/NewsItem";
 import AppHeaderTitle from "../../../controls/app-header-title/AppHeaderTitle";
 import { db } from "../../../firebase/firebase-config";
+import EmtyLayout from "../../emtyLayout/EmtyLayout";
 
 const NewsLayoutStyles = styled.section`
+  .emty-data {
+    width: 100%;
+  }
   .news-layout {
     margin-top: 40px;
     display: flex;
@@ -128,43 +132,55 @@ const NewsLayout = ({ title, data }) => {
           title={title}
           link="/danh-sach-bai-viet"
         ></AppHeaderTitle>
+
         <div className="news-layout">
-          <div className="news-main">
-            {postMain.map((item) => (
-              <NewsItem
-                key={item.id}
-                title={item.title}
-                slug={item.slug}
-                image={item.image}
-                category={item.categoryId}
-                date={`${new Date(
-                  item?.createAt?.seconds * 1000
-                ).toLocaleDateString("vi-VI")}`}
-                content="✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn."
-                className="news-item-main"
-                classNameImage="news-main-image"
-              ></NewsItem>
-            ))}
-          </div>
-          <div className="new-list">
-            {data?.length > 0 &&
-              data?.map((item) => (
-                <Fragment key={item.id}>  
+          {data?.length > 0 ? (
+            <>
+              <div className="news-main">
+                {postMain.map((item) => (
                   <NewsItem
                     key={item.id}
-                    className="news-item"
-                    classNameImage="home-new-image"
                     title={item.title}
                     slug={item.slug}
                     image={item.image}
                     category={item.categoryId}
+                    desc={item.desc}
                     date={`${new Date(
                       item?.createAt?.seconds * 1000
                     ).toLocaleDateString("vi-VI")}`}
+                    content="✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn."
+                    className="news-item-main"
+                    classNameImage="news-main-image"
                   ></NewsItem>
-                </Fragment>
-              ))}
-          </div>
+                ))}
+              </div>
+              <div className="new-list">
+                {data?.length > 0 &&
+                  data?.map((item) => (
+                    <Fragment key={item.id}>
+                      <NewsItem
+                        key={item.id}
+                        className="news-item"
+                        classNameImage="home-new-image"
+                        title={item.title}
+                        slug={item.slug}
+                        image={item.image}
+                        desc={item.desc}
+                        category={item.categoryId}
+                        date={`${new Date(
+                          item?.createAt?.seconds * 1000
+                        ).toLocaleDateString("vi-VI")}`}
+                      ></NewsItem>
+                    </Fragment>
+                  ))}
+              </div>
+            </>
+          ) : (
+            <EmtyLayout
+              text="Không có bài viết nào"
+              className="emty-data"
+            ></EmtyLayout>
+          )}
         </div>
       </div>
     </NewsLayoutStyles>

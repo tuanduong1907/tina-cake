@@ -65,10 +65,12 @@ const NewsDetailPage = ({ slug }) => {
     }
     fetchData();
   }, [slug]);
-  if (!postInfo.title) return <>Not Found</>;
+  if (!slug || !postInfo.title) return <>Not Found</>;
   return (
     <>
-      <HeadSeo title={postInfo.title || "Không tìm thấy bài viết | Tina Cake"} />
+      <HeadSeo
+        title={postInfo.title || "Không tìm thấy bài viết | Tina Cake"}
+      />
       <NewsDetailPageStyles className="container py-layout">
         <div className="news-detail-content entry-content">
           <img

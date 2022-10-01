@@ -89,7 +89,7 @@ const ImageUpload = (props) => {
     ...rest
   } = props;
   return (
-    <ImageUploadStyles className={` ${className} group`}>
+    <ImageUploadStyles className={` ${className} group`} >
       <input
         type="file"
         name={name}

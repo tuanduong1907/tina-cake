@@ -27,11 +27,11 @@ const customStyles = {
   }),
 };
 
-const AppSelect = ({ options, control, name, ...rest }) => {
+const AppSelect = ({ options, control, name, className, ...rest }) => {
   return (
-    <AppSelectStyles>
+    <AppSelectStyles className={className}>
       <Select
-        className="mt-4 col-md-8 col-offset-4"
+        className={`mt-4 col-md-8 col-offset-4`}
         options={options}
         styles={customStyles}
         {...rest}

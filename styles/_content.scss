@@ -50,4 +50,17 @@
       font-size: 20px;
     }
   }
+
+}
+
+.entry-content {
+  &.active {
+    .ql-toolbar {
+      position: fixed;
+      top: 72px;
+      background-color: white;
+      z-index: 10;
+      margin-right: 16px;
+    }
+  }
 }

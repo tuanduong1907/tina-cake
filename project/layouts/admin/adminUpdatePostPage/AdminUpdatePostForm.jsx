@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import useFirebaseImage from "../../../../shared/hooks/useFirebaseImage";
@@ -91,11 +91,19 @@ const AdminUpdatePostFormStyles = styled.div`
 const AdminUpdatePostForm = ({ postId }) => {
   const [content, setContent] = useState("");
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { control, watch, setValue, handleSubmit, getValues, reset, isValid } =
-    useForm({
-      mode: "onChange",
-    });
+  const contentRef = useRef();
+  const [activeContentToolbar, setActiveContentToolbar] = useState(false);
+  const {
+    control,
+    watch,
+    setValue,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { errors, isValid, isSubmitting },
+  } = useForm({
+    mode: "onChange",
+  });
 
   const watchHot = watch("hot");
   const watchBanner = watch("banner");
@@ -182,14 +190,28 @@ const AdminUpdatePostForm = ({ postId }) => {
         [{ header: 1 }, { header: 2 }, { font: [] }], // custom button values
         [{ list: "ordered" }, { list: "bullet" }],
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ["link", "image", "video"],
+        ["link", "video"],
         ["clean"],
       ],
     },
   };
 
-  if (!postId) return null;
+  useEffect(() => {
+    const handleScrollContent = () => {
+      if (contentRef.current) {
+        const elDistanceToTop =
+          window.pageYOffset + contentRef.current.getBoundingClientRect().top;
+        if (window.scrollY >= elDistanceToTop) {
+          setActiveContentToolbar(true);
+        } else {
+          setActiveContentToolbar(false);
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScrollContent);
+  }, [postId]);
 
+  if (!postId) return null;
   return (
     <AdminUpdatePostFormStyles className="container-admin">
       <form onSubmit={handleSubmit(handleUpdatePost)}>
@@ -279,7 +301,12 @@ const AdminUpdatePostForm = ({ postId }) => {
             <AppLabel className="label" htmlFor="content_post">
               Nội dung
             </AppLabel>
-            <div className="entry-content">
+            <div
+              className={`entry-content ${
+                activeContentToolbar ? "active" : ""
+              }`}
+              ref={contentRef}
+            >
               <ReactQuill
                 theme="snow"
                 modules={modules}
@@ -293,8 +320,8 @@ const AdminUpdatePostForm = ({ postId }) => {
         <AppButtonAdmin
           className="add-btn"
           type="submit"
-          isLoading={loading}
-          disabled={loading}
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
         >
           Cập nhật
         </AppButtonAdmin>

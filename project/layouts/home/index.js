@@ -17,7 +17,6 @@ import { db } from "../../firebase/firebase-config";
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
-  console.log("posts", posts);
   useEffect(() => {
     const colRef = collection(db, "posts");
     const queries = query(colRef, where("hot", "==", true), limit(3));
@@ -32,16 +31,17 @@ export default function HomePage() {
       setPosts(result);
     });
   }, []);
-  
+
   return (
     <>
-      <HeadSeo title="Trang chủ | Tina Cake"/>
+      <HeadSeo title="Trang chủ | Tina Cake" />
       <Banner></Banner>
-      <ProductLayout
-        link="/banh-kem-ngon"
-        title="Bánh kem ngon ở Nha Trang"
-        data={productData}
-      ></ProductLayout>
+      <NewsLayout
+        title="Tin tức nổi bật"
+        link="danh-sach-bai-viet"
+        data={posts}
+      ></NewsLayout>
+
       <ProductLayout
         link="/banh-kem-hot-trend"
         title="Bánh hottrend 2022"
@@ -49,7 +49,7 @@ export default function HomePage() {
         background
       ></ProductLayout>
       <NewsLayout
-        title="Tin tức & Sự kiện"
+        title="Tin tức mỗi ngày"
         link="danh-sach-bai-viet"
         data={posts}
       ></NewsLayout>

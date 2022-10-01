@@ -9,13 +9,13 @@ const EmtyLayoutStyles = styled.div`
   justify-content: center;
   user-select: none;
   span {
-    color: #989FB0;
+    color: #989fb0;
   }
 `;
 
-const EmtyLayout = ({ text = "" }) => {
+const EmtyLayout = ({ text = "", ...props }) => {
   return (
-    <EmtyLayoutStyles>
+    <EmtyLayoutStyles {...props}>
       <SvgNotFound></SvgNotFound>
       <span>{text}</span>
     </EmtyLayoutStyles>

@@ -61,7 +61,7 @@ const NewsItemStyles = styled.div`
   .news-title {
     ${text20}
     display:-webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -168,6 +168,7 @@ const NewsItem = ({
   title,
   category,
   date,
+  desc,
   ...props
 }) => {
   const [categories, setCategories] = useState([]);
@@ -209,7 +210,7 @@ const NewsItem = ({
               <h4 className="news-title">{title}</h4>
             </a>
           </Link>
-          <p className="news-text">{title}</p>
+          <p className="news-text">{desc}</p>
         </div>
         <div>
           <AppButton className="news-btn">
