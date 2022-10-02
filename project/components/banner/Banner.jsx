@@ -60,7 +60,7 @@ const BannerStyles = styled.section`
     right: 0;
     bottom: 0;
     left: 0;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(10px);
   }
   .banner-content {
     width: 600px;
@@ -104,8 +104,8 @@ const BannerStyles = styled.section`
   .banner-image {
     border-radius: 16px;
     overflow: hidden;
-    width: 700px;
-    height: 600px;
+    width: 416px;
+    height: 496px;
     position: relative;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     &:hover {
@@ -129,14 +129,23 @@ const BannerStyles = styled.section`
     left: 0;
     width: 100%;
     z-index: 1;
-    padding: 16px;
     ${text16}
+    line-height: 28px;
+    height: 56px;
+    padding-inline: 16px;
+    overflow: hidden;
     font-weight: 600;
     background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(16px);
     display: flex;
     align-items: center;
     transition: all 0.25s linear;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
   }
 
   /* Swiper */
@@ -331,9 +340,7 @@ const Banner = () => {
                     <Link href={`/${item.slug}`}>
                       <a>
                         <img src={item.image} alt="banner" />
-                        <div className="banner-image-title">
-                          Hộp Socola Valentine Tp Nha Trang – Quà Tặng 14/2
-                        </div>
+                        <div className="banner-image-title">{item.title}</div>
                       </a>
                     </Link>
                   </div>
