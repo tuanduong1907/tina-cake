@@ -60,7 +60,7 @@ const BannerStyles = styled.section`
     right: 0;
     bottom: 0;
     left: 0;
-    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.3);
   }
   .banner-content {
     width: 600px;
@@ -201,26 +201,26 @@ const BannerStyles = styled.section`
 
   /* Tablet: width >= 740px and width < 1024px */
   @media only screen and (min-width: 740px) and (max-width: 1023px) {
-    &{
+    & {
       height: 65vh;
     }
     .banner-image {
       height: 40%;
       width: 600px;
     }
-    .banner-content{
+    .banner-content {
       margin-left: 40px;
     }
-    .banner-title{
+    .banner-title {
       ${text36}
     }
-    .banner-text{
+    .banner-text {
       ${text16}
     }
-    .banner-item{
+    .banner-item {
       padding-inline: 20px;
     }
-    .swiper-pagination{
+    .swiper-pagination {
       margin-left: 20px;
     }
   }
@@ -301,21 +301,21 @@ const Banner = () => {
         >
           {postBanner?.length > 0 &&
             postBanner?.map((item) => (
-              <SwiperSlide key={item.id} style={{}}>
-                <div
-                  className="banner-item"
-                  style={{
-                    background: `linear-gradient(
+              <SwiperSlide
+                key={item.id}
+                style={{
+                  background: `linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.5),
       rgba(0, 0, 0, 0.5)
     ), url(${item.image})`,
-                    backgroundPosition: "center center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                  }}
-                >
-                  <div className="overlay"></div>
+                  backgroundPosition: "center center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                }}
+              >
+                <div className="overlay"></div>
+                <div className="banner-item">
                   <div className="banner-content">
                     <h2 className="banner-title">{item.title}</h2>
                     <p className="banner-text">{item.desc}</p>
