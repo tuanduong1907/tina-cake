@@ -201,11 +201,27 @@ const BannerStyles = styled.section`
 
   /* Tablet: width >= 740px and width < 1024px */
   @media only screen and (min-width: 740px) and (max-width: 1023px) {
+    &{
+      height: 65vh;
+    }
     .banner-image {
-      height: 100%;
+      height: 40%;
+      width: 600px;
+    }
+    .banner-content{
+      margin-left: 40px;
+    }
+    .banner-title{
+      ${text36}
+    }
+    .banner-text{
+      ${text16}
     }
     .banner-item{
       padding-inline: 20px;
+    }
+    .swiper-pagination{
+      margin-left: 20px;
     }
   }
 
