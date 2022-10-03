@@ -204,6 +204,9 @@ const BannerStyles = styled.section`
     .banner-image {
       height: 100%;
     }
+    .banner-item{
+      padding-inline: 20px;
+    }
   }
 
   /* Mobie: width < 740px */
@@ -212,6 +215,7 @@ const BannerStyles = styled.section`
       height: auto;
       padding-block: 0;
       background-attachment: initial;
+      height: 950px;
     }
     .banner-item {
       flex-direction: column;
@@ -278,7 +282,6 @@ const Banner = () => {
           modules={[Pagination]}
           grabCursor={true}
           spaceBetween={0}
-          autoplay={true}
         >
           {postBanner?.length > 0 &&
             postBanner?.map((item) => (
