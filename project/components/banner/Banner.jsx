@@ -12,7 +12,7 @@ import AppButton from "../../controls/app-button/AppButton";
 import { dataBanner } from "../../../data/bannerData";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Autoplay, Pagination } from "swiper";
 import {
   collection,
   limit,
@@ -274,8 +274,6 @@ const Banner = () => {
     },
   };
   const [postBanner, setPostBanner] = useState([]);
-  const [imageBanner, setImageBanner] = useState("");
-  console.log("imageBanner", imageBanner);
   useEffect(() => {
     const colRef = collection(db, "posts");
     const queries = query(colRef, where("banner", "==", true), limit(4));
@@ -295,9 +293,12 @@ const Banner = () => {
       <div className="container banner-wrap">
         <Swiper
           pagination={pagination}
-          modules={[Pagination]}
+          modules={[Autoplay, Pagination]}
           grabCursor={true}
-          spaceBetween={0}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
         >
           {postBanner?.length > 0 &&
             postBanner?.map((item) => (
