@@ -2,10 +2,11 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { dataHeader, dataSubMenuHeader } from "../../../data/headerData";
 import { text11, text16 } from "../../../shared/utils/mixin-styled";
 import AppButton from "../../controls/app-button/AppButton";
-import SvgCakeIcon from "../../icons/CakeIcon";
+import { FaHome, FaNewspaper } from "react-icons/fa";
+import { BsPeopleFill } from "react-icons/bs";
+import { MdCake } from "react-icons/md";
 
 const HeaderStyles = styled.header`
   height: 72px;
@@ -85,7 +86,8 @@ const HeaderStyles = styled.header`
   .nav-icon {
     display: none;
     svg {
-      height: 15px;
+      height: 18px;
+      width: 18px;
     }
   }
 
@@ -164,24 +166,46 @@ export const Header = ({ className = "" }) => {
       className={`${showShadowHeader ? "active-shadow" : ""} ${className}`}
     >
       <ul className="nav-list">
-        {dataHeader.length > 0 &&
-          dataHeader.map((item) => (
-            <li className="nav-item" key={item.id}>
-              <Link href={item.link}>
-                <a className="nav-link">
-                  <div className="nav-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox={item.viewBox}
-                    >
-                      <path d={item.path} />
-                    </svg>
-                  </div>
-                  <span>{item.title}</span>
-                </a>
-              </Link>
-            </li>
-          ))}
+        <li className="nav-item">
+          <Link href="/">
+            <a className="nav-link">
+              <div className="nav-icon">
+                <FaHome />
+              </div>
+              <span>Trang chủ</span>
+            </a>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link href="/danh-sach-bai-viet">
+            <a className="nav-link">
+              <div className="nav-icon">
+                <FaNewspaper />
+              </div>
+              <span>Bài viết</span>
+            </a>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link href="/gioi-thieu">
+            <a className="nav-link">
+              <div className="nav-icon">
+                <BsPeopleFill />
+              </div>
+              <span>Giới thiệu</span>
+            </a>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link href="https://www.banhkemnhatrangtina.com/">
+            <a className="nav-link">
+              <div className="nav-icon">
+                <MdCake />
+              </div>
+              <span>Dịch vụ</span>
+            </a>
+          </Link>
+        </li>
       </ul>
       <div className="">
         <div className="container header-wrap">
