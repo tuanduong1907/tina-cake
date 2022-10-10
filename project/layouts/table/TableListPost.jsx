@@ -198,7 +198,7 @@ const TableListPost = () => {
         </thead>
         <tbody>
           {postList?.length > 0 &&
-            postList?.map((item, index) => (
+            postList?.sort((a, b) => a.createAt.seconds < b.createAt.seconds ? 1 : -1).map((item, index) => (
               <tr key={item.id}>
                 <td> {index + 1 < 10 ? `0${index + 1}` : `${index + 1}`} </td>
                 <td>

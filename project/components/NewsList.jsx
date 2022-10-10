@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import EmtyLayout from "../layouts/emtyLayout/EmtyLayout";
 import NewsItem from "./NewsItem";
@@ -32,22 +32,34 @@ const NewsListStyles = styled.div`
 `;
 
 const NewsList = ({ data, ...props }) => {
-  
   return (
     <>
       {data?.length > 0 ? (
         <NewsListStyles {...props}>
           {data?.length > 0 &&
-            data?.map((item) => (
-              <NewsItem
-                key={item.id}
-                image={item.image}
-                content={item.content}
-                link={item.link}
-                title={item.title}
-                className="news-item"
-              ></NewsItem>
-            ))}
+            data
+              ?.sort((a, b) =>
+                a.createAt.seconds < b.createAt.seconds ? 1 : -1
+              )
+              .map((item) => (
+                <Fragment key={item.id}>
+                  <NewsItem
+                    key={item.id}
+                    className="news-item"
+                    classNameImage="home-new-image"
+                    title={item.title}
+                    slug={item.slug}
+                    image={item.image}
+                    desc={item.desc}
+                    category={item.categoryId}
+                    date={`${new Date(
+                      item?.createAt?.seconds * 1000
+                    ).toLocaleTimeString("vi-VI")} - ${new Date(
+                      item?.createAt?.seconds * 1000
+                    ).toLocaleDateString("vi-VI")}`}
+                  ></NewsItem>
+                </Fragment>
+              ))}
         </NewsListStyles>
       ) : (
         <EmtyLayout text="Không tìm thấy bài viết"></EmtyLayout>

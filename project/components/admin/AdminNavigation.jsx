@@ -94,7 +94,7 @@ const AdminNavigation = () => {
             <Link href="/admin">
               <a>
                 <SvgPostIcon className="navigtaion-icon"></SvgPostIcon>
-                Bài viết
+                Quản lý bài viết
               </a>
             </Link>
           </li>
@@ -106,7 +106,7 @@ const AdminNavigation = () => {
             <Link href="/admin/danh-muc">
               <a>
                 <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
-                Danh mục
+                Quản lý danh mục
               </a>
             </Link>
           </li>

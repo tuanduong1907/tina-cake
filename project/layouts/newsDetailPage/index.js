@@ -28,8 +28,8 @@ const NewsDetailPageStyles = styled.section`
     margin-bottom: 16px;
   }
   .news-detail-date {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -82,6 +82,10 @@ const NewsDetailPage = ({ slug }) => {
             Ngày đăng:
             <span>
               {new Date(postInfo?.createAt?.seconds * 1000).toLocaleDateString(
+                "vi-VI"
+              )}
+              {" - "}
+              {new Date(postInfo?.createAt?.seconds * 1000).toLocaleTimeString(
                 "vi-VI"
               )}
             </span>

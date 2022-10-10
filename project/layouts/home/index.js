@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { productData } from "../../../data/productData";
 import Banner from "../../components/banner/Banner";
 import HeadSeo from "../../components/SEO";
@@ -17,6 +18,11 @@ import { db } from "../../firebase/firebase-config";
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
+  const [postDay, setPostDay] = useState([]);
+  const [sorted, setSorted] = useState({ sorted: "id", reversed: false });
+  console.log("postDay", postDay);
+
+  // Fetch Data Post
   useEffect(() => {
     const colRef = collection(db, "posts");
     const queries = query(colRef, where("hot", "==", true), limit(3));
@@ -31,6 +37,24 @@ export default function HomePage() {
       setPosts(result);
     });
   }, []);
+  // end Fetch Data Post
+
+  // fetch data post day
+  useEffect(() => {
+    const colRef = collection(db, "posts");
+    const queries = query(colRef, limit(4));
+    onSnapshot(queries, (snapshot) => {
+      let resultPostDay = [];
+      snapshot.forEach((doc) => {
+        resultPostDay.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setPostDay(resultPostDay);
+    });
+  }, []);
+  // end fetch data post day
 
   return (
     <>
@@ -51,7 +75,7 @@ export default function HomePage() {
       <NewsLayout
         title="Tin tức mỗi ngày"
         link="danh-sach-bai-viet"
-        data={posts}
+        data={postDay}
       ></NewsLayout>
       <FeedbackLayout
         title="Phản hồi từ khách hàng"
