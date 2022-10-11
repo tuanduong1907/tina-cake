@@ -5,6 +5,11 @@ import {
   doc,
   getDoc,
   onSnapshot,
+  orderBy,
+  limit,
+  query,
+  getDocs,
+  startAfter,
 } from "firebase/firestore";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -18,6 +23,7 @@ import SvgEyeIcon from "../../icons/EyeIcon";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import AppButton from "../../controls/app-button/AppButton";
 
 const headerTableData = [
   {
@@ -106,6 +112,10 @@ const TableListPostStyles = styled.div`
   .table-category-text {
     white-space: nowrap;
   }
+  .btn-loadmore {
+    margin-inline: auto;
+    margin-top: 40px;
+  }
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
     .post-item {
@@ -120,22 +130,62 @@ const TableListPost = () => {
   const [category, setCategory] = useState([]);
   const [value, setValue] = useState("");
   const [activeInput, setActiveInput] = useState(false);
+  const [total, setTotal] = useState(0);
+  console.log("total", total);
+  const [lastDoc, setLastDoc] = useState();
 
-  // Fetch posts list
-  useEffect(() => {
-    const colRefPosts = collection(db, "posts");
-    onSnapshot(colRefPosts, (snapshot) => {
-      let resultPosts = [];
+  const handleLoadmore = async () => {
+    const nextRef = query(
+      collection(db, "posts"),
+      orderBy("createAt", "desc"),
+      startAfter(lastDoc || 0),
+      limit(10)
+    );
+    onSnapshot(nextRef, (snapshot) => {
+      let result = [];
       snapshot.forEach((doc) => {
-        resultPosts.push({
+        result.push({
           id: doc.id,
           ...doc.data(),
         });
       });
-      setPostList(resultPosts);
+      setPostList([...postList, ...result]);
     });
+    const documentSnapshots = await getDocs(nextRef);
+    const lastVisible =
+      documentSnapshots.docs[documentSnapshots.docs.length - 1];
+    setLastDoc(lastVisible);
+  };
+
+  // Fetch Data Post
+  useEffect(() => {
+    async function fetchData() {
+      const colRef = collection(db, "posts");
+      const newRef = query(colRef, orderBy("createAt", "desc"), limit(10));
+      const documentSnapshots = await getDocs(newRef);
+      const lastVisible =
+        documentSnapshots.docs[documentSnapshots.docs.length - 1];
+      setLastDoc(lastVisible);
+
+      onSnapshot(colRef, (snapshot) => {
+        setTotal(snapshot.size);
+      });
+
+      onSnapshot(newRef, (snapshot) => {
+        let result = [];
+        snapshot.forEach((doc) => {
+          result.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        setPostList(result);
+      });
+      setLastDoc(lastVisible);
+    }
+    fetchData();
   }, []);
-  // end Fetch posts list
+  // end Fetch Data Post
 
   // fetch Categries
   useEffect(() => {
@@ -198,74 +248,85 @@ const TableListPost = () => {
         </thead>
         <tbody>
           {postList?.length > 0 &&
-            postList?.sort((a, b) => a.createAt.seconds < b.createAt.seconds ? 1 : -1).map((item, index) => (
-              <tr key={item.id}>
-                <td> {index + 1 < 10 ? `0${index + 1}` : `${index + 1}`} </td>
-                <td>
-                  <div className="post-item">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="post-image"
-                    />
-                    <div className="post-info-wrap">
-                      <h3 className="post-name">{item.title}</h3>
-                      <time className="post-time">
-                        Ngày đăng:{" "}
-                        {`${new Date(
-                          item?.createAt?.seconds * 1000
-                        ).toLocaleDateString("vi-VI")}`}{" "}
-                      </time>
+            postList
+              ?.sort((a, b) =>
+                a.createAt.seconds < b.createAt.seconds ? 1 : -1
+              )
+              .map((item, index) => (
+                <tr key={item.id}>
+                  <td> {index + 1 < 10 ? `0${index + 1}` : `${index + 1}`} </td>
+                  <td>
+                    <div className="post-item">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="post-image"
+                      />
+                      <div className="post-info-wrap">
+                        <h3 className="post-name">{item.title}</h3>
+                        <time className="post-time">
+                          Ngày đăng:{" "}
+                          {`${new Date(
+                            item?.createAt?.seconds * 1000
+                          ).toLocaleDateString("vi-VI")}`}{" "}
+                        </time>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <span className="table-text">
-                    {category.map((categoryItem) => (
-                      <Fragment key={categoryItem.id}>
-                        {categoryItem.id === item.categoryId ? (
-                          <span className="table-category-text">
-                            {categoryItem.value}
-                          </span>
-                        ) : (
-                          ""
-                        )}
-                      </Fragment>
-                    ))}
-                  </span>
-                </td>
-                <td>
-                  <span className="table-text">Na Na</span>
-                </td>
-                <td>
-                  <div className="table-status">
-                    {item.hot === true && <span className="hot">Nổi bật</span>}
-                    {item.banner === true && (
-                      <span className="banner">Banner</span>
-                    )}
-                  </div>
-                </td>
-                <td>
-                  <div className="table-option">
-                    <span>
-                      <Link href={`/${item.slug}`}>
-                        <a target="_blank">
-                          <SvgEyeIcon></SvgEyeIcon>
-                        </a>
-                      </Link>
+                  </td>
+                  <td>
+                    <span className="table-text">
+                      {category.map((categoryItem) => (
+                        <Fragment key={categoryItem.id}>
+                          {categoryItem.id === item.categoryId ? (
+                            <span className="table-category-text">
+                              {categoryItem.value}
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </Fragment>
+                      ))}
                     </span>
-                    <span onClick={() => handleUpdatePost(item.id)}>
-                      <SvgEditIcon></SvgEditIcon>
-                    </span>
-                    <span onClick={() => handleDeletePost(item.id)}>
-                      <SvgDeleteIcon></SvgDeleteIcon>
-                    </span>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td>
+                    <span className="table-text">Na Na</span>
+                  </td>
+                  <td>
+                    <div className="table-status">
+                      {item.hot === true && (
+                        <span className="hot">Nổi bật</span>
+                      )}
+                      {item.banner === true && (
+                        <span className="banner">Banner</span>
+                      )}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="table-option">
+                      <span>
+                        <Link href={`/${item.slug}`}>
+                          <a target="_blank">
+                            <SvgEyeIcon></SvgEyeIcon>
+                          </a>
+                        </Link>
+                      </span>
+                      <span onClick={() => handleUpdatePost(item.id)}>
+                        <SvgEditIcon></SvgEditIcon>
+                      </span>
+                      <span onClick={() => handleDeletePost(item.id)}>
+                        <SvgDeleteIcon></SvgDeleteIcon>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </AppTable>
+      {total > postList.length && (
+        <AppButton className="btn-loadmore" onClick={handleLoadmore}>
+          Xem thêm
+        </AppButton>
+      )}
     </TableListPostStyles>
   );
 };

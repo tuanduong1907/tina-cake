@@ -4,9 +4,6 @@ import AppPagination from "../../../controls/app-pagination/AppPagination";
 import TableListPost from "../../table/TableListPost";
 
 const AdminPostLayoutStyles = styled.section`
-  .pagination {
-    margin-top: 16px;
-  }
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
     &{
@@ -19,7 +16,6 @@ const AdminPostLayout = () => {
   return (
     <AdminPostLayoutStyles className="container-admin">
       <TableListPost></TableListPost>
-      <AppPagination className="pagination"></AppPagination>
     </AdminPostLayoutStyles>
   );
 };

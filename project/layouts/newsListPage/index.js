@@ -10,6 +10,7 @@ import {
   getDocs,
   limit,
   onSnapshot,
+  orderBy,
   query,
   startAfter,
 } from "firebase/firestore";
@@ -94,6 +95,7 @@ const NewsListPage = () => {
   const handleLoadmore = async () => {
     const nextRef = query(
       collection(db, "posts"),
+      orderBy("createAt", "desc"),
       startAfter(lastDoc || 0),
       limit(8)
     );
@@ -117,7 +119,7 @@ const NewsListPage = () => {
   useEffect(() => {
     async function fetchData() {
       const colRef = collection(db, "posts");
-      const newRef = query(colRef, limit(8));
+      const newRef = query(colRef, orderBy("createAt", "desc"), limit(8));
       const documentSnapshots = await getDocs(newRef);
       const lastVisible =
         documentSnapshots.docs[documentSnapshots.docs.length - 1];

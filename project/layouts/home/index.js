@@ -11,10 +11,13 @@ import {
   collection,
   limit,
   onSnapshot,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
+import NewsLastestLayout from "./newsLayout/NewsLayout";
+import NewsLatestLayout from "./newsLastestLayout/NewsLastestLayout";
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -26,6 +29,7 @@ export default function HomePage() {
   useEffect(() => {
     const colRef = collection(db, "posts");
     const queries = query(colRef, where("hot", "==", true), limit(3));
+
     onSnapshot(queries, (snapshot) => {
       let result = [];
       snapshot.forEach((doc) => {
@@ -42,7 +46,7 @@ export default function HomePage() {
   // fetch data post day
   useEffect(() => {
     const colRef = collection(db, "posts");
-    const queries = query(colRef, limit(4));
+    const queries = query(colRef, limit(4), orderBy("createAt", "desc"));
     onSnapshot(queries, (snapshot) => {
       let resultPostDay = [];
       snapshot.forEach((doc) => {
@@ -68,15 +72,16 @@ export default function HomePage() {
 
       <ProductLayout
         link="/banh-kem-hot-trend"
-        title="Bánh hottrend 2022"
+        title="Bánh Kem Tina 2022"
         data={productData}
         background
       ></ProductLayout>
-      <NewsLayout
+      <NewsLatestLayout
         title="Tin tức mỗi ngày"
         link="danh-sach-bai-viet"
         data={postDay}
-      ></NewsLayout>
+      ></NewsLatestLayout>
+
       <FeedbackLayout
         title="Phản hồi từ khách hàng"
         data={feedbackData}

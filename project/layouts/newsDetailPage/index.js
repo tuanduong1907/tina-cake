@@ -52,7 +52,8 @@ const NewsDetailPageStyles = styled.section`
 
 const NewsDetailPage = ({ slug }) => {
   const [postInfo, setPostInfo] = useState({});
-  console.log("postInfo", postInfo);
+  const [postRelated, setPostRelated] = useState([]);
+  console.log("postRelated", postRelated);
   useEffect(() => {
     async function fetchData() {
       if (!slug) return null;
@@ -65,6 +66,28 @@ const NewsDetailPage = ({ slug }) => {
     }
     fetchData();
   }, [slug]);
+
+  // Fetch data post related
+
+  // end Fetch data post related
+  useEffect(() => {
+    async function fetchDataPostReleated() {
+      if (!slug) return null;
+      const colRef = query(collection(db, "posts"), where("categoryId", "==", postInfo.categoryId));
+      onSnapshot(colRef, (snapshot) => {
+        let result = [];
+        snapshot.forEach((doc) => {
+          result.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        setPostRelated(result);
+      });
+    }
+    fetchDataPostReleated();
+  }, [postInfo.categoryId, slug]);
+
   if (!slug || !postInfo.title) return <>Not Found</>;
   return (
     <>
@@ -96,7 +119,7 @@ const NewsDetailPage = ({ slug }) => {
         </div>
         <div className="news-detail-releated-wrap">
           <NewsDetailRelated
-            data={newsListData}
+            data={postRelated}
             className="news-detail-releated"
           ></NewsDetailRelated>
         </div>

@@ -13,7 +13,7 @@ import AppHeaderTitle from "../../../controls/app-header-title/AppHeaderTitle";
 import { db } from "../../../firebase/firebase-config";
 import EmtyLayout from "../../emtyLayout/EmtyLayout";
 
-const NewsLastestLayoutStyles = styled.section`
+const NewsLayoutStyles = styled.section`
   .emty-data {
     width: 100%;
   }
@@ -22,17 +22,10 @@ const NewsLastestLayoutStyles = styled.section`
     display: flex;
     gap: 40px;
   }
-  .news-main {
-    width: 50%;
-    background: #fff;
-    border-radius: 16px;
-  }
   .new-list {
-    width: 50%;
     gap: 20px;
-    display: flex;
-    flex-direction: column;
-
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     .news-item {
       flex-direction: row;
       .news-image {
@@ -62,6 +55,7 @@ const NewsLastestLayoutStyles = styled.section`
       height: 300px;
     }
     .new-list {
+      grid-template-columns: repeat(1, 1fr);
       .news-image {
         width: 150px !important;
         height: 160px !important;
@@ -106,7 +100,7 @@ const NewsLastestLayoutStyles = styled.section`
   }
 `;
 
-const NewsLastestLayout = ({ title, data }) => {
+const NewsLatestLayout = ({ title, data }) => {
   const [postMain, setPostMain] = useState([]);
   useEffect(() => {
     const colRef = collection(db, "posts");
@@ -125,7 +119,7 @@ const NewsLastestLayout = ({ title, data }) => {
 
   // const date = new Date( * 1000)
   return (
-    <NewsLastestLayoutStyles>
+    <NewsLayoutStyles>
       <div className="container py-layout">
         <AppHeaderTitle
           title={title}
@@ -134,58 +128,32 @@ const NewsLastestLayout = ({ title, data }) => {
 
         <div className="news-layout">
           {data?.length > 0 ? (
-            <>
-              <div className="news-main">
-                {postMain
-                  .sort((a, b) =>
+            <div className="new-list">
+              {data?.length > 0 &&
+                data
+                  ?.sort((a, b) =>
                     a.createAt.seconds < b.createAt.seconds ? 1 : -1
                   )
                   .map((item) => (
-                    <NewsItem
-                      key={item.id}
-                      title={item.title}
-                      slug={item.slug}
-                      image={item.image}
-                      category={item.categoryId}
-                      desc={item.desc}
-                      date={`${new Date(
-                        item?.createAt?.seconds * 1000
-                      ).toLocaleTimeString("vi-VI")} - ${new Date(
-                        item?.createAt?.seconds * 1000
-                      ).toLocaleDateString("vi-VI")}`}
-                      content="✍️ Tháng 11 - tháng tri ân ngày Nhà giáo Việt Nam 20/11 - đây không chỉ là ngày để các bạn bày tỏ lòng biết ơn công lao dạy dỗ của thầy cô mà đây là dịp thầy trò được gần gũi, gắn kết với nhau hơn."
-                      className="news-item-main"
-                      classNameImage="news-main-image"
-                    ></NewsItem>
+                    <Fragment key={item.id}>
+                      <NewsItem
+                        key={item.id}
+                        className="news-item"
+                        classNameImage="home-new-image"
+                        title={item.title}
+                        slug={item.slug}
+                        image={item.image}
+                        desc={item.desc}
+                        category={item.categoryId}
+                        date={`${new Date(
+                          item?.createAt?.seconds * 1000
+                        ).toLocaleTimeString("vi-VI")} - ${new Date(
+                          item?.createAt?.seconds * 1000
+                        ).toLocaleDateString("vi-VI")}`}
+                      ></NewsItem>
+                    </Fragment>
                   ))}
-              </div>
-              <div className="new-list">
-                {data?.length > 0 &&
-                  data
-                    ?.sort((a, b) =>
-                      a.createAt.seconds < b.createAt.seconds ? 1 : -1
-                    )
-                    .map((item) => (
-                      <Fragment key={item.id}>
-                        <NewsItem
-                          key={item.id}
-                          className="news-item"
-                          classNameImage="home-new-image"
-                          title={item.title}
-                          slug={item.slug}
-                          image={item.image}
-                          desc={item.desc}
-                          category={item.categoryId}
-                          date={`${new Date(
-                            item?.createAt?.seconds * 1000
-                          ).toLocaleTimeString("vi-VI")} - ${new Date(
-                            item?.createAt?.seconds * 1000
-                          ).toLocaleDateString("vi-VI")}`}
-                        ></NewsItem>
-                      </Fragment>
-                    ))}
-              </div>
-            </>
+            </div>
           ) : (
             <EmtyLayout
               text="Không có bài viết nào"
@@ -194,8 +162,8 @@ const NewsLastestLayout = ({ title, data }) => {
           )}
         </div>
       </div>
-    </NewsLastestLayoutStyles>
+    </NewsLayoutStyles>
   );
 };
 
-export default NewsLastestLayout;
+export default NewsLatestLayout;

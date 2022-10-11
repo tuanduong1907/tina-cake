@@ -51,19 +51,17 @@ const NewsDetailRelated = ({ data, ...props }) => {
         {data.length > 0 &&
           data.map((item, index) => (
             <Fragment key={item.id}>
-              {index < 5 && (
-                <li className={`news-related-item`}>
-                  <Link href={item.link}>
-                    <a
-                      className={`news-related-link  ${
-                        item.active === true ? "active" : ""
-                      }`}
-                    >
-                      {item.title}
-                    </a>
-                  </Link>
-                </li>
-              )}
+              <li className={`news-related-item`}>
+                <Link href={item.slug}>
+                  <a
+                    className={`news-related-link  ${
+                      item.active === true ? "active" : ""
+                    }`}
+                  >
+                    {item.title}
+                  </a>
+                </Link>
+              </li>
             </Fragment>
           ))}
       </ul>

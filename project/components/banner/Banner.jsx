@@ -17,6 +17,7 @@ import {
   collection,
   limit,
   onSnapshot,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -276,7 +277,11 @@ const Banner = () => {
   const [postBanner, setPostBanner] = useState([]);
   useEffect(() => {
     const colRef = collection(db, "posts");
-    const queries = query(colRef, where("banner", "==", true), limit(4));
+    const queries = query(
+      colRef,
+      where("banner", "==", true),
+      limit(4)
+    );
     onSnapshot(queries, (snapshot) => {
       let result = [];
       snapshot.forEach((doc) => {
