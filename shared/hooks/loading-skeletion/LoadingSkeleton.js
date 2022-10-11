@@ -1,5 +1,4 @@
 import React from "react";
-import "./Skeleter.scss"
 const LoadingSkeleton = (props) => {
   return (
     <div

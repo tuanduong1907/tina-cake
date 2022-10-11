@@ -24,6 +24,7 @@ import toast from "react-hot-toast";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(import("react-quill"), { ssr: false });
+const { Quill } = dynamic(import("react-quill"), { ssr: false });
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -202,7 +203,9 @@ const AdminAddNewPostForm = () => {
         categoryId: "",
         hot: false,
         banner: false,
+        content: "",
       });
+      setContent("");
       await setImage("");
       await setProgress(0);
     } catch (error) {

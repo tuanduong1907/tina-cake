@@ -22,6 +22,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
+import LoadingTemplate1 from "../../templates/template-loading/LoadingTemplate1";
 
 const BannerStyles = styled.section`
   height: 100vh;
@@ -54,6 +55,9 @@ const BannerStyles = styled.section`
     position: relative;
     /* background-size: cover;
     background-repeat: no-repeat; */
+    &-emty {
+      justify-content: center;
+    }
   }
   .overlay {
     position: absolute;
@@ -147,6 +151,9 @@ const BannerStyles = styled.section`
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
+  }
+
+  .banner-item-emty {
   }
 
   /* Swiper */
@@ -277,11 +284,7 @@ const Banner = () => {
   const [postBanner, setPostBanner] = useState([]);
   useEffect(() => {
     const colRef = collection(db, "posts");
-    const queries = query(
-      colRef,
-      where("banner", "==", true),
-      limit(4)
-    );
+    const queries = query(colRef, where("banner", "==", true), limit(4));
     onSnapshot(queries, (snapshot) => {
       let result = [];
       snapshot.forEach((doc) => {
@@ -296,87 +299,95 @@ const Banner = () => {
   return (
     <BannerStyles className="BannerStyles">
       <div className="container banner-wrap">
-        <Swiper
-          pagination={pagination}
-          modules={[Autoplay, Pagination]}
-          grabCursor={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-        >
-          {postBanner?.length > 0 &&
-            postBanner
-              ?.sort((a, b) =>
-                a.createAt.seconds < b.createAt.seconds ? 1 : -1
-              )
-              .map((item) => (
-                <SwiperSlide
-                  key={item.id}
-                  style={{
-                    background: `linear-gradient(
+        {postBanner?.length > 0 ? (
+          <Swiper
+            pagination={pagination}
+            modules={[Autoplay, Pagination]}
+            grabCursor={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+          >
+            {postBanner?.length > 0 &&
+              postBanner
+                ?.sort((a, b) =>
+                  a.createAt.seconds < b.createAt.seconds ? 1 : -1
+                )
+                .map((item) => (
+                  <SwiperSlide
+                    key={item.id}
+                    style={{
+                      background: `linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.5),
       rgba(0, 0, 0, 0.5)
     ), url(${item.image})`,
-                    backgroundPosition: "center center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                  }}
-                >
-                  <div className="overlay"></div>
-                  <div className="banner-item">
-                    <div className="banner-content">
-                      <h2 className="banner-title">{item.title}</h2>
-                      <p className="banner-text">{item.desc}</p>
-                      <Link href={`${item.slug}`}>
-                        <a
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 8,
-                          }}
-                        >
-                          <AppButton className="banner-btn">
-                            Xem chi tiết{" "}
-                            <svg
-                              width="17"
-                              height="16"
-                              viewBox="0 0 17 16"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M13.6667 7.81706L3.66675 7.81706"
-                                stroke="white"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="M9.63354 3.80083L13.6669 7.81683L9.63354 11.8335"
-                                stroke="white"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </AppButton>
-                        </a>
-                      </Link>
+                      backgroundPosition: "center center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover",
+                    }}
+                  >
+                    <div className="overlay"></div>
+                    <div className="banner-item">
+                      <div className="banner-content">
+                        <h2 className="banner-title">{item.title}</h2>
+                        <p className="banner-text">{item.desc}</p>
+                        <Link href={`${item.slug}`}>
+                          <a
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 8,
+                            }}
+                          >
+                            <AppButton className="banner-btn">
+                              Xem chi tiết{" "}
+                              <svg
+                                width="17"
+                                height="16"
+                                viewBox="0 0 17 16"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M13.6667 7.81706L3.66675 7.81706"
+                                  stroke="white"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M9.63354 3.80083L13.6669 7.81683L9.63354 11.8335"
+                                  stroke="white"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </AppButton>
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="banner-image">
+                        <Link href={`/${item.slug}`}>
+                          <a>
+                            <img src={item.image} alt="banner" />
+                            <div className="banner-image-title">
+                              {item.title}
+                            </div>
+                          </a>
+                        </Link>
+                      </div>
                     </div>
-                    <div className="banner-image">
-                      <Link href={`/${item.slug}`}>
-                        <a>
-                          <img src={item.image} alt="banner" />
-                          <div className="banner-image-title">{item.title}</div>
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-        </Swiper>
+                  </SwiperSlide>
+                ))}
+          </Swiper>
+        ) : (
+          <div className="banner-item banner-item-emty">
+            <LoadingTemplate1></LoadingTemplate1>
+          </div>
+        )}
       </div>
     </BannerStyles>
   );
