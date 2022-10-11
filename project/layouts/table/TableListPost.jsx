@@ -116,8 +116,8 @@ const TableListPostStyles = styled.div`
     margin-inline: auto;
     margin-top: 40px;
   }
-  /* Mobie: width < 740px */
-  @media only screen and (max-width: 739px) {
+  /* Mobile & tablet: width <1024px */
+  @media only screen and (max-width: 1023px) {
     .post-item {
       min-width: 800px;
     }

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 import styled from "styled-components";
 import {
   text14,
@@ -8,7 +9,6 @@ import {
   text24,
 } from "../../../shared/utils/mixin-styled";
 import SvgMoreIcon from "../../icons/MoreIcon";
-import { BiLogInCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
 import { useAuth } from "../../contexts/auth-context";
 import { signOut } from "firebase/auth";
@@ -37,6 +37,15 @@ const HeaderMenuAdminStyles = styled.header`
   .header-heading {
     ${text24};
     font-weight: 700;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    svg {
+      height: 24px;
+      width: 24px;
+    }
   }
   .header-right {
     display: flex;
@@ -141,7 +150,13 @@ const HeaderMenuAdminStyles = styled.header`
       ${text18}
     }
   }
-
+  /* Mobile & tablet: width <1024px */
+  @media only screen and (max-width: 1023px) {
+    & {
+      width: 100%;
+      left: 0;
+    }
+  }
 `;
 
 const HeaderMenuAdmin = ({ heading = "" }) => {
@@ -160,7 +175,12 @@ const HeaderMenuAdmin = ({ heading = "" }) => {
   };
   return (
     <HeaderMenuAdminStyles ref={nodeRef}>
-      <div className="header-heading">{heading}</div>
+      <div className="header-left">
+        <div>
+          <GiHamburgerMenu />
+        </div>
+        <div className="header-heading">{heading}</div>
+      </div>
       <div className="header-right">
         <div className="btn-admin-wrap">
           <AppButtonAdmin

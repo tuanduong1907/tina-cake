@@ -70,9 +70,14 @@ const AdminNavigationStyles = styled.div`
   }
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
-    &{
+    & {
       display: none;
     }
+  }
+  /* Mobile & tablet: width <1024px */
+  @media only screen and (max-width: 1023px) {
+    position: fixed;
+    transform: translateX(-200%);
   }
 `;
 
