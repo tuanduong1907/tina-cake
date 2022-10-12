@@ -146,7 +146,6 @@ const HeaderMenuAdminStyles = styled.header`
     .header-info {
       display: none;
     }
-
   }
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
@@ -156,6 +155,9 @@ const HeaderMenuAdminStyles = styled.header`
     }
     .header-heading {
       ${text16}
+    }
+    .header-left {
+      margin-left: 30px;
     }
   }
 `;
@@ -177,9 +179,6 @@ const HeaderMenuAdmin = ({ heading = "", writePost }) => {
   return (
     <HeaderMenuAdminStyles ref={nodeRef}>
       <div className="header-left">
-        <div>
-          <GiHamburgerMenu />
-        </div>
         <div className="header-heading">{heading}</div>
       </div>
       <div className="header-right">

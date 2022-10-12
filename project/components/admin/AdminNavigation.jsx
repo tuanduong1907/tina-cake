@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SvgArrowDoubleLeftIcon from "../../icons/ArrowDoubleLeftIcon";
 import SvgDashboardIcon from "../../icons/DashboardIcon";
@@ -8,11 +8,17 @@ import Link from "next/link";
 import SvgPostIcon from "../../icons/PostIcon";
 import SvgCategoryIcon from "../../icons/CategoryIcon";
 import { text24 } from "../../../shared/utils/mixin-styled";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const AdminNavigationStyles = styled.div`
-  width: 225px;
-  height: 100vh;
-  position: relative;
+  .navigation-wrap {
+    width: 225px;
+    height: 100vh;
+    position: relative;
+    background-color: #ffff;
+    z-index: 50;
+    transition: linear 0.25s;
+  }
   .navigtaion {
     position: fixed;
     width: 225px;
@@ -68,57 +74,82 @@ const AdminNavigationStyles = styled.div`
       }
     }
   }
-  /* Mobie: width < 740px */
-  @media only screen and (max-width: 739px) {
-    & {
-      display: none;
+  .menu-icon-btn {
+    position: fixed;
+    z-index: 30;
+    left: 12px;
+    top: 26px;
+    svg {
+      width: 24px;
+      height: 24px;
     }
+    display: none;
   }
+
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
-    position: fixed;
-    transform: translateX(-200%);
+    .navigation-wrap {
+      position: fixed;
+      transform: translateX(-200%);
+      &.active {
+        transform: translateX(0);
+      }
+    }
+    .menu-icon-btn {
+      display: block;
+    }
   }
 `;
 
 const AdminNavigation = () => {
   const router = useRouter();
+  const [showNav, setShowNav] = useState(false);
+  console.log("showNav", showNav);
   return (
-    <AdminNavigationStyles>
-      <div className="navigtaion">
-        <div className="navigtaion-logo">
-          <span>Tina Cake</span>
-          <SvgArrowDoubleLeftIcon></SvgArrowDoubleLeftIcon>
+    <>
+      <AdminNavigationStyles>
+        <div className="menu-icon-btn" onClick={() => setShowNav(!showNav)}>
+          <GiHamburgerMenu />
         </div>
-        <ul className="navigtaion-list">
-          <li
-            className={`navigtaion-item ${
-              router.pathname == "/admin" ? "active" : ""
-            }`}
-            onClick={() => router.push('/admin')}
-          >
-            <Link href="/admin">
-              <a>
-                <SvgPostIcon className="navigtaion-icon"></SvgPostIcon>
-                Quản lý bài viết
-              </a>
-            </Link>
-          </li>
-          <li
-            className={`navigtaion-item ${
-              router.pathname == "/admin/danh-muc" ? "active" : ""
-            }`}
-          >
-            <Link href="/admin/danh-muc">
-              <a>
-                <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
-                Quản lý danh mục
-              </a>
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </AdminNavigationStyles>
+        <div className={`navigation-wrap ${showNav ? "active" : ""}`}>
+          <div className="navigtaion">
+            <div className="navigtaion-logo">
+              <span>Tina Cake</span>
+              <SvgArrowDoubleLeftIcon
+                onClick={() => setShowNav(false)}
+              ></SvgArrowDoubleLeftIcon>
+            </div>
+            <ul className="navigtaion-list">
+              <li
+                className={`navigtaion-item ${
+                  router.pathname == "/admin" ? "active" : ""
+                }`}
+                onClick={() => router.push("/admin")}
+              >
+                <Link href="/admin">
+                  <a>
+                    <SvgPostIcon className="navigtaion-icon"></SvgPostIcon>
+                    Quản lý bài viết
+                  </a>
+                </Link>
+              </li>
+              <li
+                className={`navigtaion-item ${
+                  router.pathname == "/admin/danh-muc" ? "active" : ""
+                }`}
+              >
+                <Link href="/admin/danh-muc">
+                  <a>
+                    <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
+                    Quản lý danh mục
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </AdminNavigationStyles>
+    </>
   );
 };
 
