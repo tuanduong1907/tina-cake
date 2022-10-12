@@ -146,6 +146,9 @@ const HeaderMenuAdminStyles = styled.header`
     .header-info {
       display: none;
     }
+    .header-right{
+      gap: 4px;
+    }
   }
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {

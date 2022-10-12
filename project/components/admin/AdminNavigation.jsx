@@ -78,7 +78,7 @@ const AdminNavigationStyles = styled.div`
     position: fixed;
     z-index: 30;
     left: 12px;
-    top: 26px;
+    top: 21px;
     svg {
       width: 24px;
       height: 24px;

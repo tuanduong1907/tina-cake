@@ -273,7 +273,7 @@ const BannerStyles = styled.section`
     .banner-item {
       padding-inline: 20px;
     }
-    .swiper-pagination{
+    .swiper-pagination {
       margin-left: 25px;
     }
   }
@@ -288,8 +288,8 @@ const Banner = () => {
   };
   const [postBanner, setPostBanner] = useState([]);
   useEffect(() => {
-    const colRef = collection(db, "posts");
-    const queries = query(colRef, where("banner", "==", true), limit(4));
+    const colRef = collection(db, "banner");
+    const queries = query(colRef, orderBy("createAt", "desc"), limit(4));
     onSnapshot(queries, (snapshot) => {
       let result = [];
       snapshot.forEach((doc) => {

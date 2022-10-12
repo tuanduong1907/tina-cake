@@ -130,7 +130,6 @@ const AdminUpdateBannerForm = ({ postId }) => {
     mode: "onChange",
   });
 
-  const watchHot = watch("hot");
 
   //   hadnle Update Image
   const imageUrl = getValues("image");
@@ -181,7 +180,7 @@ const AdminUpdateBannerForm = ({ postId }) => {
   useEffect(() => {
     async function fetchData() {
       if (!postId) return null;
-      const docRef = doc(db, "posts", postId);
+      const docRef = doc(db, "banner", postId);
       const docSnapshot = await getDoc(docRef);
       if (docSnapshot.data()) {
         reset(docSnapshot.data());
@@ -195,7 +194,7 @@ const AdminUpdateBannerForm = ({ postId }) => {
   const handleUpdatePost = async (values) => {
     const cloneValues = { ...values };
     cloneValues.slug = slugify(values.slug || values.title, { lower: true });
-    const docRef = doc(db, "posts", postId);
+    const docRef = doc(db, "banner", postId);
     await updateDoc(docRef, {
       ...cloneValues,
       content,
@@ -240,15 +239,6 @@ const AdminUpdateBannerForm = ({ postId }) => {
     <AdminUpdateBannerFormStyles className="container-admin">
       <form onSubmit={handleSubmit(handleUpdatePost)}>
         <div className="input-item-wrap">
-          <AppField className="input-item feature-field">
-            <AppLabel className="label" htmlFor="feature_post">
-              Nổi bật
-            </AppLabel>
-            <AppToggle
-              on={watchHot === true}
-              onClick={() => setValue("hot", !watchHot)}
-            ></AppToggle>
-          </AppField>
           <AppField className="input-item feature-field">
             <AppLabel className="label" htmlFor="feature_post">
               Thêm vào Banner

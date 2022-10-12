@@ -144,34 +144,11 @@ const TableListBanner = () => {
   const [total, setTotal] = useState(0);
   const [lastDoc, setLastDoc] = useState();
 
-  const handleLoadmore = async () => {
-    const nextRef = query(
-      collection(db, "posts"),
-      orderBy("createAt", "desc"),
-      startAfter(lastDoc || 0),
-      limit(10)
-    );
-    onSnapshot(nextRef, (snapshot) => {
-      let result = [];
-      snapshot.forEach((doc) => {
-        result.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setPostList([...postList, ...result]);
-    });
-    const documentSnapshots = await getDocs(nextRef);
-    const lastVisible =
-      documentSnapshots.docs[documentSnapshots.docs.length - 1];
-    setLastDoc(lastVisible);
-  };
-
   // Fetch Data Post
   useEffect(() => {
     async function fetchData() {
-      const colRef = collection(db, "posts");
-      const newRef = query(colRef, where("banner", "==", true), limit(10));
+      const colRef = collection(db, "banner");
+      const newRef = query(colRef, orderBy("createAt", "desc"), limit(10));
       const documentSnapshots = await getDocs(newRef);
       const lastVisible =
         documentSnapshots.docs[documentSnapshots.docs.length - 1];
@@ -212,27 +189,6 @@ const TableListBanner = () => {
     });
   }, []);
   // end fetch Categries
-
-  // Handle delete post
-  const handleDeletePost = async (docId) => {
-    const conRefSinglePost = doc(db, "posts", docId);
-    Swal.fire({
-      title: "Bạn muốn xóa bài viết này?",
-      text: "Sau khi xóa bạn sẽ không thể khôi phục lại bài viết!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Có, Tôi đồng ý!",
-      cancelButtonText: "Hủy",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await deleteDoc(conRefSinglePost);
-        Swal.fire("Đã xóa thành công!", "Bài viết đã bị xóa.", "success");
-      }
-    });
-  };
-  // end Handle delete post
 
   const handleUpdatePost = async (docId) => {
     route.push(`/admin/bai-viet/cap-nhat-banner/${docId}`);
@@ -328,11 +284,6 @@ const TableListBanner = () => {
               ))}
         </tbody>
       </AppTable>
-      {total > postList.length && (
-        <AppButton className="btn-loadmore" onClick={handleLoadmore}>
-          Xem thêm
-        </AppButton>
-      )}
     </TableListBannerStyles>
   );
 };
