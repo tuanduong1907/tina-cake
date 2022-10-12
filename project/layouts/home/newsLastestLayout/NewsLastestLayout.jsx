@@ -23,6 +23,7 @@ const NewsLayoutStyles = styled.section`
     gap: 40px;
   }
   .new-list {
+    width: 100%;
     gap: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);

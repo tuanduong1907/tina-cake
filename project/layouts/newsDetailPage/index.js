@@ -65,13 +65,29 @@ const NewsDetailPage = ({ slug }) => {
     fetchData();
   }, [slug]);
 
+  useEffect(() => {
+    async function fetchDataBanner() {
+      if (!slug) return null;
+      const colRef = query(collection(db, "banner"), where("slug", "==", slug));
+      onSnapshot(colRef, (snapshot) => {
+        snapshot.forEach((doc) => {
+          doc.data() && setPostInfo(doc.data());
+        });
+      });
+    }
+    fetchDataBanner();
+  }, [slug]);
+
   // Fetch data post related
 
   // end Fetch data post related
   useEffect(() => {
     async function fetchDataPostReleated() {
       if (!slug) return null;
-      const colRef = query(collection(db, "posts"), where("categoryId", "==", postInfo.categoryId));
+      const colRef = query(
+        collection(db, "posts"),
+        where("categoryId", "==", postInfo.categoryId)
+      );
       onSnapshot(colRef, (snapshot) => {
         let result = [];
         snapshot.forEach((doc) => {
