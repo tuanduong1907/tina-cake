@@ -26,7 +26,7 @@ const HeadSeo = (props) => {
             <meta property="static-url" content=""></meta>
             <meta property="hotline" content="0935323287"></meta>
             <meta name="author" content="banhkemnhatrangtina.com"></meta>
-            <link rel="shortcut icon" href={`https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=media&token=93c15490-efec-4d4d-9574-0f0cf008d76a`} />
+            <link rel="shortcut icon" href={`https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/favico.png?alt=media&token=9cf12f5a-d5ed-4377-bdc5-208b7acd2281`} />
             <link rel="apple-touch-icon" href='/logo-main.png' />
         </Head>
     )
