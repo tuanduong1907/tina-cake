@@ -52,7 +52,6 @@ const NewsDetailPageStyles = styled.section`
 const NewsDetailPage = ({ slug }) => {
   const [postInfo, setPostInfo] = useState({});
   const [postRelated, setPostRelated] = useState([]);
-  console.log("postRelated", postRelated);
   useEffect(() => {
     async function fetchData() {
       if (!slug) return null;

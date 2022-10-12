@@ -23,7 +23,6 @@ export default function HomePage() {
   const [posts, setPosts] = useState([]);
   const [postDay, setPostDay] = useState([]);
   const [sorted, setSorted] = useState({ sorted: "id", reversed: false });
-  console.log("postDay", postDay);
 
   // Fetch Data Post
   useEffect(() => {

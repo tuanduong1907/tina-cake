@@ -108,7 +108,6 @@ const AdminNavigationStyles = styled.div`
 const AdminNavigation = () => {
   const router = useRouter();
   const [showNav, setShowNav] = useState(false);
-  console.log("showNav", showNav);
   return (
     <>
       <AdminNavigationStyles>
