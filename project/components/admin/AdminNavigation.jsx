@@ -137,11 +137,7 @@ const AdminNavigation = () => {
                   </a>
                 </Link>
               </li>
-              <li
-                className={`navigtaion-item ${
-                  router.pathname == "/admin/danh-muc" ? "active" : ""
-                }`}
-              >
+              <li className={`navigtaion-item `}>
                 <Link href="#">
                   <a style={{ pointerEvents: "none", cursor: "default" }}>
                     <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
@@ -157,11 +153,7 @@ const AdminNavigation = () => {
                   </a>
                 </Link>
               </li>
-              <li
-                className={`navigtaion-item ${
-                  router.pathname == "/admin/danh-muc" ? "active" : ""
-                }`}
-              >
+              <li className={`navigtaion-item `}>
                 <Link href="#">
                   <a style={{ pointerEvents: "none", cursor: "default" }}>
                     <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
@@ -177,11 +169,7 @@ const AdminNavigation = () => {
                   </a>
                 </Link>
               </li>
-              <li
-                className={`navigtaion-item ${
-                  router.pathname == "/admin/danh-muc" ? "active" : ""
-                }`}
-              >
+              <li className={`navigtaion-item `}>
                 <Link href="#">
                   <a style={{ pointerEvents: "none", cursor: "default" }}>
                     <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
@@ -194,6 +182,42 @@ const AdminNavigation = () => {
                       }}
                     >
                       Quản lý sản phẩm
+                      <span className="commingsoon">(Chưa có)</span>
+                    </div>
+                  </a>
+                </Link>
+              </li>
+              <li className={`navigtaion-item`}>
+                <Link href="#">
+                  <a style={{ pointerEvents: "none", cursor: "default" }}>
+                    <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        pointerEvents: "none",
+                        cursor: "default",
+                      }}
+                    >
+                      Quản lý phản hồi
+                      <span className="commingsoon">(Chưa có)</span>
+                    </div>
+                  </a>
+                </Link>
+              </li>
+              <li className={`navigtaion-item`}>
+                <Link href="#">
+                  <a style={{ pointerEvents: "none", cursor: "default" }}>
+                    <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        pointerEvents: "none",
+                        cursor: "default",
+                      }}
+                    >
+                      Quản lý người dùng
                       <span className="commingsoon">(Chưa có)</span>
                     </div>
                   </a>
