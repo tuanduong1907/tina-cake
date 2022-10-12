@@ -146,9 +146,7 @@ const HeaderMenuAdminStyles = styled.header`
     .header-info {
       display: none;
     }
-    .header-heading {
-      ${text18}
-    }
+
   }
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
@@ -156,10 +154,13 @@ const HeaderMenuAdminStyles = styled.header`
       width: 100%;
       left: 0;
     }
+    .header-heading {
+      ${text16}
+    }
   }
 `;
 
-const HeaderMenuAdmin = ({ heading = "" }) => {
+const HeaderMenuAdmin = ({ heading = "", writePost }) => {
   const router = useRouter();
   const { userInfo } = useAuth();
   const [showSubmenu, setShowSubmenu] = useState(false);
@@ -182,15 +183,17 @@ const HeaderMenuAdmin = ({ heading = "" }) => {
         <div className="header-heading">{heading}</div>
       </div>
       <div className="header-right">
-        <div className="btn-admin-wrap">
-          <AppButtonAdmin
-            height="40px"
-            className="btn-admin"
-            onClick={() => router.push("/admin/them-bai-viet-moi")}
-          >
-            Viết bài mới
-          </AppButtonAdmin>
-        </div>
+        {writePost && (
+          <div className="btn-admin-wrap">
+            <AppButtonAdmin
+              height="40px"
+              className="btn-admin"
+              onClick={() => router.push("/admin/them-bai-viet-moi")}
+            >
+              Viết bài mới
+            </AppButtonAdmin>
+          </div>
+        )}
 
         <div className="header-info-wrap">
           <div className="header-logo">

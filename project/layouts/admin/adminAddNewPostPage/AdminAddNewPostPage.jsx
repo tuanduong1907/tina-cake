@@ -7,7 +7,7 @@ const AdminAddNewPostPage = () => {
   return (
     <>
       <HeadSeo title="Thêm bài viết mới | Tina Cake" />
-      <AdminLayoutTemplate heading="Thêm bài viết mới">
+      <AdminLayoutTemplate heading="Thêm bài viết mới" writePost={true}>
       <AdminAddNewPostForm></AdminAddNewPostForm>
       </AdminLayoutTemplate>
     </>

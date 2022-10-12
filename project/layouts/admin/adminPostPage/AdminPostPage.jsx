@@ -7,7 +7,7 @@ const AdminPostPage = () => {
   return (
     <>
       <HeadSeo title="Bài viết | Tina Cake" />
-      <AdminLayoutTemplate heading="Bài viết">
+      <AdminLayoutTemplate heading="Bài viết" writePost={true}>
         <AdminPostLayout /> 
       </AdminLayoutTemplate>
     </>

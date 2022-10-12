@@ -95,6 +95,7 @@ const AdminNavigation = () => {
             className={`navigtaion-item ${
               router.pathname == "/admin" ? "active" : ""
             }`}
+            onClick={() => router.push('/admin')}
           >
             <Link href="/admin">
               <a>

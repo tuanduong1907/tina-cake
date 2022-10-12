@@ -8,11 +8,13 @@ const AdminLayoutTemplateStyles = styled.div`
   display: flex;
 `;
 
-const AdminLayoutTemplate = ({ heading, children }) => {
+const AdminLayoutTemplate = ({ heading, children, writePost }) => {
   return (
     <AdminLayoutTemplateStyles>
       <AdminNavigation />
-      <BodyLayout heading={heading}>{children}</BodyLayout>
+      <BodyLayout heading={heading} writePost={writePost}>
+        {children}
+      </BodyLayout>
     </AdminLayoutTemplateStyles>
   );
 };

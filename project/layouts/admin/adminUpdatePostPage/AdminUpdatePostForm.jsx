@@ -48,12 +48,20 @@ const AdminUpdatePostFormStyles = styled.div`
   .input-item {
     flex: 1;
   }
+
+  .add-btn-wrap {
+    position: fixed;
+    z-index: 20;
+    top: 16px;
+    right: 254px;
+  }
+
   .add-btn {
-    display: inline-block;
+    height: 40px;
+    border-radius: 8px;
     width: auto;
-    min-width: 200px;
+    min-width: 100px;
     display: flex;
-    margin-inline: auto;
   }
   .feature-field {
     flex-direction: row;
@@ -75,15 +83,32 @@ const AdminUpdatePostFormStyles = styled.div`
     .input-item-wrap {
       flex-direction: column;
     }
-    .add-btn {
-      margin-top: 32px;
-    }
     .input-item-wrap-2 {
       gap: 20px;
     }
     .input-item-wrap {
       margin-bottom: 20px;
       gap: 20px;
+    }
+    .add-btn-wrap {
+      left: 0px;
+      bottom: 0px;
+      width: 100%;
+      top: auto;
+      padding: 16px 32px;
+      background-color: rgb(255, 255, 255);
+      border-top: 1px solid rgb(230, 232, 236);
+      z-index: 3;
+    }
+    .add-btn {
+      width: 100%;
+      height: 48px;
+    }
+  }
+  /* Tablet: width >= 740px and width < 1024px */
+  @media only screen and (min-width: 740px) and (max-width: 1023px) {
+    .add-btn {
+      right: 220px;
     }
   }
 `;
@@ -317,14 +342,16 @@ const AdminUpdatePostForm = ({ postId }) => {
             </div>
           </AppField>
         </div>
-        <AppButtonAdmin
-          className="add-btn"
-          type="submit"
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-        >
-          Cập nhật
-        </AppButtonAdmin>
+        <div className="add-btn-wrap">
+          <AppButtonAdmin
+            className="add-btn"
+            type="submit"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            Cập nhật
+          </AppButtonAdmin>
+        </div>
       </form>
     </AdminUpdatePostFormStyles>
   );
