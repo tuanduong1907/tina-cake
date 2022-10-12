@@ -1,8 +1,10 @@
 import React from "react";
 import HeadSeo from "../../../components/SEO";
-import AdminLayoutTemplate from "../../../templates/AdminLayoutTemplate";
 import styled from "styled-components";
 import { text36 } from "../../../../shared/utils/mixin-styled";
+import AdminPostLayout from "../adminPostPage/AdminPostLayout";
+import AdminLayoutTemplate from "../../../templates/AdminLayoutTemplate";
+import TableListBanner from "../../table/TableListBanner";
 
 const CommingSoonStyles = styled.div`
   display: flex;
@@ -11,18 +13,18 @@ const CommingSoonStyles = styled.div`
   height: 100vh;
   ${text36};
   font-weight: 700;
-  color: ${props => props.theme.primaryColor};
+  color: ${(props) => props.theme.primaryColor};
 `;
 
-const AdminCategoryPage = () => {
+const AdminBannerPage = () => {
   return (
     <>
       <HeadSeo title="Danh mục | Tina Cake" />
-      <AdminLayoutTemplate heading="Danh mục" writePost={false}>
-        <CommingSoonStyles>Comming soon...</CommingSoonStyles>
+      <AdminLayoutTemplate heading="Quản lý banner" writePost={true}>
+        <TableListBanner />
       </AdminLayoutTemplate>
     </>
   );
 };
 
-export default AdminCategoryPage;
+export default AdminBannerPage;

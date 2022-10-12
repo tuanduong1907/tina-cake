@@ -136,6 +136,20 @@ const AdminNavigation = () => {
                   </a>
                 </Link>
               </li>
+              <li
+                className={`navigtaion-item ${
+                  router.pathname == "/admin/quan-ly-banner" ? "active" : ""
+                }`}
+                onClick={() => router.push("/admin/quan-ly-banner")}
+              >
+                <Link href="/admin">
+                  <a>
+                    <SvgPostIcon className="navigtaion-icon"></SvgPostIcon>
+                    Quản lý Banner
+                  </a>
+                </Link>
+              </li>
+
               <li className={`navigtaion-item `}>
                 <Link href="#">
                   <a style={{ pointerEvents: "none", cursor: "default" }}>
@@ -147,22 +161,6 @@ const AdminNavigation = () => {
                       }}
                     >
                       Quản lý danh mục
-                      <span className="commingsoon">(Chưa có)</span>
-                    </div>
-                  </a>
-                </Link>
-              </li>
-              <li className={`navigtaion-item `}>
-                <Link href="#">
-                  <a style={{ pointerEvents: "none", cursor: "default" }}>
-                    <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      Quản lý banner
                       <span className="commingsoon">(Chưa có)</span>
                     </div>
                   </a>

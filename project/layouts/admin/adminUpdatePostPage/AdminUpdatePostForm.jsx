@@ -131,7 +131,6 @@ const AdminUpdatePostForm = ({ postId }) => {
   });
 
   const watchHot = watch("hot");
-  const watchBanner = watch("banner");
 
   //   hadnle Update Image
   const imageUrl = getValues("image");
@@ -248,15 +247,6 @@ const AdminUpdatePostForm = ({ postId }) => {
             <AppToggle
               on={watchHot === true}
               onClick={() => setValue("hot", !watchHot)}
-            ></AppToggle>
-          </AppField>
-          <AppField className="input-item feature-field">
-            <AppLabel className="label" htmlFor="feature_post">
-              Thêm vào Banner
-            </AppLabel>
-            <AppToggle
-              on={watchBanner === true}
-              onClick={() => setValue("banner", !watchBanner)}
             ></AppToggle>
           </AppField>
         </div>

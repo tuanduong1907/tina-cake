@@ -1,10 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { text14, text16, text20 } from "../../../shared/utils/mixin-styled";
-import SvgEmailIcon from "../../icons/EmailIcon";
-import SvgLocationIcon from "../../icons/LocationIcon";
-import SvgPhoneIcon from "../../icons/PhoneIcon";
-import SvgWebIcon from "../../icons/WebIcon";
+import { text14, text20 } from "../../../shared/utils/mixin-styled";
+
 import FooterContactList from "../FooterContactList";
 
 // styles

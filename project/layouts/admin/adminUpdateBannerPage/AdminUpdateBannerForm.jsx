@@ -1,6 +1,17 @@
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import useFirebaseImage from "../../../../shared/hooks/useFirebaseImage";
 import { text20 } from "../../../../shared/utils/mixin-styled";
 import ImageUpload from "../../../components/imageUpload/ImageUpload";
 import AppButtonAdmin from "../../../controls/app-button-admin/AppButtonAdmin";
@@ -8,36 +19,14 @@ import AppField from "../../../controls/app-field/AppField";
 import AppInput from "../../../controls/app-input/AppInput";
 import AppLabel from "../../../controls/app-label/AppLabel";
 import AppSelect from "../../../controls/app-select/AppSelect";
-import slugify from "slugify";
-import {
-  collection,
-  query,
-  getDocs,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
-
-import useFirebaseImage from "../../../../shared/hooks/useFirebaseImage";
 import AppToggle from "../../../controls/app-toggle/AppToggle";
 import { db } from "../../../firebase/firebase-config";
 import toast from "react-hot-toast";
+import slugify from "slugify";
 import "react-quill/dist/quill.snow.css";
-import dynamic from "next/dynamic";
 const ReactQuill = dynamic(import("react-quill"), { ssr: false });
-const { Quill } = dynamic(import("react-quill"), { ssr: false });
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
-const schema = yup
-  .object({
-    title: yup.string().required("Vui lòng nhập tiêu đề bài viết !!!"),
-    categoryId: yup.string().required("Vui lòng chọn danh mục bài viết !!!"),
-    title: yup.string().required("Vui lòng nhập tiêu đề bài viết !!!"),
-    image_name: yup.string().required("Vui lòng chọn hình ảnh"),
-  })
-  .required();
-
-const AdminAddNewPostFormStyles = styled.div`
+const AdminUpdateBannerFormStyles = styled.div`
   background-color: #fff;
   padding: 16px;
   border-radius: 8px;
@@ -59,19 +48,29 @@ const AdminAddNewPostFormStyles = styled.div`
   .input-item {
     flex: 1;
   }
+
+  .add-btn-wrap {
+    position: fixed;
+    z-index: 20;
+    top: 16px;
+    right: 254px;
+  }
+
   .add-btn {
-    display: inline-block;
+    height: 40px;
+    border-radius: 8px;
     width: auto;
-    min-width: 200px;
+    min-width: 100px;
     display: flex;
-    margin-inline: auto;
-    margin-top: 32px;
   }
   .feature-field {
     flex-direction: row;
     align-items: center;
     gap: 20px;
     margin-bottom: 16px;
+  }
+  .content-post {
+    margin-bottom: 40px;
   }
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
@@ -92,7 +91,6 @@ const AdminAddNewPostFormStyles = styled.div`
       gap: 20px;
     }
     .add-btn-wrap {
-      position: fixed;
       left: 0px;
       bottom: 0px;
       width: 100%;
@@ -105,16 +103,21 @@ const AdminAddNewPostFormStyles = styled.div`
     .add-btn {
       width: 100%;
       height: 48px;
-      margin-top: 0;
+    }
+  }
+  /* Tablet: width >= 740px and width < 1024px */
+  @media only screen and (min-width: 740px) and (max-width: 1023px) {
+    .add-btn {
+      right: 220px;
     }
   }
 `;
 
-const AdminAddNewPostForm = () => {
+const AdminUpdateBannerForm = ({ postId }) => {
   const [content, setContent] = useState("");
+  const [categories, setCategories] = useState([]);
   const contentRef = useRef();
   const [activeContentToolbar, setActiveContentToolbar] = useState(false);
-  const [categories, setCategories] = useState([]);
   const {
     control,
     watch,
@@ -125,18 +128,20 @@ const AdminAddNewPostForm = () => {
     formState: { errors, isValid, isSubmitting },
   } = useForm({
     mode: "onChange",
-    defaultValues: {
-      title: "",
-      slug: "",
-      categoryId: "",
-      hot: false,
-      banner: false,
-    },
-    resolver: yupResolver(schema),
   });
 
   const watchHot = watch("hot");
 
+  //   hadnle Update Image
+  const imageUrl = getValues("image");
+  const imageRegex = /%2F(\S+)\?/gm.exec(imageUrl);
+  const image_name = getValues("image_name");
+  const deleteImagePost = async () => {
+    const colRef = doc(db, "posts", postId);
+    await updateDoc(colRef, {
+      image: "",
+    });
+  };
   const {
     image,
     progress,
@@ -144,9 +149,13 @@ const AdminAddNewPostForm = () => {
     handleDeleteImage,
     setImage,
     setProgress,
-  } = useFirebaseImage(setValue, getValues);
+  } = useFirebaseImage(setValue, getValues, image_name, deleteImagePost);
 
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setImage(imageUrl);
+  }, [imageUrl, setImage]);
+
+  //   end hadnle Update Image
 
   useEffect(() => {
     async function getData() {
@@ -166,8 +175,36 @@ const AdminAddNewPostForm = () => {
   }, []);
 
   const handleCategoryInputChange = (newValue) => {
-    return setValue("categoryId", newValue.id, true);
+    setValue("categoryId", newValue.id, true);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!postId) return null;
+      const docRef = doc(db, "posts", postId);
+      const docSnapshot = await getDoc(docRef);
+      if (docSnapshot.data()) {
+        reset(docSnapshot.data());
+        setContent(docSnapshot.data()?.content || "");
+      }
+    }
+    fetchData();
+  }, [postId, reset]);
+
+  //   Handle Update Post
+  const handleUpdatePost = async (values) => {
+    const cloneValues = { ...values };
+    cloneValues.slug = slugify(values.slug || values.title, { lower: true });
+    const docRef = doc(db, "posts", postId);
+    await updateDoc(docRef, {
+      ...cloneValues,
+      content,
+      image,
+      createAt: serverTimestamp(),
+    });
+    toast.success("Cập nhật thành công");
+  };
+  //   end Handle Update Post
 
   const modules = {
     toolbar: {
@@ -177,7 +214,7 @@ const AdminAddNewPostForm = () => {
         [{ header: 1 }, { header: 2 }, { font: [] }], // custom button values
         [{ list: "ordered" }, { list: "bullet" }],
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ["link"],
+        ["link", "video"],
         ["clean"],
       ],
     },
@@ -196,49 +233,12 @@ const AdminAddNewPostForm = () => {
       }
     };
     window.addEventListener("scroll", handleScrollContent);
-  }, []);
+  }, [postId]);
 
-  const handleAddNewPost = async (values) => {
-    setLoading(true);
-    try {
-      const cloneValues = { ...values };
-      cloneValues.slug = slugify(values.slug || values.title, { lower: true });
-      const colRef = collection(db, "posts");
-      await addDoc(colRef, {
-        ...cloneValues,
-        content,
-        image,
-        createAt: serverTimestamp(),
-      });
-      toast.success("Tạo bài viết thành công!");
-      reset({
-        title: "",
-        slug: "",
-        categoryId: "",
-        hot: false,
-        banner: false,
-        content: "",
-      });
-      setContent("");
-      await setImage("");
-      await setProgress(0);
-    } catch (error) {
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const arrErrors = Object.values(errors);
-    if (arrErrors.length > 0) {
-      toast.error(arrErrors[0]?.message);
-    }
-  }, [errors]);
-
+  if (!postId) return null;
   return (
-    <AdminAddNewPostFormStyles className="container-admin">
-      <form onSubmit={handleSubmit(handleAddNewPost)} autoComplete="off">
+    <AdminUpdateBannerFormStyles className="container-admin">
+      <form onSubmit={handleSubmit(handleUpdatePost)}>
         <div className="input-item-wrap">
           <AppField className="input-item feature-field">
             <AppLabel className="label" htmlFor="feature_post">
@@ -249,18 +249,26 @@ const AdminAddNewPostForm = () => {
               onClick={() => setValue("hot", !watchHot)}
             ></AppToggle>
           </AppField>
+          <AppField className="input-item feature-field">
+            <AppLabel className="label" htmlFor="feature_post">
+              Thêm vào Banner
+            </AppLabel>
+            <AppToggle
+              on={true}
+              onClick={() => setValue("banner", true)}
+            ></AppToggle>
+          </AppField>
         </div>
         <div className="input-item-wrap">
           <AppField className="input-item">
             <AppLabel className="label" htmlFor="title">
-              Tiêu đề bài viết{" "}
-              <span style={{ color: "rgb(244 63 94)" }}>*</span>
+              Tiêu đề bài viết
             </AppLabel>
             <AppInput
               control={control}
               placeholder="Nhập tiêu đề bài viết"
               name="title"
-              className={errors.title ? "error-input" : ""}
+              required
             ></AppInput>
           </AppField>
           <AppField className="input-item">
@@ -271,19 +279,20 @@ const AdminAddNewPostForm = () => {
               control={control}
               placeholder="Nhập mô tả bài viết"
               name="desc"
+              required
             ></AppInput>
           </AppField>
         </div>
         <div className="input-item-wrap">
           <AppField className="input-item">
             <AppLabel className="label" htmlFor="image_post">
-              Hình ảnh <span style={{ color: "rgb(244 63 94)" }}>*</span>
+              Hình ảnh
             </AppLabel>
             <ImageUpload
               onChange={handleSelectImage}
               handleDeleteImage={handleDeleteImage}
+              className=""
               progress={progress}
-              className={errors.image_name ? "error-input" : ""}
               image={image}
             ></ImageUpload>
           </AppField>
@@ -300,13 +309,12 @@ const AdminAddNewPostForm = () => {
             </AppField>
             <AppField>
               <AppLabel className="label" htmlFor="image_post">
-                Danh mục <span style={{ color: "rgb(244 63 94)" }}>*</span>
+                Danh mục
               </AppLabel>
               <AppSelect
                 name="category"
                 options={categories}
                 placeholder="Danh mục bài viết"
-                className={errors.categoryId ? "error-input" : ""}
                 onChange={handleCategoryInputChange}
               ></AppSelect>
             </AppField>
@@ -337,15 +345,15 @@ const AdminAddNewPostForm = () => {
           <AppButtonAdmin
             className="add-btn"
             type="submit"
-            isLoading={loading}
-            disabled={loading}
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
           >
-            Đăng bài
+            Cập nhật
           </AppButtonAdmin>
         </div>
       </form>
-    </AdminAddNewPostFormStyles>
+    </AdminUpdateBannerFormStyles>
   );
 };
 
-export default AdminAddNewPostForm;
+export default AdminUpdateBannerForm;
