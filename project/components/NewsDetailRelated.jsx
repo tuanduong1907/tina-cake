@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { text18, text30 } from "../../shared/utils/mixin-styled";
+import { text16, text30 } from "../../shared/utils/mixin-styled";
 
 const NewsDetailRelatedStyles = styled.div`
   padding: 24px;
@@ -21,7 +21,7 @@ const NewsDetailRelatedStyles = styled.div`
     gap: 20px;
   }
   .news-related-link {
-    ${text18}
+    ${text16}
     display: block;
     transition: linear 0.1s;
     font-weight: 600;

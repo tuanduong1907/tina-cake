@@ -116,9 +116,6 @@ const BannerStyles = styled.section`
       img {
         transform: scale(1.1);
       }
-      .banner-image-title {
-        color: ${(props) => props.theme.primaryColor};
-      }
     }
     img {
       width: 100%;

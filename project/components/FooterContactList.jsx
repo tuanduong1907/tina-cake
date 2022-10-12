@@ -30,9 +30,7 @@ const FooterContactListStyles = styled.ul`
       color: ${(props) => props.theme.primaryColor};
     }
   }
-  .footer-text {
-    line-height: 1.4;
-  }
+
 `;
 
 const FooterContactList = () => {

@@ -77,7 +77,7 @@ const NewsItemStyles = styled.div`
     ${text14}
   }
   .news-text {
-    ${text18}
+    ${text16}
     display:-webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -151,11 +151,14 @@ const NewsItemStyles = styled.div`
     }
 
     .news-text {
-      ${text16}
+      ${text14}
     }
     .news-body {
       width: 60%;
       gap: 8px;
+    }
+    .news-title{
+      ${text18}
     }
   }
 `;

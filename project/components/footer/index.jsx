@@ -42,6 +42,9 @@ const FooterStyles = styled.footer`
       font-weight: 700;
     }
   }
+  .footer-text {
+    line-height: 1.6;
+  }
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
     .footer-list {
