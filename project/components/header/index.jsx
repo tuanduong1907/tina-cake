@@ -7,6 +7,7 @@ import AppButton from "../../controls/app-button/AppButton";
 import { FaHome, FaNewspaper } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
 import { MdCake } from "react-icons/md";
+import { useRouter } from "next/router";
 
 const HeaderStyles = styled.header`
   height: 72px;
@@ -100,6 +101,16 @@ const HeaderStyles = styled.header`
     gap: 10px;
   }
 
+  .nav-link {
+    &.active {
+      color: ${(props) => props.theme.primaryColor};
+      font-weight: 600;
+      svg{
+        fill: ${(props) => props.theme.primaryColor} !important;
+      }
+    }
+  }
+
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
     & {
@@ -154,6 +165,7 @@ const HeaderStyles = styled.header`
 `;
 
 export const Header = ({ className = "" }) => {
+  const router = useRouter();
   const [showShadowHeader, setShowShadowHeader] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -168,7 +180,7 @@ export const Header = ({ className = "" }) => {
       <ul className="nav-list">
         <li className="nav-item">
           <Link href="/">
-            <a className="nav-link">
+            <a className={`nav-link ${router.pathname == "/" ? "active" : ""}`}>
               <div className="nav-icon">
                 <FaHome />
               </div>
@@ -178,7 +190,11 @@ export const Header = ({ className = "" }) => {
         </li>
         <li className="nav-item">
           <Link href="/danh-sach-bai-viet">
-            <a className="nav-link">
+            <a
+              className={`nav-link ${
+                router.pathname == "/danh-sach-bai-viet" ? "active" : ""
+              }`}
+            >
               <div className="nav-icon">
                 <FaNewspaper />
               </div>
@@ -188,7 +204,11 @@ export const Header = ({ className = "" }) => {
         </li>
         <li className="nav-item">
           <Link href="/gioi-thieu">
-            <a className="nav-link">
+            <a
+              className={`nav-link ${
+                router.pathname == "/gioi-thieu" ? "active" : ""
+              }`}
+            >
               <div className="nav-icon">
                 <BsPeopleFill />
               </div>
@@ -198,7 +218,7 @@ export const Header = ({ className = "" }) => {
         </li>
         <li className="nav-item">
           <Link href="https://www.banhkemnhatrangtina.com/">
-            <a className="nav-link">
+            <a className={`nav-link `}>
               <div className="nav-icon">
                 <MdCake />
               </div>
