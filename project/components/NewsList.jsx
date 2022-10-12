@@ -35,7 +35,7 @@ const NewsListStyles = styled.div`
   }
 `;
 
-const NewsList = ({ data, ...props }) => {
+const NewsList = ({ data, valueEmty, ...props }) => {
   return (
     <>
       {data?.length > 0 ? (
@@ -66,7 +66,9 @@ const NewsList = ({ data, ...props }) => {
               ))}
         </NewsListStyles>
       ) : (
-        <EmtyLayout text="Không tìm thấy bài viết"></EmtyLayout>
+        <EmtyLayout
+          text={`Xin lỗi, không tìm thấy bất kỳ kết quả phù hợp nào cho “${valueEmty}”`}
+        ></EmtyLayout>
       )}
     </>
   );

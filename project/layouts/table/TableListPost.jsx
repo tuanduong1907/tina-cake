@@ -24,6 +24,9 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import AppButton from "../../controls/app-button/AppButton";
+import useSearchFilter from "../../../shared/hooks/useSearchFilter";
+import { debounce } from "lodash";
+import EmtyLayout from "../emtyLayout/EmtyLayout";
 
 const headerTableData = [
   {
@@ -141,6 +144,7 @@ const TableListPost = () => {
   const [activeInput, setActiveInput] = useState(false);
   const [total, setTotal] = useState(0);
   const [lastDoc, setLastDoc] = useState();
+  const { dataFilter } = useSearchFilter(postList);
 
   const handleLoadmore = async () => {
     const nextRef = query(
@@ -232,6 +236,12 @@ const TableListPost = () => {
   };
   // end Handle delete post
 
+  // filter input debounce
+  const handleFilterInput = debounce((e) => {
+    setValue(e.target.value);
+  }, 500);
+  // end filter input debounce
+
   const handleUpdatePost = async (docId) => {
     route.push(`/admin/bai-viet/cap-nhat-bai-viet/${docId}`);
   };
@@ -240,10 +250,10 @@ const TableListPost = () => {
     <TableListPostStyles>
       <AppSearchForm
         className={`${activeInput ? "active" : ""}`}
-        placeholder="Tìm kiếm"
+        placeholder="Tìm kiếm bài viết"
         onFocus={() => setActiveInput(true)}
         onBlur={() => setActiveInput(false)}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleFilterInput}
       ></AppSearchForm>
       <AppTable>
         <thead>
@@ -255,7 +265,7 @@ const TableListPost = () => {
         </thead>
         <tbody>
           {postList?.length > 0 &&
-            postList
+            (dataFilter(value) || postList)
               ?.sort((a, b) =>
                 a.createAt.seconds < b.createAt.seconds ? 1 : -1
               )
@@ -329,10 +339,21 @@ const TableListPost = () => {
               ))}
         </tbody>
       </AppTable>
-      {total > postList.length && (
-        <AppButton className="btn-loadmore" onClick={handleLoadmore}>
-          Xem thêm
-        </AppButton>
+      {(dataFilter(value) || postList)?.length === 0 && (
+        <div className="emty-wrapper">
+          <EmtyLayout
+            text={`Xin lỗi, không tìm thấy bất kỳ kết quả phù hợp nào cho “${value}”`}
+          />
+        </div>
+      )}
+      {(dataFilter(value) || postList)?.length > 0 && (
+        <>
+          {total > postList.length && (
+            <AppButton className="btn-loadmore" onClick={handleLoadmore}>
+              Xem thêm
+            </AppButton>
+          )}
+        </>
       )}
     </TableListPostStyles>
   );

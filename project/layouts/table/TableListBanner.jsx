@@ -25,6 +25,9 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import AppButton from "../../controls/app-button/AppButton";
+import useSearchFilter from "../../../shared/hooks/useSearchFilter";
+import EmtyLayout from "../emtyLayout/EmtyLayout";
+import { debounce } from "lodash";
 
 const headerTableData = [
   {
@@ -118,6 +121,7 @@ const TableListBannerStyles = styled.div`
     margin-inline: auto;
     margin-top: 40px;
   }
+
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
     .post-item {
@@ -143,7 +147,7 @@ const TableListBanner = () => {
   const [activeInput, setActiveInput] = useState(false);
   const [total, setTotal] = useState(0);
   const [lastDoc, setLastDoc] = useState();
-
+  const { dataFilter } = useSearchFilter(postList);
   // Fetch Data Post
   useEffect(() => {
     async function fetchData() {
@@ -190,6 +194,12 @@ const TableListBanner = () => {
   }, []);
   // end fetch Categries
 
+  // filter input debounce
+  const handleFilterInput = debounce((e) => {
+    setValue(e.target.value);
+  }, 500);
+  // end filter input debounce
+
   const handleUpdatePost = async (docId) => {
     route.push(`/admin/bai-viet/cap-nhat-banner/${docId}`);
   };
@@ -198,10 +208,10 @@ const TableListBanner = () => {
     <TableListBannerStyles>
       <AppSearchForm
         className={`${activeInput ? "active" : ""}`}
-        placeholder="Tìm kiếm"
+        placeholder="Tìm kiếm banner"
         onFocus={() => setActiveInput(true)}
         onBlur={() => setActiveInput(false)}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleFilterInput}
       ></AppSearchForm>
       <AppTable>
         <thead>
@@ -213,7 +223,7 @@ const TableListBanner = () => {
         </thead>
         <tbody>
           {postList?.length > 0 &&
-            postList
+            (dataFilter(value) || postList)
               ?.sort((a, b) =>
                 a.createAt.seconds < b.createAt.seconds ? 1 : -1
               )
@@ -284,6 +294,13 @@ const TableListBanner = () => {
               ))}
         </tbody>
       </AppTable>
+      {(dataFilter(value) || postList)?.length === 0 && (
+        <div className="emty-wrapper">
+          <EmtyLayout
+            text={`Xin lỗi, không tìm thấy bất kỳ kết quả phù hợp nào cho “${value}”`}
+          />
+        </div>
+      )}
     </TableListBannerStyles>
   );
 };

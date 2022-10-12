@@ -109,8 +109,8 @@ const NewsLastestLayoutStyles = styled.section`
 const NewsLastestLayout = ({ title, data }) => {
   const [postMain, setPostMain] = useState([]);
   useEffect(() => {
-    const colRef = collection(db, "posts");
-    const q = query(colRef, where("banner", "==", true), limit(1));
+    const colRef = collection(db, "banner");
+    const q = query(colRef, limit(1));
     onSnapshot(q, (snapshot) => {
       let result = [];
       snapshot.forEach((doc) => {

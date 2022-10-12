@@ -10,6 +10,7 @@ const EmtyLayoutStyles = styled.div`
   user-select: none;
   span {
     color: #989fb0;
+    text-align: center;
   }
 `;
 

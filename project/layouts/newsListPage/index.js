@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
 import AppButton from "../../controls/app-button/AppButton";
+import { debounce } from "lodash";
 
 const NewsListPageStyles = styled.section`
   margin-top: 40px;
@@ -155,7 +156,13 @@ const NewsListPage = () => {
       return null;
     }
   };
+  // end Search Filter News
 
+  // handle search filter input
+  const handleFilterInput = debounce((e) => {
+    setValue(e.target.value);
+  }, 500);
+  // end handle search filter input
 
   return (
     <>
@@ -165,14 +172,16 @@ const NewsListPage = () => {
           <AppHeading className="heading">Danh sách bài viết</AppHeading>
           <AppSearchForm
             className={`input-filter ${activeInput ? "active" : ""}`}
-            value={value}
             onFocus={() => setActiveInput(true)}
             onBlur={() => setActiveInput(false)}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={handleFilterInput}
             placeholder="Tìm kiếm bài viết..."
           ></AppSearchForm>
         </div>
-        <NewsList data={dataFilter(value) || posts}></NewsList>
+        <NewsList
+          valueEmty={value}
+          data={dataFilter(value) || posts}
+        ></NewsList>
         {total > posts.length && (
           <AppButton className="btn-loadmore" onClick={handleLoadmore}>
             Xem thêm
