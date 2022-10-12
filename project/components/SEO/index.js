@@ -8,24 +8,24 @@ const HeadSeo = (props) => {
             <meta property="og:locale" content="vi_VN"></meta>
             <meta name="viewport" content="width=device-width, initial-scale = 1.0"></meta>
             <meta property="og:title" content={props.og}></meta>
-            <meta property="og:description" content="Với Thegioipet, việc mua bán, trao đổi, tìm kiếm thú cưng, sản phẩm và dịch vụ cho thú cưng trở nên hiệu quả và tin cậy hơn. Bạn sẽ dễ dàng tìm được thú cưng và sản phẩm ưng ý nhất với giá hợp lý."></meta>
+            <meta property="og:description" content=" - Bánh sinh Nhật Nha Trang - Bánh fondant - Cupcake – Cửa hàng bánh Sinh Nhật – Bánh Cưới chuyên bán sẵn, nhận đặt, ..."></meta>
             <meta name='description' content={props.description}></meta>
             <meta name="full-screen" content="yes"></meta>
             <meta name="apple-mobile-web-app-capable" content="yes"></meta>
             <meta name="mobile-web-app-capable" content="yes"></meta>
-            <meta name="apple-mobile-web-app-title" content="Thế giới Pét"></meta>
-            <meta name="keywords" content="Dịch vụ chăm sóc thú cưng, mua bán thú cưng, trao đổi thú cưng, chó cảnh, mèo cảnh, mua bán chó đẹp, mua bán mèo đẹp, mua bán kì lân đẹp, cá cảnh, cá cảnh đẹp" ></meta>
+            <meta name="apple-mobile-web-app-title" content="Bánh Kem Nha Trang Tina Cake"></meta>
+            <meta name="keywords" content="Bánh Kem Nha Trang Tina là tiệm bánh sinh nhật - bánh cưới Nha Trang chuyên bán sẵn, nhận đặt, làm tươi và giao nhanh các loại bánh kem sinh nhật, thôi nôi. Nhận đặt các loại bánh Âu sinh nhật, bánh kem sinh nhật fondant và cupcake tại Nha Trang" ></meta>
             <meta property="og:url" content=""></meta>
-            <meta property="og:image" content="https://agrilifetoday.tamu.edu/wp-content/uploads/2020/07/AdobeStock_84016419.jpeg"></meta>
-            <meta property="og:image:url" content="https://agrilifetoday.tamu.edu/wp-content/uploads/2020/07/AdobeStock_84016419.jpeg"></meta>
+            <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=media&token=93c15490-efec-4d4d-9574-0f0cf008d76a"></meta>
+            <meta property="og:image:url" content="https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=media&token=93c15490-efec-4d4d-9574-0f0cf008d76a"></meta>
             <meta property="og:image:width" content="600"></meta>
             <meta property="og:image:height" content="320"></meta>
-            <meta property="og:site_name" content="thegioipet.vn"></meta>
+            <meta property="og:site_name" content="banhkemnhatrangtina.com"></meta>
             <meta property="og:rich_attachment" content="true"></meta>
             <meta property="og:type" content="article"></meta>
             <meta property="static-url" content=""></meta>
-            <meta property="hotline" content="0378183049"></meta>
-            <meta name="author" content="thegioipet.vn"></meta>
+            <meta property="hotline" content="0935323287"></meta>
+            <meta name="author" content="banhkemnhatrangtina.com"></meta>
             <link rel="shortcut icon" href={`https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=media&token=93c15490-efec-4d4d-9574-0f0cf008d76a`} />
             <link rel="apple-touch-icon" href='/logo-main.png' />
         </Head>
