@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import SvgPostIcon from "../../icons/PostIcon";
 import SvgCategoryIcon from "../../icons/CategoryIcon";
-import { text24 } from "../../../shared/utils/mixin-styled";
+import { text14, text24 } from "../../../shared/utils/mixin-styled";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const AdminNavigationStyles = styled.div`
@@ -85,7 +85,11 @@ const AdminNavigationStyles = styled.div`
     }
     display: none;
   }
-
+  .commingsoon {
+    ${text14}
+    display: block;
+    margin-top: 4px;
+  }
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
     .navigation-wrap {
@@ -138,10 +142,60 @@ const AdminNavigation = () => {
                   router.pathname == "/admin/danh-muc" ? "active" : ""
                 }`}
               >
-                <Link href="/admin/danh-muc">
-                  <a>
+                <Link href="#">
+                  <a style={{ pointerEvents: "none", cursor: "default" }}>
                     <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
-                    Quản lý danh mục
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      Quản lý danh mục
+                      <span className="commingsoon">(Chưa có)</span>
+                    </div>
+                  </a>
+                </Link>
+              </li>
+              <li
+                className={`navigtaion-item ${
+                  router.pathname == "/admin/danh-muc" ? "active" : ""
+                }`}
+              >
+                <Link href="#">
+                  <a style={{ pointerEvents: "none", cursor: "default" }}>
+                    <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      Quản lý banner
+                      <span className="commingsoon">(Chưa có)</span>
+                    </div>
+                  </a>
+                </Link>
+              </li>
+              <li
+                className={`navigtaion-item ${
+                  router.pathname == "/admin/danh-muc" ? "active" : ""
+                }`}
+              >
+                <Link href="#">
+                  <a style={{ pointerEvents: "none", cursor: "default" }}>
+                    <SvgCategoryIcon className="navigtaion-icon"></SvgCategoryIcon>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        pointerEvents: "none",
+                        cursor: "default",
+                      }}
+                    >
+                      Quản lý sản phẩm
+                      <span className="commingsoon">(Chưa có)</span>
+                    </div>
                   </a>
                 </Link>
               </li>
