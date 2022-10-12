@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
-import { text14, text18 } from "../../../shared/utils/mixin-styled";
+import { text14, text16, text18 } from "../../../shared/utils/mixin-styled";
 import AppSearchForm from "../../controls/app-search-form/AppSearchForm";
 import AppTable from "../../controls/app-table/AppTable";
 import { db } from "../../firebase/firebase-config";
@@ -120,6 +120,15 @@ const TableListPostStyles = styled.div`
   @media only screen and (max-width: 1023px) {
     .post-item {
       min-width: 800px;
+    }
+    .post-name {
+      ${text16}
+    }
+    .post-time {
+      ${text14}
+    }
+    .table-category-text {
+      ${text16}
     }
   }
 `;
