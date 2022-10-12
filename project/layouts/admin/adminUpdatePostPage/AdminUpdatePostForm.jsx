@@ -78,7 +78,7 @@ const AdminUpdatePostFormStyles = styled.div`
       margin-inline: 0;
       margin-top: 72px;
       padding-top: 32px;
-      padding-bottom: 100px;
+      padding-bottom: 70px;
     }
     .input-item-wrap {
       flex-direction: column;

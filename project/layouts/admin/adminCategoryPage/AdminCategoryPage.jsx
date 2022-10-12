@@ -18,7 +18,7 @@ const AdminCategoryPage = () => {
   return (
     <>
       <HeadSeo title="Danh mục | Tina Cake" />
-      <AdminLayoutTemplate heading="Danh mục" writePost={true}>
+      <AdminLayoutTemplate heading="Danh mục" writePost={false}>
         <CommingSoonStyles>Comming soon...</CommingSoonStyles>
       </AdminLayoutTemplate>
     </>

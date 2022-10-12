@@ -79,7 +79,7 @@ const AdminAddNewPostFormStyles = styled.div`
       margin-inline: 0;
       margin-top: 72px;
       padding-top: 32px;
-      padding-bottom: 100px;
+      padding-bottom: 70px;
     }
     .input-item-wrap {
       flex-direction: column;
@@ -90,6 +90,22 @@ const AdminAddNewPostFormStyles = styled.div`
     .input-item-wrap {
       margin-bottom: 20px;
       gap: 20px;
+    }
+    .add-btn-wrap {
+      position: fixed;
+      left: 0px;
+      bottom: 0px;
+      width: 100%;
+      top: auto;
+      padding: 16px 32px;
+      background-color: rgb(255, 255, 255);
+      border-top: 1px solid rgb(230, 232, 236);
+      z-index: 3;
+    }
+    .add-btn {
+      width: 100%;
+      height: 48px;
+      margin-top: 0;
     }
   }
 `;
@@ -327,14 +343,16 @@ const AdminAddNewPostForm = () => {
             </div>
           </AppField>
         </div>
-        <AppButtonAdmin
-          className="add-btn"
-          type="submit"
-          isLoading={loading}
-          disabled={loading}
-        >
-          Đăng bài
-        </AppButtonAdmin>
+        <div className="add-btn-wrap">
+          <AppButtonAdmin
+            className="add-btn"
+            type="submit"
+            isLoading={loading}
+            disabled={loading}
+          >
+            Đăng bài
+          </AppButtonAdmin>
+        </div>
       </form>
     </AdminAddNewPostFormStyles>
   );
