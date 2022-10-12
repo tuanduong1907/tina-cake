@@ -41,6 +41,20 @@ const NewsDetailRelatedStyles = styled.div`
   @media only screen and (max-width: 739px) {
     width: auto;
   }
+  /* PC: width >= 1024px */
+  @media only screen and (min-width: 1024px) {
+    & {
+      position: fixed;
+      width: 344px;
+    }
+  }
+  /* PC Low */
+  @media (min-width: 1024px) and (max-width: 1239px) {
+    & {
+      position: fixed;
+      width: 255.2px;
+    }
+  }
 `;
 
 const NewsDetailRelated = ({ data, ...props }) => {
