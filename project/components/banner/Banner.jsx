@@ -9,7 +9,6 @@ import {
   text48,
 } from "../../../shared/utils/mixin-styled";
 import AppButton from "../../controls/app-button/AppButton";
-import { dataBanner } from "../../../data/bannerData";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper";

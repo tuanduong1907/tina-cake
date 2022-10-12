@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import HeadSeo from "../../components/SEO";
 import styled from "styled-components";
 import NewsDetailRelated from "../../components/NewsDetailRelated";
-import { newsListData } from "../../../data/newsListData";
 import { db } from "../../firebase/firebase-config";
 import parse from "html-react-parser";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
