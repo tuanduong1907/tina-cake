@@ -89,7 +89,6 @@ const NewsListPage = () => {
   const [activeInput, setActiveInput] = useState(false);
   const [posts, setPosts] = useState([]);
   const [total, setTotal] = useState(0);
-  console.log("total", total);
   const [lastDoc, setLastDoc] = useState();
 
   const handleLoadmore = async () => {
@@ -157,7 +156,6 @@ const NewsListPage = () => {
     }
   };
 
-  console.log("posts", posts);
 
   return (
     <>

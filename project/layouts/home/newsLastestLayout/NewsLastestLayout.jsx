@@ -44,6 +44,9 @@ const NewsLayoutStyles = styled.section`
 
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
+    .new-list {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   /* Tablet: width >= 740px and width < 1024px */
@@ -55,7 +58,6 @@ const NewsLayoutStyles = styled.section`
       height: 300px;
     }
     .new-list {
-      grid-template-columns: repeat(1, 1fr);
       .news-image {
         width: 150px !important;
         height: 160px !important;
@@ -80,7 +82,6 @@ const NewsLayoutStyles = styled.section`
     }
     .new-list {
       width: 100%;
-
       .news-item {
         gap: 12px;
         .news-image-link {

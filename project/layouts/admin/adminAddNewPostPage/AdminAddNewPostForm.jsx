@@ -184,7 +184,6 @@ const AdminAddNewPostForm = () => {
   }, []);
 
   const handleAddNewPost = async (values) => {
-    console.log("values", values);
     setLoading(true);
     try {
       const cloneValues = { ...values };

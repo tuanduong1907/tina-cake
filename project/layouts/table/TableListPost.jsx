@@ -131,7 +131,6 @@ const TableListPost = () => {
   const [value, setValue] = useState("");
   const [activeInput, setActiveInput] = useState(false);
   const [total, setTotal] = useState(0);
-  console.log("total", total);
   const [lastDoc, setLastDoc] = useState();
 
   const handleLoadmore = async () => {
@@ -221,7 +220,6 @@ const TableListPost = () => {
         Swal.fire("Đã xóa thành công!", "Bài viết đã bị xóa.", "success");
       }
     });
-    // console.log("docData", docData.data());
   };
   // end Handle delete post
 
