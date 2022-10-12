@@ -99,6 +99,13 @@ const NewsLayoutStyles = styled.section`
       height: 150px !important;
     }
   }
+
+  /* PC Low */
+  @media (min-width: 1024px) and (max-width: 1239px) {
+    .new-list {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
 `;
 
 const NewsLatestLayout = ({ title, data }) => {

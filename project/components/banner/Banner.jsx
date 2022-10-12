@@ -153,9 +153,6 @@ const BannerStyles = styled.section`
     word-break: break-word;
   }
 
-  .banner-item-emty {
-  }
-
   /* Swiper */
   .swiper {
     height: 100%;
@@ -271,6 +268,18 @@ const BannerStyles = styled.section`
       display: none;
     }
     /* end Swiper */
+  }
+  /* PC Low */
+  @media (min-width: 1024px) and (max-width: 1239px) {
+    & {
+      height: 60vh;
+    }
+    .banner-item {
+      padding-inline: 20px;
+    }
+    .swiper-pagination{
+      margin-left: 25px;
+    }
   }
 `;
 
