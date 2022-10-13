@@ -37,24 +37,6 @@ const NewsListPageStyles = styled.section`
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
   }
-  /* Mobie: width < 740px */
-  @media only screen and (max-width: 739px) {
-    .new-list-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .pagination-wrap {
-      flex-wrap: wrap;
-      li {
-        a {
-          width: 30px !important;
-          height: 30px !important;
-        }
-      }
-    }
-  }
   .pagination-wrap {
     display: flex;
     justify-content: center;
@@ -88,6 +70,40 @@ const NewsListPageStyles = styled.section`
           color: #fff;
         }
       }
+    }
+  }
+  /* Mobie: width < 740px */
+  @media only screen and (max-width: 739px) {
+    .new-list-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .pagination-wrap {
+      flex-wrap: wrap;
+      li {
+        a {
+          width: 30px !important;
+          height: 30px !important;
+        }
+      }
+    }
+    .news-list-loading {
+      grid-template-columns: repeat(1, 1fr);
+      .news-image-link {
+        width: 100%;
+      }
+      .news-body {
+        width: 100%;
+      }
+    }
+  }
+
+  /* Tablet: width >= 740px and width < 1024px */
+  @media only screen and (min-width: 740px) and (max-width: 1023px) {
+    .news-list-loading {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 `;

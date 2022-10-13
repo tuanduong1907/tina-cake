@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+import NewsItemLoading from "../../../components/LoadingSkeletonCpn/NewsItemLoading";
 import NewsItem from "../../../components/NewsItem";
 import AppHeaderTitle from "../../../controls/app-header-title/AppHeaderTitle";
 import { db } from "../../../firebase/firebase-config";
@@ -41,12 +42,26 @@ const NewsLayoutStyles = styled.section`
     height: 450px;
   }
 
+  .news-list-loading {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
   /* Resonsive */
 
   /* Mobile & tablet: width <1024px */
   @media only screen and (max-width: 1023px) {
     .new-list {
       grid-template-columns: repeat(1, 1fr);
+    }
+    .news-list-loading {
+      grid-template-columns: repeat(1, 1fr);
+      .news-image-link {
+        width: 100%;
+      }
+      .news-body {
+        width: 100%;
+      }
     }
   }
 
@@ -110,23 +125,34 @@ const NewsLayoutStyles = styled.section`
 `;
 
 const NewsLatestLayout = ({ title, data }) => {
-  const [postMain, setPostMain] = useState([]);
-  useEffect(() => {
-    const colRef = collection(db, "posts");
-    const q = query(colRef, where("banner", "==", true), limit(1));
-    onSnapshot(q, (snapshot) => {
-      let result = [];
-      snapshot.forEach((doc) => {
-        result.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setPostMain(result);
-    });
-  }, []);
+  const [postDay, setPostDay] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // const date = new Date( * 1000)
+  // fetch data post day
+  useEffect(() => {
+    async function fetctData() {
+      setLoading(true);
+      try {
+        const colRef = collection(db, "posts");
+        const queries = query(colRef, limit(4), orderBy("createAt", "desc"));
+        onSnapshot(queries, (snapshot) => {
+          let resultPostDay = [];
+          snapshot.forEach((doc) => {
+            resultPostDay.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          });
+          setPostDay(resultPostDay);
+          setLoading(false);
+        });
+      } catch (error) {
+        setLoading(false);
+      }
+    }
+    fetctData();
+  }, []);
+  // end fetch data post day
   return (
     <NewsLayoutStyles>
       <div className="container py-layout">
@@ -136,10 +162,10 @@ const NewsLatestLayout = ({ title, data }) => {
         ></AppHeaderTitle>
 
         <div className="news-layout">
-          {data?.length > 0 ? (
+          {postDay && !loading && (
             <div className="new-list">
-              {data?.length > 0 &&
-                data
+              {postDay?.length > 0 &&
+                postDay
                   ?.sort((a, b) =>
                     a.createAt.seconds < b.createAt.seconds ? 1 : -1
                   )
@@ -163,13 +189,24 @@ const NewsLatestLayout = ({ title, data }) => {
                     </Fragment>
                   ))}
             </div>
-          ) : (
-            <EmtyLayout
-              text="Không có bài viết nào"
-              className="emty-data"
-            ></EmtyLayout>
           )}
         </div>
+        {loading && (
+          <div className="news-list-loading">
+            {Array(2)
+              .fill(null)
+              .map((item, index) => (
+                <NewsItemLoading key={index}></NewsItemLoading>
+              ))}
+          </div>
+        )}
+        {postDay.length === 0 && loading === false && (
+          <>
+            <EmtyLayout
+              text={`Xin lỗi, không tìm thấy bài viết nào`}
+            ></EmtyLayout>
+          </>
+        )}
       </div>
     </NewsLayoutStyles>
   );

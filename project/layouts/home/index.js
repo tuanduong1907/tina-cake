@@ -6,37 +6,10 @@ import NewsLayout from "./newsLayout/NewsLayout";
 import ProductLayout from "./productLayout/ProductLayout";
 import FeedbackLayout from "./feedbackLayout/FeedbackLayout";
 import { feedbackData } from "../../../data/feedbackData";
-import { useEffect, useState } from "react";
-import {
-  collection,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import { db } from "../../firebase/firebase-config";
+
 import NewsLatestLayout from "./newsLastestLayout/NewsLastestLayout";
 
 export default function HomePage() {
-  const [postDay, setPostDay] = useState([]);
-
-  // fetch data post day
-  useEffect(() => {
-    const colRef = collection(db, "posts");
-    const queries = query(colRef, limit(4), orderBy("createAt", "desc"));
-    onSnapshot(queries, (snapshot) => {
-      let resultPostDay = [];
-      snapshot.forEach((doc) => {
-        resultPostDay.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setPostDay(resultPostDay);
-    });
-  }, []);
-  // end fetch data post day
-
   return (
     <>
       <HeadSeo title="Trang chủ | Tina Cake" />
@@ -55,7 +28,6 @@ export default function HomePage() {
       <NewsLatestLayout
         title="Tin tức mỗi ngày"
         link="danh-sach-bai-viet"
-        data={postDay}
       ></NewsLatestLayout>
 
       <FeedbackLayout

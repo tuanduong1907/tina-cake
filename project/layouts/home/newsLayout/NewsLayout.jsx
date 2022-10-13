@@ -7,6 +7,8 @@ import {
 } from "firebase/firestore";
 import React, { Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+import LoadingSkeleton from "../../../../shared/hooks/loading-skeletion/LoadingSkeleton";
+import NewsItemLoading from "../../../components/LoadingSkeletonCpn/NewsItemLoading";
 import NewsItem from "../../../components/NewsItem";
 import AppHeaderTitle from "../../../controls/app-header-title/AppHeaderTitle";
 import { db } from "../../../firebase/firebase-config";
@@ -44,6 +46,15 @@ const NewsHotLayoutStyles = styled.section`
 
   .news-main-image {
     height: 450px;
+  }
+
+  .news-list-loading {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .new-item-loading {
   }
 
   /* Resonsive */
@@ -101,6 +112,15 @@ const NewsHotLayoutStyles = styled.section`
     .news-main-image {
       width: 100%;
       height: 150px !important;
+    }
+    .news-list-loading {
+      grid-template-columns: repeat(1, 1fr);
+      .news-image-link {
+        width: 100%;
+      }
+      .news-body {
+        width: 100%;
+      }
     }
   }
 `;
@@ -164,8 +184,6 @@ const NewsHotLayout = ({ title }) => {
   }, []);
   // end Fetch Data Hot Post
 
-  console.log("loading", loading);
-  // const date = new Date( * 1000)
   return (
     <NewsHotLayoutStyles>
       <div className="container py-layout">
@@ -230,6 +248,19 @@ const NewsHotLayout = ({ title }) => {
             </>
           )}
         </div>
+        {loading && (
+          <div className="news-list-loading">
+            <NewsItemLoading className="new-item-loading"></NewsItemLoading>
+            <NewsItemLoading className="new-item-loading"></NewsItemLoading>
+          </div>
+        )}
+        {posts.length === 0 && loading === false && (
+          <>
+            <EmtyLayout
+              text={`Xin lỗi, không tìm thấy bài viết nào`}
+            ></EmtyLayout>
+          </>
+        )}
       </div>
     </NewsHotLayoutStyles>
   );
