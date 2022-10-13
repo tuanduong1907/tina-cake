@@ -139,7 +139,7 @@ const NewsItemStyles = styled.div`
       }
     }
     .news-image-link {
-      width: 40%;
+      width: 50%;
     }
     .news-image {
       width: 100%;

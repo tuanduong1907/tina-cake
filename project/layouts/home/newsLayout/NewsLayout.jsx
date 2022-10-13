@@ -38,7 +38,7 @@ const NewsHotLayoutStyles = styled.section`
       flex-direction: row;
       .news-image {
         width: 284px;
-        height: 198px;
+        height: 100%;
         flex-shrink: 0;
       }
     }
@@ -100,18 +100,18 @@ const NewsHotLayoutStyles = styled.section`
       .news-item {
         gap: 12px;
         .news-image-link {
-          width: 40%;
+          width: 50%;
         }
         .news-image {
           width: 100%;
-          height: 150px;
+          height: 100%;
           flex-shrink: initial;
         }
       }
     }
     .news-main-image {
       width: 100%;
-      height: 150px !important;
+      height: 100% !important;
     }
     .news-list-loading {
       grid-template-columns: repeat(1, 1fr);

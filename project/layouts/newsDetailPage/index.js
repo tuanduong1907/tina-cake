@@ -20,6 +20,7 @@ const NewsDetailPageStyles = styled.section`
   }
   .news-detai-img {
     margin-bottom: 16px;
+    border-radius: 10px;
   }
   .news-detail-title {
     ${text34}
