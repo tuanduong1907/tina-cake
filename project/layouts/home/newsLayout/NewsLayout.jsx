@@ -2,7 +2,6 @@ import {
   collection,
   limit,
   onSnapshot,
-  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -13,7 +12,7 @@ import AppHeaderTitle from "../../../controls/app-header-title/AppHeaderTitle";
 import { db } from "../../../firebase/firebase-config";
 import EmtyLayout from "../../emtyLayout/EmtyLayout";
 
-const NewsLastestLayoutStyles = styled.section`
+const NewsHotLayoutStyles = styled.section`
   .emty-data {
     width: 100%;
   }
@@ -106,15 +105,18 @@ const NewsLastestLayoutStyles = styled.section`
   }
 `;
 
-const NewsLastestLayout = ({ title, data }) => {
+const NewsHotLayout = ({ title }) => {
+  const [posts, setPosts] = useState([]);
   const [postMain, setPostMain] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Fetch Data Hot Post main
   useEffect(() => {
     async function FetchPostMain() {
       setLoading(true);
       try {
         const colRef = collection(db, "posts");
-        const q = query(colRef, where('hot', '==', true), limit(1));
+        const q = query(colRef, where("hot", "==", true), limit(1));
         onSnapshot(q, (snapshot) => {
           let result = [];
           snapshot.forEach((doc) => {
@@ -134,11 +136,38 @@ const NewsLastestLayout = ({ title, data }) => {
     }
     FetchPostMain();
   }, []);
+  //  end Fetch hot post main
+
+  // Fetch Data Hot Post
+  useEffect(() => {
+    async function FetchDataHotPost() {
+      setLoading(true);
+      try {
+        const colRef = collection(db, "posts");
+        const queries = query(colRef, where("hot", "==", true), limit(3));
+        onSnapshot(queries, (snapshot) => {
+          let result = [];
+          snapshot.forEach((doc) => {
+            result.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          });
+          setPosts(result);
+          setLoading(false);
+        });
+      } catch (error) {
+        setLoading(false);
+      }
+    }
+    FetchDataHotPost();
+  }, []);
+  // end Fetch Data Hot Post
 
   console.log("loading", loading);
   // const date = new Date( * 1000)
   return (
-    <NewsLastestLayoutStyles>
+    <NewsHotLayoutStyles>
       <div className="container py-layout">
         <AppHeaderTitle
           title={title}
@@ -146,7 +175,7 @@ const NewsLastestLayout = ({ title, data }) => {
         ></AppHeaderTitle>
 
         <div className="news-layout">
-          {data && loading === false && (
+          {posts && !loading && (
             <>
               <div className="news-main">
                 {postMain
@@ -173,9 +202,8 @@ const NewsLastestLayout = ({ title, data }) => {
                   ))}
               </div>
               <div className="new-list">
-                {data &&
-                  loading === false &&
-                  data
+                {posts &&
+                  posts
                     ?.sort((a, b) =>
                       a.createAt.seconds < b.createAt.seconds ? 1 : -1
                     )
@@ -201,16 +229,10 @@ const NewsLastestLayout = ({ title, data }) => {
               </div>
             </>
           )}
-          {loading === false && data.length === 0 && (
-            <EmtyLayout
-              text="Không có bài viết nào"
-              className="emty-data"
-            ></EmtyLayout>
-          )}
         </div>
       </div>
-    </NewsLastestLayoutStyles>
+    </NewsHotLayoutStyles>
   );
 };
 
-export default NewsLastestLayout;
+export default NewsHotLayout;

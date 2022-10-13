@@ -13,34 +13,12 @@ import {
   onSnapshot,
   orderBy,
   query,
-  where,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase-config";
-import NewsLastestLayout from "./newsLayout/NewsLayout";
 import NewsLatestLayout from "./newsLastestLayout/NewsLastestLayout";
 
 export default function HomePage() {
-  const [posts, setPosts] = useState([]);
   const [postDay, setPostDay] = useState([]);
-  const [sorted, setSorted] = useState({ sorted: "id", reversed: false });
-
-  // Fetch Data Post
-  useEffect(() => {
-    const colRef = collection(db, "posts");
-    const queries = query(colRef, where("hot", "==", true), limit(3));
-
-    onSnapshot(queries, (snapshot) => {
-      let result = [];
-      snapshot.forEach((doc) => {
-        result.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setPosts(result);
-    });
-  }, []);
-  // end Fetch Data Post
 
   // fetch data post day
   useEffect(() => {
@@ -66,7 +44,6 @@ export default function HomePage() {
       <NewsLayout
         title="Tin tức nổi bật"
         link="danh-sach-bai-viet"
-        data={posts}
       ></NewsLayout>
 
       <ProductLayout
