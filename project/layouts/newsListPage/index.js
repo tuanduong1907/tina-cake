@@ -213,7 +213,7 @@ const NewsListPage = () => {
         {posts.length === 0 && loading === false && (
           <>
             <EmtyLayout
-              text={`Xin lỗi, không tìm thấy bài viết nào`}
+              text="không tìm thấy bài viết"
             ></EmtyLayout>
           </>
         )}

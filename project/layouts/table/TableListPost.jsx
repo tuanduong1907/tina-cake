@@ -342,7 +342,7 @@ const TableListPost = () => {
       {(dataFilter(value) || postList)?.length === 0 && (
         <div className="emty-wrapper">
           <EmtyLayout
-            text={`Xin lỗi, không tìm thấy bất kỳ kết quả phù hợp nào cho “${value}”`}
+            text="không tìm thấy bài viết"
           />
         </div>
       )}
