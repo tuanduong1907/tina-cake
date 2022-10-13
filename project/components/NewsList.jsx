@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
+import AppLoadingSpinner from "../controls/app-loading/AppLoadingSpinner";
 import EmtyLayout from "../layouts/emtyLayout/EmtyLayout";
 import NewsItem from "./NewsItem";
 
@@ -35,40 +36,33 @@ const NewsListStyles = styled.div`
   }
 `;
 
-const NewsList = ({ data, valueEmty, ...props }) => {
+const NewsList = ({ data, ...props }) => {
   return (
     <>
-      {data?.length > 0 ? (
+      {data && (
         <NewsListStyles {...props}>
-          {data?.length > 0 &&
-            data
-              ?.sort((a, b) =>
-                a.createAt.seconds < b.createAt.seconds ? 1 : -1
-              )
-              .map((item) => (
-                <Fragment key={item.id}>
-                  <NewsItem
-                    key={item.id}
-                    className="news-item"
-                    classNameImage="home-new-image"
-                    title={item.title}
-                    slug={item.slug}
-                    image={item.image}
-                    desc={item.desc}
-                    category={item.categoryId}
-                    date={`${new Date(
-                      item?.createAt?.seconds * 1000
-                    ).toLocaleTimeString("vi-VI")} - ${new Date(
-                      item?.createAt?.seconds * 1000
-                    ).toLocaleDateString("vi-VI")}`}
-                  ></NewsItem>
-                </Fragment>
-              ))}
+          {data
+            .sort((a, b) => (a.createAt.seconds < b.createAt.seconds ? 1 : -1))
+            .map((item) => (
+              <Fragment key={item.id}>
+                <NewsItem
+                  key={item.id}
+                  className="news-item"
+                  classNameImage="home-new-image"
+                  title={item.title}
+                  slug={item.slug}
+                  image={item.image}
+                  desc={item.desc}
+                  category={item.categoryId}
+                  date={`${new Date(
+                    item?.createAt?.seconds * 1000
+                  ).toLocaleTimeString("vi-VI")} - ${new Date(
+                    item?.createAt?.seconds * 1000
+                  ).toLocaleDateString("vi-VI")}`}
+                ></NewsItem>
+              </Fragment>
+            ))}
         </NewsListStyles>
-      ) : (
-        <EmtyLayout
-          text={`Xin lỗi, không tìm thấy bất kỳ kết quả phù hợp nào cho “${valueEmty}”`}
-        ></EmtyLayout>
       )}
     </>
   );

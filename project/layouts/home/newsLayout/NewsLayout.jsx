@@ -108,21 +108,34 @@ const NewsLastestLayoutStyles = styled.section`
 
 const NewsLastestLayout = ({ title, data }) => {
   const [postMain, setPostMain] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const colRef = collection(db, "banner");
-    const q = query(colRef, limit(1));
-    onSnapshot(q, (snapshot) => {
-      let result = [];
-      snapshot.forEach((doc) => {
-        result.push({
-          id: doc.id,
-          ...doc.data(),
+    async function FetchPostMain() {
+      setLoading(true);
+      try {
+        const colRef = collection(db, "posts");
+        const q = query(colRef, where('hot', '==', true), limit(1));
+        onSnapshot(q, (snapshot) => {
+          let result = [];
+          snapshot.forEach((doc) => {
+            result.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          });
+          setPostMain(result);
+          setLoading(false);
         });
-      });
-      setPostMain(result);
-    });
+      } catch (error) {
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    }
+    FetchPostMain();
   }, []);
 
+  console.log("loading", loading);
   // const date = new Date( * 1000)
   return (
     <NewsLastestLayoutStyles>
@@ -133,7 +146,7 @@ const NewsLastestLayout = ({ title, data }) => {
         ></AppHeaderTitle>
 
         <div className="news-layout">
-          {data?.length > 0 ? (
+          {data && loading === false && (
             <>
               <div className="news-main">
                 {postMain
@@ -160,7 +173,8 @@ const NewsLastestLayout = ({ title, data }) => {
                   ))}
               </div>
               <div className="new-list">
-                {data?.length > 0 &&
+                {data &&
+                  loading === false &&
                   data
                     ?.sort((a, b) =>
                       a.createAt.seconds < b.createAt.seconds ? 1 : -1
@@ -186,7 +200,8 @@ const NewsLastestLayout = ({ title, data }) => {
                     ))}
               </div>
             </>
-          ) : (
+          )}
+          {loading === false && data.length === 0 && (
             <EmtyLayout
               text="Không có bài viết nào"
               className="emty-data"

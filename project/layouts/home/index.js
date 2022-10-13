@@ -70,7 +70,7 @@ export default function HomePage() {
       ></NewsLayout>
 
       <ProductLayout
-        link="/banh-kem-hot-trend"
+        link="#"
         title="Bánh Kem Tina 2022"
         data={productData}
         background

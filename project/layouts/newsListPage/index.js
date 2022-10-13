@@ -17,6 +17,8 @@ import {
 import { db } from "../../firebase/firebase-config";
 import AppButton from "../../controls/app-button/AppButton";
 import { debounce } from "lodash";
+import EmtyLayout from "../emtyLayout/EmtyLayout";
+import NewsItemLoading from "../../components/LoadingSkeletonCpn/NewsItemLoading";
 
 const NewsListPageStyles = styled.section`
   margin-top: 40px;
@@ -29,6 +31,11 @@ const NewsListPageStyles = styled.section`
   .btn-loadmore {
     margin-inline: auto;
     margin-top: 40px;
+  }
+  .news-list-loading {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
   }
   /* Mobie: width < 740px */
   @media only screen and (max-width: 739px) {
@@ -91,6 +98,7 @@ const NewsListPage = () => {
   const [posts, setPosts] = useState([]);
   const [total, setTotal] = useState(0);
   const [lastDoc, setLastDoc] = useState();
+  const [loading, setLoading] = useState(true);
 
   const handleLoadmore = async () => {
     const nextRef = query(
@@ -118,28 +126,34 @@ const NewsListPage = () => {
   // Fetch Data Post
   useEffect(() => {
     async function fetchData() {
-      const colRef = collection(db, "posts");
-      const newRef = query(colRef, orderBy("createAt", "desc"), limit(8));
-      const documentSnapshots = await getDocs(newRef);
-      const lastVisible =
-        documentSnapshots.docs[documentSnapshots.docs.length - 1];
-      setLastDoc(lastVisible);
+      setLoading(true);
+      try {
+        const colRef = collection(db, "posts");
+        const newRef = query(colRef, orderBy("createAt", "desc"), limit(8));
+        const documentSnapshots = await getDocs(newRef);
+        const lastVisible =
+          documentSnapshots.docs[documentSnapshots.docs.length - 1];
+        setLastDoc(lastVisible);
 
-      onSnapshot(colRef, (snapshot) => {
-        setTotal(snapshot.size);
-      });
-
-      onSnapshot(newRef, (snapshot) => {
-        let result = [];
-        snapshot.forEach((doc) => {
-          result.push({
-            id: doc.id,
-            ...doc.data(),
-          });
+        onSnapshot(colRef, (snapshot) => {
+          setTotal(snapshot.size);
         });
-        setPosts(result);
-      });
-      setLastDoc(lastVisible);
+
+        onSnapshot(newRef, (snapshot) => {
+          let result = [];
+          snapshot.forEach((doc) => {
+            result.push({
+              id: doc.id,
+              ...doc.data(),
+            });
+          });
+          setPosts(result);
+        });
+        setLastDoc(lastVisible);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
     }
     fetchData();
   }, []);
@@ -178,10 +192,24 @@ const NewsListPage = () => {
             placeholder="Tìm kiếm bài viết..."
           ></AppSearchForm>
         </div>
-        <NewsList
-          valueEmty={value}
-          data={dataFilter(value) || posts}
-        ></NewsList>
+        <NewsList data={dataFilter(value) || posts}></NewsList>
+
+        {posts.length === 0 && loading === false && (
+          <>
+            <EmtyLayout
+              text={`Xin lỗi, không tìm thấy bài viết nào`}
+            ></EmtyLayout>
+          </>
+        )}
+        {loading && (
+          <div className="news-list-loading">
+            {Array(8)
+              .fill(null)
+              .map((item, index) => (
+                <NewsItemLoading key={index}></NewsItemLoading>
+              ))}
+          </div>
+        )}
         {total > posts.length && (
           <AppButton className="btn-loadmore" onClick={handleLoadmore}>
             Xem thêm
