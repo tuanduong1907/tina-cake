@@ -34,7 +34,9 @@
   li {
     margin-bottom: 10px;
     list-style: circle !important;
-
+    p, strong {
+      line-height: 1.6;
+    }
   }
   figure {
     margin-bottom: 20px;
