@@ -7,6 +7,8 @@ export default function DetailProduct() {
   const route = useRouter();
   const postSlug = route.query.postSlug;
 
+  console.log("postSlug", postSlug);
+
   return (
     <>
       <Header></Header>
