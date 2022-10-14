@@ -32,7 +32,7 @@ const NewsLayoutStyles = styled.section`
       flex-direction: row;
       .news-image {
         width: 284px;
-        height: 100%;
+        max-height: 250px;
         flex-shrink: 0;
       }
     }
@@ -202,9 +202,7 @@ const NewsLatestLayout = ({ title, data }) => {
         )}
         {postDay.length === 0 && loading === false && (
           <>
-            <EmtyLayout
-              text="không tìm thấy bài viết"
-            ></EmtyLayout>
+            <EmtyLayout text="không tìm thấy bài viết"></EmtyLayout>
           </>
         )}
       </div>
