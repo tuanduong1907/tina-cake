@@ -110,7 +110,7 @@ const NewsDetailPage = ({ slug }) => {
       <HeadSeo
         image={
           postInfo?.image ||
-          "https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=media&token=93c15490-efec-4d4d-9574-0f0cf008d76a"
+          "https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=med ia&token=93c15490-efec-4d4d-9574-0f0cf008d76a"
         }
         description={postInfo.desc}
         key={
