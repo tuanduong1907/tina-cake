@@ -37,7 +37,8 @@
   li {
     margin-bottom: 10px;
     list-style: circle !important;
-    p, strong {
+    p,
+    strong {
       line-height: 1.6;
     }
   }
@@ -54,6 +55,10 @@
     font-size: 14px;
     color: #6b6b6b;
   }
+  iframe {
+    height: 500px;
+    width: 100%;
+  }
   @media screen and (max-width: 1023.98px) {
     font-size: 14px;
     h2 {
@@ -65,6 +70,13 @@
     h4 {
       font-size: 20px;
     }
+  }
+}
+
+/* Mobie: width < 740px */
+@media only screen and (max-width: 739px) {
+  iframe {
+    height: 300px;
   }
 }
 
