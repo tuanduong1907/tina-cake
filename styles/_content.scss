@@ -64,6 +64,15 @@
     border-radius: 10px;
     margin-bottom: 20px;
   }
+
+  blockquote {
+    border-left: 4px solid #ccc;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 16px;
+    @include text14;
+  }
+
   .ql-align-center {
     text-align: center;
   }
@@ -76,6 +85,7 @@
   .ql-align-justify {
     text-align: justify;
   }
+
   @media screen and (max-width: 1023.98px) {
     font-size: 14px;
     h2 {
