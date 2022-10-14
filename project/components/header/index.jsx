@@ -230,14 +230,14 @@ export const Header = ({ className = "" }) => {
       <div className="">
         <div className="container header-wrap">
           <div className="header-logo">
-            {/* <Link href="/">
+            <Link href="/">
               <a>
                 <img
                   src="https://d3rzzb9pdm93i0.cloudfront.net/2021/12/1639409961f24e427f68f7ff71812edee6d360e9a4.png"
                   alt=""
                 />
               </a>
-            </Link> */}
+            </Link>
           </div>
           <Link href="https://www.banhkemnhatrangtina.com/">
             <a target="_blank">
