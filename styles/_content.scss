@@ -26,6 +26,16 @@
     object-fit: contain;
     border-radius: 10px;
   }
+  ul {
+    margin-left: 40px;
+    margin-bottom: 20px;
+    list-style: circle !important;
+  }
+  li {
+    margin-bottom: 10px;
+    list-style: circle !important;
+
+  }
   figure {
     margin-bottom: 20px;
   }
@@ -51,7 +61,6 @@
       font-size: 20px;
     }
   }
-
 }
 
 .entry-content {
