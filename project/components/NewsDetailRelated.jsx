@@ -63,7 +63,7 @@ const NewsDetailRelated = ({ data, ...props }) => {
       <h3 className="news-related-title">Bài viết liên quan</h3>
       <ul className="news-related-list">
         {data.length > 0 &&
-          data.map((item, index) => (
+          data.map((item) => (
             <Fragment key={item.id}>
               <li className={`news-related-item`}>
                 <Link href={item.slug}>
