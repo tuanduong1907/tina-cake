@@ -52,15 +52,7 @@ const NewsDetailPageStyles = styled.section`
 
 const NewsDetailPage = ({ slug }) => {
   const [postInfo, setPostInfo] = useState({});
-  const [categoryIdPost, setCategoryIdPost] = useState();
   const [postRelated, setPostRelated] = useState([]);
-
-  useEffect(() => {
-    setCategoryIdPost(postInfo?.categoryId);
-  }, [postInfo?.categoryId]);
-
-  console.log("categoryIdPost", categoryIdPost);
-
   useEffect(() => {
     async function fetchData() {
       if (!slug) return null;
@@ -94,8 +86,8 @@ const NewsDetailPage = ({ slug }) => {
     async function fetchDataPostReleated() {
       if (!slug) return null;
       const colRef = query(
-         collection(db, "posts"),
-        where("categoryId", "==", categoryIdPost)
+        collection(db, "posts"),
+        where("categoryId", "==", postInfo.categoryId)
       );
       onSnapshot(colRef, (snapshot) => {
         let result = [];
