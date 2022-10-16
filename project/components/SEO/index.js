@@ -8,7 +8,7 @@ const HeadSeo = (props) => {
             <meta property="og:locale" content="vi_VN"></meta>
             <meta name="viewport" content="width=device-width, initial-scale = 1.0"></meta>
             <meta property="og:title" content={props.og}></meta>
-            <meta property="og:description" content={props.description || '- Bánh sinh Nhật Nha Trang - Bánh fondant - Cupcake – Cửa hàng bánh Sinh Nhật – Bánh Cưới chuyên bán sẵn, nhận đặt, ...'}></meta>
+            <meta property="og:description" content=" - Bánh sinh Nhật Nha Trang - Bánh fondant - Cupcake – Cửa hàng bánh Sinh Nhật – Bánh Cưới chuyên bán sẵn, nhận đặt, ..."></meta>
             <meta name='description' content={props.description}></meta>
             <meta name="full-screen" content="yes"></meta>
             <meta name="apple-mobile-web-app-capable" content="yes"></meta>
