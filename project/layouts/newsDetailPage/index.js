@@ -112,6 +112,7 @@ const NewsDetailPage = ({ slug }) => {
         description={postInfo.desc}
         key={postInfo?.title}
         title={postInfo?.title || "Không tìm thấy bài viết | Tina Cake"}
+        og={propInfo?.title}
       />
       <NewsDetailPageStyles className="container py-layout">
         <div className="news-detail-content entry-content">
