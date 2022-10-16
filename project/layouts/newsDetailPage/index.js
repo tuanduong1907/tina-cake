@@ -88,7 +88,7 @@ const NewsDetailPage = ({ slug }) => {
       if (!slug) return null;
       const colRef = query(
         collection(db, "posts"),
-        where("categoryId", "==", postInfo.categoryId)
+        // where("categoryId", "==", postInfo.categoryId)
       );
       onSnapshot(colRef, (snapshot) => {
         let result = [];
