@@ -336,7 +336,7 @@ const Banner = () => {
                     <div className="overlay"></div>
                     <div className="banner-item">
                       <div className="banner-content">
-                        <h2 className="banner-title">{item.title}</h2>
+                        <h1 className="banner-title">{item.title}</h1>
                         <p className="banner-text">{item.desc}</p>
                         <Link href={`${item.slug}`}>
                           <a

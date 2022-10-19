@@ -398,6 +398,7 @@ const AdminAddNewPostForm = () => {
                 theme="snow"
                 modules={modules}
                 value={content}
+                control={control}
                 onChange={setContent}
                 placeholder="Viết nội dung"
               />
