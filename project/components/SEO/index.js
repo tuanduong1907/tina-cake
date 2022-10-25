@@ -28,23 +28,29 @@ const HeadSeo = (props) => {
             <meta name="author" content="banhkemnhatrangtina.com"></meta>
             <link rel="shortcut icon" href={`https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/favico.png?alt=media&token=9cf12f5a-d5ed-4377-bdc5-208b7acd2281`} />
             <link rel="apple-touch-icon" href='/logo-main.png' /> */}
+      <title>{props.title || "Trang chủ | Tina Cake"}</title>
+      <meta name="keywords" content={props.key || 'Bánh Kem Nha Trang Tina là tiệm bánh sinh nhật - bánh cưới Nha Trang chuyên bán sẵn, nhận đặt,...'} />
+      <meta name="description" content={props.description} />
+      <meta name="copyright" content="company name" />
+      <meta name="language" content="Vi" />
+      <meta name="robots" content="index,follow" />
+      <meta name="abstract" content="" />
+      <meta name="topic" content="" />
+      <meta name="summary" content="" />
+      <meta name="Classification" content="Business" />
+      <meta name="owner" content="Tina Cake" />
+      <meta name="url" content="" />
+      <meta name="directory" content="submission" />
+      <meta httpEquiv="Cache-Control" content="no-cache"></meta>
+      <meta name="og:title" content={props.title || "Trang chủ | Tina Cake"} />
+      <meta name="og:type" content="Website" />
+      <meta name="og:url" content="http://www.imdb.com/title/tt0117500/" />
+      <meta name="og:image" content={props.image || 'https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=media&token=93c15490-efec-4d4d-9574-0f0cf008d76a'} />
+      <meta name="og:site_name" content="tinacake.com" />
       <meta
-        property="og:title"
-        content="Báo Mới - Tin tức mới nhất cập nhật liên tục 24H"
+        name="og:description"
+        content="A group of U.S. Marines, under command of..."
       />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://baomoi.com/" />
-      <meta
-        property="og:image"
-        content="https://baomoi-static.bmcdn.me/web/styles/img/facebook-thumb.png"
-      />
-      <meta property="og:image:width" content="560" />
-      <meta property="og:image:height" content="292" />
-      <meta
-        property="og:description"
-        content="Báo Mới - Trang tin tự động cập nhật các tin tức Việt Nam và thế giới từ các  báo và  trang tin điện tử hàng đầu"
-      />
-      <meta property="og:site_name" content="https://baomoi.com"></meta>
     </Head>
   );
 };
