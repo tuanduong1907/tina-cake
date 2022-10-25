@@ -48,8 +48,8 @@ const HeadSeo = (props) => {
       <meta name="og:image" content={props.image || 'https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/avatar.jpg?alt=media&token=93c15490-efec-4d4d-9574-0f0cf008d76a'} />
       <meta name="og:site_name" content="tinacake.com" />
       <meta
-        name="og:description"
-        content="A group of U.S. Marines, under command of..."
+        name={props.description || 'Bánh kem nha trang Tina Cake'}
+        content=""
       />
     </Head>
   );
