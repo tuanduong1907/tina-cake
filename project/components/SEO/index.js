@@ -7,7 +7,7 @@ const HeadSeo = (props) => {
             <meta charSet="UTF-8"></meta>
             <meta property="og:locale" content="vi_VN"></meta>
             <meta name="viewport" content="width=device-width, initial-scale = 1.0"></meta>
-            <meta property="og:title" content={props.ogTitle || 'Tina Cake'}></meta>
+            <meta property="og:title" content={props.ogTitle }></meta>
             <meta property="og:description" content=" - Bánh sinh Nhật Nha Trang - Bánh fondant - Cupcake – Cửa hàng bánh Sinh Nhật – Bánh Cưới chuyên bán sẵn, nhận đặt, ..."></meta>
             <meta name='description' content={props.description}></meta>
             <meta name="full-screen" content="yes"></meta>
