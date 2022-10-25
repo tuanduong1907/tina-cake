@@ -117,6 +117,8 @@ const NewsDetailPage = ({ slug }) => {
           "Bánh Kem Nha Trang Tina là tiệm bánh sinh nhật - bánh cưới Nha Trang chuyên bán sẵn, nhận đặt, làm tươi và giao nhanh các loại bánh kem sinh nhật, thôi nôi. Nhận đặt các loại bánh Âu sinh nhật, bánh kem sinh nhật fondant và cupcake tại Nha Trang"
         }
         title={postInfo?.title || "Không tìm thấy bài viết | Tina Cake"}
+        ogTitle={postInfo?.title || "Không tìm thấy bài viết | Tina Cake"}
+
       />
       <NewsDetailPageStyles className="container py-layout">
         <div className="news-detail-content entry-content">
