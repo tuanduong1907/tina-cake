@@ -1,8 +1,8 @@
-import Head from 'next/head';
+import Head from "next/head";
 const HeadSeo = (props) => {
-    return (
-        <Head>
-            <title>{props.title || 'Trang chủ | Tina Cake'}</title>
+  return (
+    <Head>
+      {/* <title>{props.title || 'Trang chủ | Tina Cake'}</title>
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"></meta>
             <meta charSet="UTF-8"></meta>
             <meta property="og:locale" content="vi_VN"></meta>
@@ -27,8 +27,25 @@ const HeadSeo = (props) => {
             <meta property="hotline" content="0935323287"></meta>
             <meta name="author" content="banhkemnhatrangtina.com"></meta>
             <link rel="shortcut icon" href={`https://firebasestorage.googleapis.com/v0/b/backend-tina-cake.appspot.com/o/favico.png?alt=media&token=9cf12f5a-d5ed-4377-bdc5-208b7acd2281`} />
-            <link rel="apple-touch-icon" href='/logo-main.png' />
-        </Head>
-    )
-}
-export default HeadSeo   
+            <link rel="apple-touch-icon" href='/logo-main.png' /> */}
+      <meta
+        property="og:title"
+        content="Báo Mới - Tin tức mới nhất cập nhật liên tục 24H"
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://baomoi.com/" />
+      <meta
+        property="og:image"
+        content="https://baomoi-static.bmcdn.me/web/styles/img/facebook-thumb.png"
+      />
+      <meta property="og:image:width" content="560" />
+      <meta property="og:image:height" content="292" />
+      <meta
+        property="og:description"
+        content="Báo Mới - Trang tin tự động cập nhật các tin tức Việt Nam và thế giới từ các  báo và  trang tin điện tử hàng đầu"
+      />
+      <meta property="og:site_name" content="https://baomoi.com"></meta>
+    </Head>
+  );
+};
+export default HeadSeo;
