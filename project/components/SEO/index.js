@@ -8,8 +8,8 @@ const HeadSeo = (props) => {
             <meta property="og:locale" content="vi_VN"></meta>
             <meta name="viewport" content="width=device-width, initial-scale = 1.0"></meta>
             <meta property="og:title" content={props.ogTitle }></meta>
-            <meta property="og:description" content={props.description}></meta>
-            <meta name='description' content={props.description}></meta>
+            <meta property="og:description" content={props.description || 'Bánh Kem Nha Trang Tina Cake - Bánh sinh Nhật Nha Trang - Bánh fondant - Cupcake  – Cửa hàng bánh Sinh Nhật – Bánh Cưới chuyên bán sẵn, nhận đặt, làm tươi và giao nhanh các loại bánh kem sinh nhật, thôi nôi trong vòng 1-8 giờ nhận đơn. Mẫu mã hiện đại, đáp ứng nhu cầu của những khách hàng cần bánh gấp, đòi hỏi cao về chất lượng bánh và kem (mới ra lò), đặc biệt là khách du lịch ở Nha Trang.' }></meta>
+            <meta name='description' content={props.description || 'Bánh Kem Nha Trang Tina Cake - Bánh sinh Nhật Nha Trang - Bánh fondant - Cupcake  – Cửa hàng bánh Sinh Nhật – Bánh Cưới chuyên bán sẵn, nhận đặt, làm tươi và giao nhanh các loại bánh kem sinh nhật, thôi nôi trong vòng 1-8 giờ nhận đơn. Mẫu mã hiện đại, đáp ứng nhu cầu của những khách hàng cần bánh gấp, đòi hỏi cao về chất lượng bánh và kem (mới ra lò), đặc biệt là khách du lịch ở Nha Trang.'}></meta>
             <meta name="full-screen" content="yes"></meta>
             <meta name="apple-mobile-web-app-capable" content="yes"></meta>
             <meta name="mobile-web-app-capable" content="yes"></meta>
